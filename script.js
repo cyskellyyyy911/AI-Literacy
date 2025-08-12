@@ -1,6 +1,9 @@
 // Project Rectangle Interactive Features
 
+console.log('SCRIPT LOADED: script.js is being executed');
+
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM CONTENT LOADED EVENT FIRED');
     // Animate elements on scroll
     const observerOptions = {
         threshold: 0.1,
@@ -23,30 +26,101 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Flip card interactions are now handled by inline script at bottom of HTML
 
-    // Progress bar animations (only for efficiency/effectiveness in main model)
-    function animateProgressBars() {
-        const progressBars = document.querySelectorAll('.metric-fill');
-        progressBars.forEach(bar => {
-            bar.style.width = '0%';
-            setTimeout(() => {
-                bar.style.width = bar.classList.contains('efficiency') ? '75%' :
-                                  bar.classList.contains('effectiveness') ? '85%' : '50%';
-            }, 500);
+    // Display actual data from Impact Tracker (using exact same logic as tracker-script.js)
+    function displayActualMetrics() {
+        // Load data from localStorage (same as Impact Tracker)
+        const savedData = localStorage.getItem('trackerData');
+        let trackerData = savedData ? JSON.parse(savedData) : { entries: [] };
+        
+        console.log('DEBUG: Raw data from localStorage:', savedData);
+        console.log('DEBUG: Parsed tracker data:', trackerData);
+        console.log('DEBUG: Number of entries:', trackerData.entries.length);
+        
+        // Log each entry to see the data structure
+        trackerData.entries.forEach((entry, index) => {
+            console.log(`DEBUG: Entry ${index}:`, entry);
+            console.log(`DEBUG: timeSaved type: ${typeof entry.timeSaved}, value: ${entry.timeSaved}`);
+            console.log(`DEBUG: moneySaved type: ${typeof entry.moneySaved}, value: ${entry.moneySaved}`);
         });
+        
+        // Calculate totals using EXACT same logic as Impact Tracker dashboard
+        const totalTime = trackerData.entries.reduce((sum, entry) => sum + entry.timeSaved, 0);
+        const totalMoney = trackerData.entries.reduce((sum, entry) => sum + (entry.moneySaved || 0), 0);
+        
+        console.log('DEBUG: Calculated totalTime:', totalTime);
+        console.log('DEBUG: Calculated totalMoney before rounding:', totalMoney);
+        console.log('DEBUG: Calculated totalMoney after rounding:', Math.round(totalMoney));
+        
+        // Update the display elements
+        const hoursSavedElement = document.getElementById('hoursSaved');
+        const moneySavedElement = document.getElementById('moneySaved');
+        
+        if (hoursSavedElement) {
+            console.log('DEBUG: Updating hours element with:', totalTime);
+            // Animate counting up for hours (exact same as tracker)
+            animateValue('hoursSaved', 0, totalTime, 2000);
+        }
+        
+        if (moneySavedElement) {
+            console.log('DEBUG: Updating money element with:', Math.round(totalMoney));
+            // Animate counting up for money (exact same as tracker - rounded)
+            animateValue('moneySaved', 0, Math.round(totalMoney), 2000, '$');
+        }
+        
+        console.log(`FINAL: Displaying metrics - ${totalTime} hours saved, $${Math.round(totalMoney)} money saved`);
+    }
+    
+    // Helper function to animate counting numbers (EXACT copy from tracker-script.js)
+    function animateValue(elementId, start, end, duration, prefix = '') {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+        
+        const startTime = performance.now();
+        const startVal = start;
+        const endVal = end;
+
+        function updateValue(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Easing function for smooth animation
+            const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+            
+            const currentVal = Math.floor(startVal + (endVal - startVal) * easeOutCubic);
+            element.textContent = prefix + (prefix === '$' ? currentVal.toLocaleString() : currentVal);
+
+            if (progress < 1) {
+                requestAnimationFrame(updateValue);
+            }
+        }
+
+        requestAnimationFrame(updateValue);
     }
 
-    // Trigger progress bar animation when rectangle model comes into view
+    // Trigger metrics display when rectangle model comes into view
     const rectangleModel = document.querySelector('.rectangle-model');
     const rectangleObserver = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                animateProgressBars();
+                displayActualMetrics();
                 rectangleObserver.unobserve(entry.target);
             }
         });
     }, { threshold: 0.3 });
 
     rectangleModel && rectangleObserver.observe(rectangleModel);
+
+    // Also display metrics when page loads (in case user has existing data)
+    window.addEventListener('load', function() {
+        console.log('DEBUG: Page loaded, calling displayActualMetrics in 1 second...');
+        setTimeout(displayActualMetrics, 1000); // Delay to ensure page is fully loaded
+    });
+
+    // Additional trigger - call immediately when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DEBUG: DOM loaded, calling displayActualMetrics in 500ms...');
+        setTimeout(displayActualMetrics, 500);
+    });
 
     // Stage progression animation
     const stages = document.querySelectorAll('.stage');

@@ -93,12 +93,14 @@
             <!-- Project Rectangle Model -->
             <section id="model" class="rectangle-model">
                 <h3>Project Rectangle Model</h3>
+                
+                <!-- AI Native Vision Description -->
+                <div class="ai-native-description">
+                    <h4>AI Native HR Vision</h4>
+                    <p>Eventually, all HR pillars will be bolder and entirely AI-driven</p>
+                </div>
+                
                 <div class="model-container">
-                    <!-- Current Stage Indicator -->
-                    <div class="stage-indicator">
-                        <span class="current-stage">Current Stage</span>
-                    </div>
-
                     <!-- Main Rectangle Model -->
                     <div class="rectangle">
                         <!-- Left Side: Current to Future -->
@@ -128,26 +130,28 @@
                                 <h4>Output</h4>
                                 <div class="output-metrics">
                                     <div class="metric">
-                                        <span class="metric-label">Efficiency</span>
-                                        <div class="metric-bar">
-                                            <div class="metric-fill efficiency"></div>
-                                        </div>
+                                        <span class="metric-label">Hours Saved</span>
+                                        <div class="metric-display" id="hoursSaved">0</div>
+                                        <span class="metric-unit">hours</span>
                                     </div>
                                     <div class="metric">
-                                        <span class="metric-label">Effectiveness</span>
-                                        <div class="metric-bar">
-                                            <div class="metric-fill effectiveness"></div>
-                                        </div>
+                                        <span class="metric-label">Money Saved</span>
+                                        <div class="metric-display" id="moneySaved">$0</div>
+                                        <span class="metric-unit">total savings</span>
                                     </div>
+                                </div>
+                                <!-- Link to Impact Tracker -->
+                                <div class="tracker-link-container">
+                                    <a href="tracker.html" class="tracker-link-btn">
+                                        <div class="tracker-link-content">
+                                            <span class="tracker-link-title">📊 View Impact Metrics</span>
+                                            <span class="tracker-link-subtitle">See Total Time & Cost Savings</span>
+                                        </div>
+                                        <span class="tracker-link-arrow">→</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- AI Native Vision Description -->
-                    <div class="ai-native-description">
-                        <h4>AI Native HR Vision</h4>
-                        <p>Eventually, all HR pillars will be bolder and entirely AI-driven</p>
                     </div>
                 </div>
             </section>
@@ -432,5 +436,43 @@
             });
         });
     </script>
+
+    <!-- Metrics Update Script -->
+    <script>
+        function updateMetrics() {
+            try {
+                var data = localStorage.getItem('trackerData');
+                if (data) {
+                    var parsed = JSON.parse(data);
+                    if (parsed.entries) {
+                        var timeTotal = 0;
+                        var moneyTotal = 0;
+                        
+                        for (var i = 0; i < parsed.entries.length; i++) {
+                            timeTotal += parsed.entries[i].timeSaved || 0;
+                            moneyTotal += parsed.entries[i].moneySaved || 0;
+                        }
+                        
+                        var hoursEl = document.getElementById('hoursSaved');
+                        var moneyEl = document.getElementById('moneySaved');
+                        
+                        if (hoursEl) hoursEl.textContent = timeTotal;
+                        if (moneyEl) moneyEl.textContent = '$' + Math.round(moneyTotal);
+                    }
+                }
+            } catch (e) {
+                console.error('Error updating metrics:', e);
+            }
+        }
+        
+        // Update metrics when page loads
+        setTimeout(updateMetrics, 1000);
+        
+        // Update when coming from tracker page
+        window.addEventListener('focus', updateMetrics);
+    </script>
+
+    <!-- Main JavaScript File -->
+    <script src="script.js"></script>
 </body>
 </html>

@@ -416,14 +416,118 @@ main {
     animation: fillBar 3s ease forwards;
 }
 
-.metric-fill.efficiency {
-    background: linear-gradient(90deg, #4ade80, #22c55e);
-    width: 75%;
+.output-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1rem;
 }
 
-.metric-fill.effectiveness {
-    background: linear-gradient(90deg, #60a5fa, #3b82f6);
-    width: 85%;
+.metric {
+    text-align: center;
+    padding: 1rem;
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.metric-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+}
+
+.metric-display {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0.5rem 0;
+    animation: countUp 2s ease forwards;
+}
+
+.metric-unit {
+    font-size: 0.75rem;
+    color: #718096;
+    font-weight: 500;
+}
+
+#hoursSaved {
+    color: #e53e3e;
+}
+
+#moneySaved {
+    color: #059669;
+}
+
+@keyframes countUp {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Impact Tracker Link Button */
+.tracker-link-container {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.tracker-link-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    border: none;
+    cursor: pointer;
+}
+
+.tracker-link-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #5a67d8, #6b46c1);
+}
+
+.tracker-link-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+}
+
+.tracker-link-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+}
+
+.tracker-link-subtitle {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+}
+
+.tracker-link-arrow {
+    font-size: 1.25rem;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.tracker-link-btn:hover .tracker-link-arrow {
+    transform: translateX(4px);
 }
 
 @keyframes fillBar {
