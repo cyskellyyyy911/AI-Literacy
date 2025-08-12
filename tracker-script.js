@@ -7,50 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeTracker() {
-    // Initialize data storage
+    // Initialize data storage - preserve existing data
     let trackerData = JSON.parse(localStorage.getItem('trackerData')) || {
-        entries: [
-            {
-                id: 1,
-                pillar: 'Talent Acquisition',
-                task: 'Automated CV screening implementation',
-                description: 'AI-powered resume analysis reducing manual screening time',
-                timeSaved: 45,
-                date: '2024-01-15'
-            },
-            {
-                id: 2,
-                pillar: 'HR Operations',
-                task: 'Virtual HR assistant for policy queries',
-                description: 'Chatbot handling routine employee policy questions',
-                timeSaved: 32,
-                date: '2024-01-10'
-            },
-            {
-                id: 3,
-                pillar: 'Learning & Development',
-                task: 'AI-powered personalized learning paths',
-                description: 'Automated course recommendations based on skills gaps',
-                timeSaved: 28,
-                date: '2024-01-05'
-            },
-            {
-                id: 4,
-                pillar: 'Performance Management',
-                task: 'Real-time performance analytics dashboard',
-                description: 'Continuous performance tracking and insights',
-                timeSaved: 21,
-                date: '2023-12-20'
-            },
-            {
-                id: 5,
-                pillar: 'Workforce Planning',
-                task: 'Predictive workforce analytics',
-                description: 'AI-driven workforce planning and demand forecasting',
-                timeSaved: 18,
-                date: '2023-12-15'
-            }
-        ]
+        entries: []
     };
 
     // Update dashboard
@@ -58,6 +17,11 @@ function initializeTracker() {
 
     // Update history display
     updateHistoryDisplay(trackerData.entries);
+    
+    // Update charts
+    updatePillarChart(trackerData);
+    updateMoneyChart(trackerData);
+    updateMonthlyProgress(trackerData);
 
     // Handle form submission
     const form = document.getElementById('trackerForm');
@@ -75,19 +39,110 @@ function initializeTracker() {
             form.reset();
         });
     }
+    
+
 }
 
 function updateDashboard(data) {
     const totalTime = data.entries.reduce((sum, entry) => sum + entry.timeSaved, 0);
-    const costSavings = Math.round(totalTime * 50); // Assuming $50/hour
+    const totalMoney = data.entries.reduce((sum, entry) => sum + (entry.moneySaved || 0), 0);
     const processesOptimized = new Set(data.entries.map(entry => entry.pillar)).size;
-    const efficiencyGain = Math.round((totalTime / 300) * 100); // Assuming 300h baseline
+
+
+    // Calculate monthly trends
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+    const previousMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+    const previousYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+
+    // Current month data
+    const currentMonthEntries = data.entries.filter(entry => {
+        const entryDate = new Date(entry.date);
+        return entryDate.getMonth() === currentMonth && entryDate.getFullYear() === currentYear;
+    });
+
+    // Previous month data
+    const previousMonthEntries = data.entries.filter(entry => {
+        const entryDate = new Date(entry.date);
+        return entryDate.getMonth() === previousMonth && entryDate.getFullYear() === previousYear;
+    });
+
+    const currentMonthTime = currentMonthEntries.reduce((sum, entry) => sum + entry.timeSaved, 0);
+    const previousMonthTime = previousMonthEntries.reduce((sum, entry) => sum + entry.timeSaved, 0);
+    const currentMonthMoney = currentMonthEntries.reduce((sum, entry) => sum + (entry.moneySaved || 0), 0);
+    const previousMonthMoney = previousMonthEntries.reduce((sum, entry) => sum + (entry.moneySaved || 0), 0);
+
+    const currentMonthProcesses = new Set(currentMonthEntries.map(entry => entry.pillar)).size;
+    const previousMonthProcesses = new Set(previousMonthEntries.map(entry => entry.pillar)).size;
+
+    // Calculate percentage changes
+    const timeIncrease = previousMonthTime > 0 ? Math.round(((currentMonthTime - previousMonthTime) / previousMonthTime) * 100) : 0;
+    const moneyIncrease = previousMonthMoney > 0 ? Math.round(((currentMonthMoney - previousMonthMoney) / previousMonthMoney) * 100) : 0;
+    const processIncrease = currentMonthProcesses - previousMonthProcesses;
 
     // Update DOM elements
     animateValue('totalTimeSaved', 0, totalTime, 2000);
-    animateValue('costSavings', 0, costSavings, 2000, '$');
+    animateValue('costSavings', 0, Math.round(totalMoney), 2000, '$');
     animateValue('processesOptimized', 0, processesOptimized, 1500);
-    animateValue('efficiencyGain', 0, efficiencyGain, 1800);
+
+    // Update trend indicators
+    updateTrendIndicator('time', timeIncrease, currentMonthTime);
+    updateTrendIndicator('money', moneyIncrease, currentMonthMoney);
+    updateTrendIndicator('processes', processIncrease, currentMonthProcesses);
+}
+
+function updateTrendIndicator(type, change, currentValue) {
+    let trendElement, trendText, trendClass;
+    
+    switch(type) {
+        case 'time':
+            trendElement = document.querySelector('.summary-card.primary .summary-trend');
+            if (change > 0) {
+                trendText = `+${change}% this month`;
+                trendClass = 'positive';
+            } else if (change < 0) {
+                trendText = `${change}% this month`;
+                trendClass = 'negative';
+            } else {
+                trendText = currentValue > 0 ? 'No change this month' : 'First month data';
+                trendClass = 'neutral';
+            }
+            break;
+            
+        case 'money':
+            trendElement = document.querySelector('.summary-card.success .summary-trend');
+            if (change > 0) {
+                trendText = `+${change}% this month`;
+                trendClass = 'positive';
+            } else if (change < 0) {
+                trendText = `${change}% this month`;
+                trendClass = 'negative';
+            } else {
+                trendText = currentValue > 0 ? 'No change this month' : 'First month data';
+                trendClass = 'neutral';
+            }
+            break;
+            
+        case 'processes':
+            trendElement = document.querySelector('.summary-card.info .summary-trend');
+            if (change > 0) {
+                trendText = `${change} new this month`;
+                trendClass = 'positive';
+            } else if (change < 0) {
+                trendText = `${Math.abs(change)} fewer this month`;
+                trendClass = 'negative';
+            } else {
+                trendText = currentValue > 0 ? 'No new this month' : 'First month data';
+                trendClass = 'neutral';
+            }
+            break;
+    }
+    
+    if (trendElement) {
+        trendElement.textContent = trendText;
+        trendElement.className = `summary-trend ${trendClass}`;
+    }
 }
 
 function initializeCharts() {
@@ -179,7 +234,7 @@ function updateHistoryDisplay(entries) {
     const sortedEntries = entries.sort((a, b) => new Date(b.date) - new Date(a.date));
     
     historyList.innerHTML = sortedEntries.map(entry => `
-        <div class="history-item">
+        <div class="history-item" data-entry-id="${entry.id}">
             <div class="history-meta">
                 <div class="history-pillar">${entry.pillar}</div>
                 <div class="history-date">${formatDate(entry.date)}</div>
@@ -190,7 +245,15 @@ function updateHistoryDisplay(entries) {
             </div>
             <div class="history-impact">
                 <div class="history-savings">+${entry.timeSaved} hours/month</div>
-                <div class="history-cost">$${(entry.timeSaved * 50).toLocaleString()} saved</div>
+                <div class="history-cost">$${Math.round(entry.moneySaved || 0).toLocaleString()} saved</div>
+            </div>
+            <div class="history-actions">
+                <button class="edit-btn" onclick="editEntry(${entry.id})" title="Edit Entry">
+                    <span class="edit-icon">✏️</span>
+                </button>
+                <button class="delete-btn" onclick="deleteEntry(${entry.id})" title="Delete Entry">
+                    <span class="delete-icon">🗑️</span>
+                </button>
             </div>
         </div>
     `).join('');
@@ -206,17 +269,40 @@ function handleFormSubmission(data) {
     const form = document.getElementById('trackerForm');
     const formData = new FormData(form);
     
-    const newEntry = {
-        id: Date.now(),
+    const timeSaved = parseFloat(formData.get('timeSaved'));
+    const moneySaved = parseFloat(formData.get('moneySaved'));
+    
+    const entryData = {
         pillar: getPillarDisplayName(formData.get('pillar')),
         task: formData.get('task'),
         description: `Implementation of ${formData.get('task')} for ${getPillarDisplayName(formData.get('pillar'))}`,
-        timeSaved: parseInt(formData.get('timeSaved')),
+        timeSaved: timeSaved,
+        moneySaved: moneySaved,
         date: formData.get('date')
     };
 
-    // Add to data
-    data.entries.push(newEntry);
+    if (window.editingEntryId) {
+        // Update existing entry
+        const entryIndex = data.entries.findIndex(entry => entry.id === window.editingEntryId);
+        if (entryIndex !== -1) {
+            data.entries[entryIndex] = { ...data.entries[entryIndex], ...entryData };
+            showSuccessMessage('Entry updated successfully!');
+        }
+        
+        // Reset edit mode
+        cancelEdit();
+    } else {
+        // Add new entry
+        const newEntry = {
+            id: Date.now(),
+            ...entryData
+        };
+        data.entries.push(newEntry);
+        showSuccessMessage('Progress entry added successfully!');
+        
+        // Reset form
+        form.reset();
+    }
     
     // Save to localStorage
     localStorage.setItem('trackerData', JSON.stringify(data));
@@ -225,12 +311,8 @@ function handleFormSubmission(data) {
     updateDashboard(data);
     updateHistoryDisplay(data.entries);
     updatePillarChart(data);
-    
-    // Reset form
-    form.reset();
-    
-    // Show success message
-    showSuccessMessage('Progress entry added successfully!');
+    updateMoneyChart(data);
+    updateMonthlyProgress(data);
     
     // Scroll to top to see updated dashboard
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -244,21 +326,110 @@ function updatePillarChart(data) {
         pillarTotals[pillarKey] = (pillarTotals[pillarKey] || 0) + entry.timeSaved;
     });
 
-    // Update chart bars
-    const chartBars = document.querySelectorAll('.chart-bar');
+    // Update chart bars (only time charts, not money charts)
+    const timeChartBars = document.querySelectorAll('.chart-bar:not(.money-chart .chart-bar)');
     const maxValue = Math.max(...Object.values(pillarTotals));
 
-    chartBars.forEach(bar => {
+    timeChartBars.forEach(bar => {
         const pillarKey = bar.getAttribute('data-pillar');
         const value = pillarTotals[pillarKey] || 0;
         const percentage = maxValue > 0 ? (value / maxValue) * 100 : 0;
         
-        const barFill = bar.querySelector('.bar-fill');
+        const barFill = bar.querySelector('.bar-fill:not(.money-bar)');
         const barValue = bar.querySelector('.bar-value');
         
         if (barFill && barValue) {
             barFill.style.width = `${percentage}%`;
             barValue.textContent = `${value}h`;
+        }
+    });
+}
+
+function updateMoneyChart(data) {
+    // Group entries by pillar and sum money saved
+    const pillarMoneyTotals = {};
+    data.entries.forEach(entry => {
+        const pillarKey = getPillarKey(entry.pillar);
+        pillarMoneyTotals[pillarKey] = (pillarMoneyTotals[pillarKey] || 0) + (entry.moneySaved || 0);
+    });
+
+    // Update money chart bars
+    const moneyChartBars = document.querySelectorAll('.money-chart .chart-bar');
+    const maxMoneyValue = Math.max(...Object.values(pillarMoneyTotals));
+
+    moneyChartBars.forEach(bar => {
+        const pillarKey = bar.getAttribute('data-pillar');
+        const value = pillarMoneyTotals[pillarKey] || 0;
+        const percentage = maxMoneyValue > 0 ? (value / maxMoneyValue) * 100 : 0;
+        
+        const barFill = bar.querySelector('.money-bar');
+        const barValue = bar.querySelector('.bar-value');
+        
+        if (barFill && barValue) {
+            barFill.style.width = `${percentage}%`;
+            barValue.textContent = `$${Math.round(value).toLocaleString()}`;
+        }
+    });
+}
+
+function updateMonthlyProgress(data) {
+    // Get current date
+    const now = new Date();
+    const currentMonth = now.getMonth(); // 0-11
+    const currentYear = now.getFullYear();
+    
+    // Calculate the three months to display (current and two previous)
+    const months = [];
+    for (let i = 2; i >= 0; i--) {
+        const monthDate = new Date(currentYear, currentMonth - i, 1);
+        months.push({
+            date: monthDate,
+            key: `${monthDate.getFullYear()}-${String(monthDate.getMonth() + 1).padStart(2, '0')}`,
+            label: monthDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+        });
+    }
+    
+    // Calculate monthly totals for time and money
+    const monthlyTimeTotals = {};
+    const monthlyMoneyTotals = {};
+    
+    data.entries.forEach(entry => {
+        const entryDate = new Date(entry.date);
+        const entryKey = `${entryDate.getFullYear()}-${String(entryDate.getMonth() + 1).padStart(2, '0')}`;
+        
+        monthlyTimeTotals[entryKey] = (monthlyTimeTotals[entryKey] || 0) + entry.timeSaved;
+        monthlyMoneyTotals[entryKey] = (monthlyMoneyTotals[entryKey] || 0) + (entry.moneySaved || 0);
+    });
+    
+    // Update time progress timeline
+    const timelineMonths = document.querySelectorAll('#progressTimeline .timeline-month');
+    const maxTimeValue = Math.max(...Object.values(monthlyTimeTotals), 1);
+    
+    timelineMonths.forEach((monthElement, index) => {
+        if (months[index]) {
+            const month = months[index];
+            const timeValue = monthlyTimeTotals[month.key] || 0;
+            const percentage = (timeValue / maxTimeValue) * 100;
+            
+            monthElement.querySelector('.month-label').textContent = month.label;
+            monthElement.querySelector('.month-progress').style.height = `${percentage}%`;
+            monthElement.querySelector('.month-value').textContent = `${timeValue}h`;
+        }
+    });
+    
+    // Update money progress timeline
+    const moneyTimelineMonths = document.querySelectorAll('#moneyProgressTimeline .timeline-month');
+    const maxMoneyValue = Math.max(...Object.values(monthlyMoneyTotals), 1);
+    
+    moneyTimelineMonths.forEach((monthElement, index) => {
+        if (months[index]) {
+            const month = months[index];
+            const moneyValue = monthlyMoneyTotals[month.key] || 0;
+            const percentage = (moneyValue / maxMoneyValue) * 100;
+            
+            monthElement.querySelector('.month-label').textContent = month.label;
+            monthElement.querySelector('.month-progress').style.height = `${percentage}%`;
+            monthElement.querySelector('.month-value').textContent = `$${Math.round(moneyValue).toLocaleString()}`;
         }
     });
 }
@@ -350,6 +521,155 @@ function showSuccessMessage(message) {
             gap: 0.5rem;
         ">
             <span style="font-size: 1.2rem;">✅</span>
+            ${message}
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Remove after 4 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 4000);
+}
+
+// Edit and Delete Functions
+function editEntry(entryId) {
+    const trackerData = JSON.parse(localStorage.getItem('trackerData')) || { entries: [] };
+    const entry = trackerData.entries.find(e => e.id === entryId);
+    
+    if (!entry) {
+        showErrorMessage('Entry not found!');
+        return;
+    }
+    
+    // Populate form with existing data
+    document.getElementById('pillarSelect').value = getPillarKey(entry.pillar);
+    document.getElementById('taskDescription').value = entry.task;
+    document.getElementById('timeSaved').value = entry.timeSaved;
+    document.getElementById('moneySaved').value = entry.moneySaved || 0;
+    document.getElementById('implementationDate').value = entry.date;
+    
+    // Store edit mode info
+    window.editingEntryId = entryId;
+    
+    // Update form button
+    const submitBtn = document.querySelector('.tracker-submit');
+    submitBtn.textContent = 'Update Entry';
+    submitBtn.style.background = 'linear-gradient(45deg, #f59e0b, #d97706)';
+    
+    // Add cancel button
+    if (!document.querySelector('.cancel-edit-btn')) {
+        const cancelBtn = document.createElement('button');
+        cancelBtn.type = 'button';
+        cancelBtn.className = 'cancel-edit-btn tracker-reset';
+        cancelBtn.textContent = 'Cancel Edit';
+        cancelBtn.onclick = cancelEdit;
+        document.querySelector('.form-actions').appendChild(cancelBtn);
+    }
+    
+    // Scroll to form
+    document.getElementById('tracker-input').scrollIntoView({ behavior: 'smooth' });
+    
+    showSuccessMessage('Entry loaded for editing. Make changes and click "Update Entry".');
+}
+
+function deleteEntry(entryId) {
+    if (!confirm('Are you sure you want to delete this entry? This action cannot be undone.')) {
+        return;
+    }
+    
+    const trackerData = JSON.parse(localStorage.getItem('trackerData')) || { entries: [] };
+    trackerData.entries = trackerData.entries.filter(entry => entry.id !== entryId);
+    
+    // Save updated data
+    localStorage.setItem('trackerData', JSON.stringify(trackerData));
+    
+    // Update all displays
+    updateDashboard(trackerData);
+    updateHistoryDisplay(trackerData.entries);
+    updatePillarChart(trackerData);
+    updateMoneyChart(trackerData);
+    updateMonthlyProgress(trackerData);
+    
+    showSuccessMessage('Entry deleted successfully!');
+}
+
+function cancelEdit() {
+    window.editingEntryId = null;
+    
+    // Reset form
+    document.getElementById('trackerForm').reset();
+    
+    // Reset button
+    const submitBtn = document.querySelector('.tracker-submit');
+    submitBtn.textContent = 'Add Progress Entry';
+    submitBtn.style.background = 'linear-gradient(45deg, #e53e3e, #c53030)';
+    
+    // Remove cancel button
+    const cancelBtn = document.querySelector('.cancel-edit-btn');
+    if (cancelBtn) {
+        cancelBtn.remove();
+    }
+    
+    showSuccessMessage('Edit cancelled.');
+}
+
+function clearAllData() {
+    if (!confirm('Are you sure you want to clear ALL data? This will delete all progress entries permanently and cannot be undone.')) {
+        return;
+    }
+    
+    // Clear localStorage
+    localStorage.removeItem('trackerData');
+    
+    // Reinitialize with empty data
+    const emptyData = { entries: [] };
+    
+    // Update all displays
+    updateDashboard(emptyData);
+    updateHistoryDisplay(emptyData.entries);
+    updatePillarChart(emptyData);
+    updateMoneyChart(emptyData);
+    updateMonthlyProgress(emptyData);
+    
+    // Reset form if in edit mode
+    if (window.editingEntryId) {
+        cancelEdit();
+    }
+    
+    showSuccessMessage('All data cleared successfully!');
+}
+
+function showErrorMessage(message) {
+    // Remove existing notification if any
+    const existingNotification = document.querySelector('.error-notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+
+    // Create error notification
+    const notification = document.createElement('div');
+    notification.className = 'error-notification';
+    notification.innerHTML = `
+        <div style="
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+            z-index: 1000;
+            animation: slideInRight 0.4s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        ">
+            <span style="font-size: 1.2rem;">❌</span>
             ${message}
         </div>
     `;

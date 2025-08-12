@@ -58,7 +58,8 @@ body {
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
+    align-items: center;
 }
 
 .nav-link {
@@ -66,10 +67,96 @@ body {
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
+    padding: 0.5rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 8px;
 }
 
 .nav-link:hover {
     color: #e53e3e;
+}
+
+/* Navigation Dropdown */
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-dropdown-btn {
+    background: none;
+    border: none;
+    color: #4a5568;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-dropdown-btn:hover {
+    color: #e53e3e;
+}
+
+.dropdown-arrow {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.nav-dropdown.open .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.nav-dropdown-content {
+    display: none;
+    position: absolute;
+    background: white;
+    min-width: 300px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    z-index: 1000;
+    top: 100%;
+    left: 0;
+    padding: 0.5rem 0;
+    border: 1px solid #e2e8f0;
+}
+
+.nav-dropdown.open .nav-dropdown-content {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+}
+
+.dropdown-item {
+    color: #2d3748;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.dropdown-item:hover {
+    background: #f7fafc;
+    color: #e53e3e;
+    padding-left: 2rem;
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Header */
@@ -381,16 +468,18 @@ main {
 .pillars-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
+    gap: 6rem 2rem; /* Much larger vertical gap to push bottom row much lower */
+    align-items: start; /* Prevent vertical alignment shifts during flip */
 }
 
 /* Flip Card Container */
 .pillar-flip-card {
     background: transparent;
     width: 100%;
-    height: 280px;
+    height: 320px;
     perspective: 1000px;
     cursor: pointer;
+    position: relative;
 }
 
 .pillar-flip-inner {
@@ -398,12 +487,19 @@ main {
     width: 100%;
     height: 100%;
     text-align: center;
-    transition: transform 0.6s ease-in-out;
+    transition: transform 0.8s ease-in-out;
     transform-style: preserve-3d;
+    transform-origin: center center;
 }
 
 .pillar-flip-card.flipped .pillar-flip-inner {
     transform: rotateY(180deg);
+}
+
+/* Ensure no movement during flip */
+.pillar-flip-card.flipped {
+    transform: none;
+    position: relative;
 }
 
 .pillar-front, .pillar-back {
@@ -419,14 +515,19 @@ main {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    top: 0;
+    left: 0;
+    overflow: visible;
 }
 
 .pillar-front {
     background: white;
     color: #2d3748;
-    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
     z-index: 2;
     transform: rotateY(0deg);
+    position: relative;
 }
 
 .front-content {
@@ -435,16 +536,142 @@ main {
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    padding-bottom: 1rem; /* Extra padding to push content up from hint */
+    padding: 2rem 2rem 1.5rem 2rem;
+}
+
+/* Separator Line */
+.separator-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #cbd5e0, transparent);
+    margin: 0 1.5rem;
+    flex-shrink: 0;
+}
+
+/* PIC Section */
+.pic-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    flex-shrink: 0;
+    z-index: 10;
+    position: relative;
+}
+
+/* PIC Button Styling */
+.pic-button {
+    background: linear-gradient(45deg, #e53e3e, #c53030);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 3px 8px rgba(229, 62, 62, 0.3);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+}
+
+.pic-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(229, 62, 62, 0.4);
+    background: linear-gradient(45deg, #c53030, #b91c1c);
 }
 
 .pillar-back {
-    background: linear-gradient(135deg, #2d3748, #4a5568);
-    color: white;
+    background: white;
+    color: #2d3748;
     transform: rotateY(180deg);
     padding: 1.8rem;
     justify-content: flex-start;
     overflow-y: auto;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.pillar-back h4 {
+    color: #1a202c;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 1rem;
+}
+
+.ai-features {
+    margin-bottom: 2rem;
+}
+
+.ai-features h5 {
+    color: #4a5568;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.ai-features ul {
+    list-style: none;
+    padding: 0;
+}
+
+.ai-features li {
+    color: #2d3748;
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.5;
+}
+
+.ai-features li::before {
+    content: "🤖";
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+}
+
+.transformation-result {
+    background: linear-gradient(135deg, #dc2626, #ef4444, #f87171);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+    border: 2px solid #dc2626;
+    position: relative;
+}
+
+.transformation-result::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    border-radius: 14px;
+    z-index: -1;
+}
+
+.transformation-result h5 {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.transformation-result p {
+    color: white;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+    text-align: center;
+    font-weight: 500;
 }
 
 .pillar-icon {
@@ -453,7 +680,7 @@ main {
     display: block;
 }
 
-.pillar-front h4, .pillar-back h4 {
+.pillar-front h4 {
     font-size: 1.4rem;
     font-weight: 600;
     margin-bottom: 1rem;
@@ -461,8 +688,8 @@ main {
 
 .pillar-front p {
     color: #718096;
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
     font-size: 1rem;
 }
 
@@ -685,6 +912,175 @@ footer {
     margin-top: 4rem;
 }
 
+/* HR Pillars Section */
+.hr-pillars-section {
+    margin: 6rem 0;
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 20px;
+}
+
+.hr-pillars-section h2 {
+    text-align: center;
+    font-size: 3rem;
+    color: #1a202c;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #4a5568;
+    margin-bottom: 3rem;
+}
+
+.pillars-dropdown-container {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.pillar-dropdown {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    background: white;
+    color: #2d3748;
+    min-width: 350px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pillar-dropdown:hover {
+    border-color: #e53e3e;
+    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.1);
+}
+
+.pillar-dropdown:focus {
+    outline: none;
+    border-color: #e53e3e;
+    box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+}
+
+.pillar-content-area {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.pillar-placeholder {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.placeholder-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.pillar-placeholder h3 {
+    font-size: 1.8rem;
+    color: #2d3748;
+    margin-bottom: 1rem;
+}
+
+.pillar-placeholder p {
+    font-size: 1.1rem;
+    color: #718096;
+    line-height: 1.6;
+}
+
+.pillar-detail-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.pillar-header {
+    background: linear-gradient(135deg, #e53e3e, #fc8181);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.pillar-header h3 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.pillar-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.pillar-body {
+    padding: 3rem;
+}
+
+.use-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.use-case-card {
+    background: #f7fafc;
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 4px solid #e53e3e;
+}
+
+.use-case-card h4 {
+    color: #2d3748;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.use-case-card p {
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.use-case-benefits {
+    background: #e6fffa;
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 4px solid #38b2ac;
+}
+
+.use-case-benefits h4 {
+    color: #234e52;
+    margin-bottom: 1rem;
+}
+
+.benefits-list {
+    list-style: none;
+    padding: 0;
+}
+
+.benefits-list li {
+    padding: 0.5rem 0;
+    color: #2c7a7b;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.benefits-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #38b2ac;
+    font-weight: bold;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
@@ -692,7 +1088,38 @@ footer {
     }
 
     .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        text-align: center;
+    }
+    
+    .nav-dropdown-content {
+        position: static;
         display: none;
+        box-shadow: none;
+        border: none;
+        background: #f7fafc;
+        margin-top: 0.5rem;
+        border-radius: 8px;
+    }
+    
+    .nav-dropdown.open .nav-dropdown-content {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    .dropdown-item {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
     }
 
     header h1 {
@@ -726,13 +1153,13 @@ footer {
 
     .pillars-container {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 4rem;
     }
 
 
 
     .pillar-flip-card {
-        height: 260px;
+        height: 300px;
     }
 
     .pillar-front, .pillar-back {
@@ -750,8 +1177,6 @@ footer {
         padding: 0.3rem 0.6rem;
     }
 
-    /* AI level removed */
-
     .ai-features li {
         font-size: 0.85rem;
         margin-bottom: 0.3rem;
@@ -759,6 +1184,24 @@ footer {
 
     .transformation-result p {
         font-size: 0.85rem;
+    }
+
+    /* PIC Button mobile responsiveness */
+    .pic-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .front-content {
+        padding: 1.5rem 1rem 1rem 1rem;
+    }
+    
+    .separator-line {
+        margin: 0 1rem;
+    }
+    
+    .pic-section {
+        padding: 0.75rem;
     }
 
     /* Touch devices - click only flipping */
@@ -786,5 +1229,33 @@ footer {
 
     .timeline-container {
         padding: 2rem;
+    }
+    
+    .hr-pillars-section {
+        margin: 3rem 0;
+        padding: 2rem 1rem;
+    }
+    
+    .hr-pillars-section h2 {
+        font-size: 2rem;
+    }
+    
+    .pillar-dropdown {
+        min-width: 280px;
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+    }
+    
+    .pillar-header h3 {
+        font-size: 1.8rem;
+    }
+    
+    .pillar-body {
+        padding: 2rem 1rem;
+    }
+    
+    .use-cases-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 }

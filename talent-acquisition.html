@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talent Acquisition & Recruitment - Project Rectangle</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .pillar-hero {
+            background: linear-gradient(135deg, #e53e3e, #fc8181);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .pillar-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .pillar-hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .pillar-content {
+            padding: 4rem 0;
+        }
+        
+        .use-cases-section {
+            margin-bottom: 4rem;
+        }
+        
+        .back-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #e53e3e;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: #c53030;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="nav-logo">🎯</span>
+                <span class="nav-title">Project Rectangle</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="tracker.html" class="nav-link">Impact Tracker</a>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn" id="pillarsDropdownBtn">
+                        HR Pillars
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="nav-dropdown-content" id="pillarsDropdownContent">
+                        <a href="talent-acquisition.html" class="dropdown-item">Talent Acquisition & Recruitment</a>
+                        <a href="learning-development.html" class="dropdown-item">Learning & Development</a>
+                        <a href="performance-management.html" class="dropdown-item">Performance Management</a>
+                        <a href="workforce-planning.html" class="dropdown-item">Workforce Planning & Analytics</a>
+                        <a href="employee-experience.html" class="dropdown-item">Employee Experience & Engagement</a>
+                        <a href="hr-operations.html" class="dropdown-item">HR Operations & Compliance</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Pillar Hero Section -->
+    <section class="pillar-hero">
+        <div class="container">
+            <h1>🎯 Talent Acquisition & Recruitment</h1>
+            <p>AI-powered smart candidate sourcing and recruitment automation</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="pillar-content">
+        <div class="container">
+            <a href="index.html" class="back-button">← Back to Home</a>
+            
+            <div class="use-cases-section">
+                <h2>Use Cases & Implementation</h2>
+                <div class="use-cases-grid">
+                    <div class="use-case-card">
+                        <h4>Resume Screening Automation</h4>
+                        <p>AI algorithms automatically screen and rank candidates based on job requirements, reducing manual review time by up to 90%.</p>
+                        <p><strong>Local Implementation:</strong> Local tech companies using AI to filter 1000+ applications down to top 50 candidates in minutes</p>
+                    </div>
+                    <div class="use-case-card">
+                        <h4>Predictive Candidate Matching</h4>
+                        <p>Machine learning models predict candidate success and cultural fit based on historical hiring data and performance outcomes.</p>
+                        <p><strong>Local Implementation:</strong> Singapore startups improving hiring accuracy by 40% with cultural fit algorithms</p>
+                    </div>
+                    <div class="use-case-card">
+                        <h4>Chatbot-Driven Initial Screening</h4>
+                        <p>AI chatbots conduct preliminary interviews and assessments, providing 24/7 candidate engagement and basic qualification screening.</p>
+                        <p><strong>Local Implementation:</strong> MNCs in Singapore using chatbots for 24/7 candidate engagement and screening</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="use-case-benefits">
+                <h4>Key Benefits & Impact</h4>
+                <ul class="benefits-list">
+                    <li>Reduce time-to-hire by 60-70%</li>
+                    <li>Improve candidate quality and fit</li>
+                    <li>Eliminate unconscious bias in initial screening</li>
+                    <li>Scale recruitment without proportional resource increase</li>
+                    <li>Enhanced candidate experience with instant responses</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Project Rectangle - AI Transformation Initiative</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

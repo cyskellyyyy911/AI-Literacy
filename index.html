@@ -17,6 +17,20 @@
             </div>
             <div class="nav-links">
                 <a href="tracker.html" class="nav-link">Impact Tracker</a>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn" id="pillarsDropdownBtn">
+                        HR Pillars
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="nav-dropdown-content" id="pillarsDropdownContent">
+                        <a href="talent-acquisition.html" class="dropdown-item">Talent Acquisition & Recruitment</a>
+                        <a href="learning-development.html" class="dropdown-item">Learning & Development</a>
+                        <a href="performance-management.html" class="dropdown-item">Performance Management</a>
+                        <a href="workforce-planning.html" class="dropdown-item">Workforce Planning & Analytics</a>
+                        <a href="employee-experience.html" class="dropdown-item">Employee Experience & Engagement</a>
+                        <a href="hr-operations.html" class="dropdown-item">HR Operations & Compliance</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -101,6 +115,8 @@
             <!-- HR Pillars Section -->
             <section id="pillars" class="hr-pillars">
                 <h3>HR Transformation Pillars</h3>
+                
+
                 <div class="pillars-container">
                     <div class="pillar-flip-card" data-pillar="talent-acquisition">
                         <div class="pillar-flip-inner">
@@ -111,6 +127,10 @@
                                     <div class="pillar-icon">🎯</div>
                                     <h4>Talent Acquisition & Recruitment</h4>
                                     <p>Smart candidate sourcing and AI-powered hiring</p>
+                                </div>
+                                <div class="separator-line"></div>
+                                <div class="pic-section">
+                                    <div class="pic-button">PIC: Jo Lin</div>
                                 </div>
                             </div>
                             <!-- Back Side -->
@@ -144,6 +164,10 @@
                                     <h4>Learning & Development</h4>
                                     <p>Personalized learning with AI tutors</p>
                                 </div>
+                                <div class="separator-line"></div>
+                                <div class="pic-section">
+                                    <div class="pic-button">PIC: Wu Si</div>
+                                </div>
                             </div>
                             <!-- Back Side -->
                             <div class="pillar-back">
@@ -175,6 +199,10 @@
                                     <h4>Performance Management</h4>
                                     <p>Continuous tracking with predictive insights</p>
                                 </div>
+                                <div class="separator-line"></div>
+                                <div class="pic-section">
+                                    <div class="pic-button">PIC: To be Confirmed</div>
+                                </div>
                             </div>
                             <!-- Back Side -->
                             <div class="pillar-back">
@@ -204,6 +232,10 @@
                                     <div class="pillar-icon">🧠</div>
                                     <h4>Workforce Planning & Analytics</h4>
                                     <p>Strategic workforce modeling and planning</p>
+                                </div>
+                                <div class="separator-line"></div>
+                                <div class="pic-section">
+                                    <div class="pic-button">PIC: To be Confirmed</div>
                                 </div>
                             </div>
                             <!-- Back Side -->
@@ -235,6 +267,10 @@
                                     <h4>Employee Experience & Engagement</h4>
                                     <p>Sentiment analysis and virtual HR assistants</p>
                                 </div>
+                                <div class="separator-line"></div>
+                                <div class="pic-section">
+                                    <div class="pic-button">PIC: To be Confirmed</div>
+                                </div>
                             </div>
                             <!-- Back Side -->
                             <div class="pillar-back">
@@ -265,6 +301,10 @@
                                     <h4>HR Operations & Compliance</h4>
                                     <p>Automated processing and compliance monitoring</p>
                                 </div>
+                                <div class="separator-line"></div>
+                                <div class="pic-section">
+                                    <div class="pic-button">PIC: To be Confirmed</div>
+                                </div>
                             </div>
                             <!-- Back Side -->
                             <div class="pillar-back">
@@ -287,6 +327,31 @@
                 </div>
             </section>
 
+            <!-- HR Pillars Information Section -->
+            <section id="hr-pillars-section" class="hr-pillars-section" style="display: none;">
+                <h2>HR Transformation Pillars</h2>
+                <p class="section-subtitle">Explore detailed use cases and implementation strategies for each pillar</p>
+                
+                <div class="pillars-dropdown-container">
+                    <select id="pillarDropdown" class="pillar-dropdown">
+                        <option value="">Select an HR Pillar</option>
+                        <option value="talent-acquisition">Talent Acquisition & Recruitment</option>
+                        <option value="learning-development">Learning & Development</option>
+                        <option value="performance-management">Performance Management</option>
+                        <option value="workforce-planning">Workforce Planning & Analytics</option>
+                        <option value="employee-experience">Employee Experience & Engagement</option>
+                        <option value="hr-operations">HR Operations & Compliance</option>
+                    </select>
+                </div>
+
+                <div id="pillarContent" class="pillar-content-area">
+                    <div class="pillar-placeholder">
+                        <div class="placeholder-icon">🎯</div>
+                        <h3>Select a pillar to explore</h3>
+                        <p>Choose an HR transformation pillar from the dropdown above to view detailed use cases, implementation strategies, and local examples.</p>
+                    </div>
+                </div>
+            </section>
 
         </div>
     </main>
@@ -298,5 +363,34 @@
     </footer>
 
     <script src="script.js"></script>
+    
+    <!-- Simple flip functionality -->
+    <script>
+        // Wait for DOM to be fully loaded
+        window.addEventListener('load', function() {
+            const flipCards = document.querySelectorAll('.pillar-flip-card');
+            console.log('Found flip cards:', flipCards.length);
+            
+            flipCards.forEach(function(card) {
+                let isFlipped = false;
+                
+                card.addEventListener('click', function(e) {
+                    // Don't flip if clicking on PIC button
+                    if (e.target.closest('.pic-button')) {
+                        return;
+                    }
+                    
+                    e.preventDefault();
+                    isFlipped = !isFlipped;
+                    
+                    if (isFlipped) {
+                        this.classList.add('flipped');
+                    } else {
+                        this.classList.remove('flipped');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

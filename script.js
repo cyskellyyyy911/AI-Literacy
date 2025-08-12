@@ -21,63 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(section);
     });
 
-    // Flip card interactions
-    const flipCards = document.querySelectorAll('.pillar-flip-card');
-    flipCards.forEach(card => {
-        let isFlipped = false;
-        
-        // Enhanced glow effect on hover
-        card.addEventListener('mouseenter', function() {
-            const pillarType = this.getAttribute('data-pillar');
-            const frontCard = this.querySelector('.pillar-front');
-            const backCard = this.querySelector('.pillar-back');
-            
-            // Add enhanced glow based on pillar type
-            const glowColors = {
-                'talent-acquisition': 'rgba(229, 62, 62, 0.4)',
-                'learning-development': 'rgba(229, 62, 62, 0.3)',
-                'performance-management': 'rgba(229, 62, 62, 0.3)',
-                'workforce-planning': 'rgba(229, 62, 62, 0.3)',
-                'employee-experience': 'rgba(229, 62, 62, 0.3)',
-                'hr-operations': 'rgba(229, 62, 62, 0.4)'
-            };
-            
-            const glowColor = glowColors[pillarType];
-            if (glowColor) {
-                frontCard.style.boxShadow = `0 20px 40px ${glowColor}`;
-                backCard.style.boxShadow = `0 20px 40px ${glowColor}`;
-            }
-        });
-
-        card.addEventListener('mouseleave', function() {
-            const frontCard = this.querySelector('.pillar-front');
-            const backCard = this.querySelector('.pillar-back');
-            frontCard.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
-            backCard.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
-        });
-
-        // Click to toggle flip state (for mobile and permanent flipping)
-        card.addEventListener('click', function(e) {
-            e.preventDefault();
-            isFlipped = !isFlipped;
-            
-            if (isFlipped) {
-                this.classList.add('flipped');
-            } else {
-                this.classList.remove('flipped');
-            }
-        });
-
-        // Handle flip hint click
-        const flipHint = card.querySelector('.flip-hint-top');
-        if (flipHint) {
-            flipHint.addEventListener('click', function(e) {
-                e.stopPropagation();
-                // Trigger parent card click
-                card.click();
-            });
-        }
-    });
+    // Flip card interactions are now handled by inline script at bottom of HTML
 
     // Progress bar animations (only for efficiency/effectiveness in main model)
     function animateProgressBars() {
@@ -396,3 +340,332 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+    // Navigation dropdown functionality
+    const pillarsDropdownBtn = document.getElementById('pillarsDropdownBtn');
+    const pillarsDropdownContent = document.getElementById('pillarsDropdownContent');
+    const navDropdown = document.querySelector('.nav-dropdown');
+    
+    // HR Pillars tab functionality (keeping old code for backward compatibility)
+    const pillarsTabLink = document.getElementById('pillarsTabLink');
+    const hrPillarsSection = document.getElementById('hr-pillars-section');
+    const mainSections = document.querySelectorAll('#hero, #model, #hr-pillars');
+    const pillarDropdown = document.getElementById('pillarDropdown');
+    const pillarContent = document.getElementById('pillarContent');
+
+    // Dropdown toggle functionality
+    if (pillarsDropdownBtn && navDropdown) {
+        console.log('Dropdown elements found, setting up event listeners');
+        
+        pillarsDropdownBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Dropdown button clicked');
+            
+            // Force visibility
+            if (navDropdown.classList.contains('open')) {
+                navDropdown.classList.remove('open');
+                pillarsDropdownContent.style.display = 'none';
+                console.log('Dropdown closed');
+            } else {
+                navDropdown.classList.add('open');
+                pillarsDropdownContent.style.display = 'block';
+                pillarsDropdownContent.style.opacity = '1';
+                pillarsDropdownContent.style.visibility = 'visible';
+                console.log('Dropdown opened - should be visible now');
+            }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navDropdown.contains(e.target)) {
+                navDropdown.classList.remove('open');
+                pillarsDropdownContent.style.display = 'none';
+            }
+        });
+
+        // Close dropdown on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                navDropdown.classList.remove('open');
+                pillarsDropdownContent.style.display = 'none';
+            }
+        });
+    }
+
+    // Add a way to show main sections again (home button functionality)
+    function showMainSections() {
+        mainSections.forEach(section => {
+            section.style.display = 'block';
+        });
+        if (hrPillarsSection) {
+            hrPillarsSection.style.display = 'none';
+        }
+    }
+
+    // Toggle HR Pillars section
+    if (pillarsTabLink) {
+        pillarsTabLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Hide main sections
+            mainSections.forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show HR Pillars section
+            if (hrPillarsSection) {
+                hrPillarsSection.style.display = 'block';
+                hrPillarsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+
+    // Add home functionality to logo/brand
+    const navBrand = document.querySelector('.nav-brand');
+    if (navBrand) {
+        navBrand.addEventListener('click', function(e) {
+            e.preventDefault();
+            showMainSections();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        navBrand.style.cursor = 'pointer';
+    }
+
+    // Handle pillar dropdown change
+    if (pillarDropdown) {
+        pillarDropdown.addEventListener('change', function() {
+            const selectedPillar = this.value;
+            if (selectedPillar) {
+                showPillarDetails(selectedPillar);
+            } else {
+                showPlaceholder();
+            }
+        });
+    }
+
+    function showPlaceholder() {
+        if (pillarContent) {
+            pillarContent.innerHTML = `
+                <div class="pillar-placeholder">
+                    <div class="placeholder-icon">🎯</div>
+                    <h3>Select a pillar to explore</h3>
+                    <p>Choose an HR transformation pillar from the dropdown above to view detailed use cases, implementation strategies, and local examples.</p>
+                </div>
+            `;
+        }
+    }
+
+    function showPillarDetails(pillar) {
+        const pillarData = getPillarData(pillar);
+        
+        if (pillarContent) {
+            pillarContent.innerHTML = `
+                <div class="pillar-detail-card">
+                    <div class="pillar-header">
+                        <h3>${pillarData.icon} ${pillarData.title}</h3>
+                        <p>${pillarData.description}</p>
+                    </div>
+                    <div class="pillar-body">
+                        <div class="use-cases-grid">
+                            ${pillarData.useCases.map(useCase => `
+                                <div class="use-case-card">
+                                    <h4>${useCase.title}</h4>
+                                    <p>${useCase.description}</p>
+                                    <p><strong>Local Implementation:</strong> ${useCase.localExample}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="use-case-benefits">
+                            <h4>Key Benefits & Impact</h4>
+                            <ul class="benefits-list">
+                                ${pillarData.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    function getPillarData(pillar) {
+        const data = {
+            'talent-acquisition': {
+                icon: '🎯',
+                title: 'Talent Acquisition & Recruitment',
+                description: 'AI-powered smart candidate sourcing and recruitment automation',
+                useCases: [
+                    {
+                        title: 'Resume Screening Automation',
+                        description: 'AI algorithms automatically screen and rank candidates based on job requirements',
+                        localExample: 'Local tech companies using AI to filter 1000+ applications down to top 50 candidates in minutes'
+                    },
+                    {
+                        title: 'Predictive Candidate Matching',
+                        description: 'Machine learning models predict candidate success and cultural fit',
+                        localExample: 'Singapore startups improving hiring accuracy by 40% with cultural fit algorithms'
+                    },
+                    {
+                        title: 'Chatbot-Driven Initial Screening',
+                        description: 'AI chatbots conduct preliminary interviews and assessments',
+                        localExample: 'MNCs in Singapore using chatbots for 24/7 candidate engagement and screening'
+                    }
+                ],
+                benefits: [
+                    'Reduce time-to-hire by 60-70%',
+                    'Improve candidate quality and fit',
+                    'Eliminate unconscious bias in initial screening',
+                    'Scale recruitment without proportional resource increase',
+                    'Enhanced candidate experience with instant responses'
+                ]
+            },
+            'hr-operations': {
+                icon: '⚙️',
+                title: 'HR Operations & Compliance',
+                description: 'Streamlined HR processes and compliance management through intelligent automation',
+                useCases: [
+                    {
+                        title: 'Regulatory Compliance Automation',
+                        description: 'AI-powered monitoring and reporting for labor law and regulatory compliance',
+                        localExample: 'Singapore MNCs using AI to ensure compliance with MOM regulations and regional labor laws'
+                    },
+                    {
+                        title: 'Policy Management & Enforcement',
+                        description: 'Automated policy distribution, acknowledgment tracking, and compliance monitoring',
+                        localExample: 'Financial institutions automating policy updates and ensuring 100% employee acknowledgment'
+                    },
+                    {
+                        title: 'Audit Trail & Documentation',
+                        description: 'Automated documentation and audit trail generation for HR processes',
+                        localExample: 'Healthcare organizations maintaining comprehensive audit trails for regulatory inspections'
+                    }
+                ],
+                benefits: [
+                    'Ensure 100% regulatory compliance',
+                    'Reduce compliance monitoring time by 75%',
+                    'Eliminate manual audit preparation',
+                    'Real-time policy adherence tracking',
+                    'Automated regulatory reporting and documentation'
+                ]
+            },
+            'learning-development': {
+                icon: '📚',
+                title: 'Learning & Development',
+                description: 'Personalized learning experiences powered by AI',
+                useCases: [
+                    {
+                        title: 'Personalized Learning Paths',
+                        description: 'AI creates customized learning journeys based on individual needs and goals',
+                        localExample: 'Local universities partnering with companies for AI-driven skill development programs'
+                    },
+                    {
+                        title: 'Skills Gap Analysis',
+                        description: 'Automated identification of skill gaps and learning recommendations',
+                        localExample: 'Singapore SkillsFuture initiative enhanced with AI for personalized course recommendations'
+                    },
+                    {
+                        title: 'Performance-Based Training',
+                        description: 'AI links performance data to targeted learning interventions',
+                        localExample: 'Healthcare institutions using AI to identify and address clinical skill gaps'
+                    }
+                ],
+                benefits: [
+                    'Increase learning efficiency by 50%',
+                    'Higher engagement with personalized content',
+                    'Real-time skill gap identification',
+                    'Measurable ROI on training investments',
+                    'Adaptive learning based on progress and performance'
+                ]
+            },
+            'performance-management': {
+                icon: '📊',
+                title: 'Performance Management',
+                description: 'Data-driven performance insights and continuous feedback',
+                useCases: [
+                    {
+                        title: 'Continuous Performance Monitoring',
+                        description: 'Real-time performance tracking and feedback mechanisms',
+                        localExample: 'Tech companies in Singapore implementing continuous feedback loops with AI analytics'
+                    },
+                    {
+                        title: 'Goal Setting and Tracking',
+                        description: 'AI-assisted goal setting with predictive achievement analytics',
+                        localExample: 'Financial services firms using AI to set realistic yet challenging performance targets'
+                    },
+                    {
+                        title: 'Performance Prediction',
+                        description: 'Predictive models identify at-risk performers and high-potential employees',
+                        localExample: 'Consulting firms using AI to predict employee success and career progression'
+                    }
+                ],
+                benefits: [
+                    'Increase performance visibility by 90%',
+                    'Early identification of performance issues',
+                    'Data-driven promotion and development decisions',
+                    'Reduced performance review cycle time',
+                    'Improved manager-employee conversations'
+                ]
+            },
+            'workforce-planning': {
+                icon: '👥',
+                title: 'Workforce Planning & Analytics',
+                description: 'Strategic workforce optimization through predictive analytics and data-driven insights',
+                useCases: [
+                    {
+                        title: 'Workforce Demand Analytics',
+                        description: 'Advanced analytics to predict future workforce needs and optimal staffing levels',
+                        localExample: 'Singapore retail chains using predictive analytics for seasonal hiring and resource allocation'
+                    },
+                    {
+                        title: 'Skills Gap Analytics',
+                        description: 'Data-driven identification of current and future skills gaps across the organization',
+                        localExample: 'Tech companies analyzing skill trends to predict future hiring needs and training requirements'
+                    },
+                    {
+                        title: 'Workforce Cost Optimization',
+                        description: 'Analytics-driven optimization of workforce costs and resource allocation',
+                        localExample: 'Manufacturing companies using workforce analytics to optimize shift patterns and reduce overtime costs'
+                    }
+                ],
+                benefits: [
+                    'Optimize workforce costs by 25%',
+                    'Reduce recruitment urgency through predictive planning',
+                    'Improve succession readiness',
+                    'Better resource allocation across departments',
+                    'Enhanced strategic workforce decision-making'
+                ]
+            },
+            'employee-experience': {
+                icon: '😊',
+                title: 'Employee Experience & Engagement',
+                description: 'Enhanced employee journey and engagement through AI-powered insights and personalization',
+                useCases: [
+                    {
+                        title: 'Employee Engagement Analytics',
+                        description: 'AI-powered analysis of employee engagement levels and personalized improvement strategies',
+                        localExample: 'Singapore tech companies using sentiment analysis and engagement surveys to boost retention'
+                    },
+                    {
+                        title: 'Personalized Employee Journey',
+                        description: 'Customized employee experiences based on individual preferences and career goals',
+                        localExample: 'Financial services firms providing personalized onboarding, benefits, and career development paths'
+                    },
+                    {
+                        title: 'Proactive Well-being Support',
+                        description: 'AI-driven identification of stress patterns and proactive well-being interventions',
+                        localExample: 'Healthcare organizations using predictive analytics to identify burnout risk and provide targeted support'
+                    }
+                ],
+                benefits: [
+                    'Increase employee satisfaction by 40%',
+                    'Reduce time spent on administrative tasks',
+                    'Proactive identification of employee concerns',
+                    'Personalized career and development recommendations',
+                    'Improved work-life balance through smart scheduling'
+                ]
+            }
+        };
+        
+        return data[pillar];
+    }
+
+});

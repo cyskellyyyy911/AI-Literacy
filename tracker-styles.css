@@ -38,7 +38,7 @@
 
 /* Dashboard Section */
 .tracker-dashboard {
-    margin-bottom: 4rem;
+    margin-bottom: 6rem;
 }
 
 .tracker-dashboard h2 {
@@ -63,8 +63,11 @@
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .summary-card {
@@ -140,16 +143,30 @@
 
 .summary-trend {
     font-size: 0.9rem;
-    color: #22c55e;
     font-weight: 600;
-    background: #f0fdf4;
     padding: 0.5rem 1rem;
     border-radius: 20px;
     display: inline-block;
 }
 
+.summary-trend.positive {
+    color: #22c55e;
+    background: #f0fdf4;
+}
+
+.summary-trend.negative {
+    color: #dc2626;
+    background: #fef2f2;
+}
+
+.summary-trend.neutral {
+    color: #6b7280;
+    background: #f9fafb;
+}
+
 /* Charts Section */
 .tracker-charts {
+    margin-top: 6rem;
     margin-bottom: 4rem;
 }
 
@@ -223,6 +240,44 @@
     overflow: hidden;
 }
 
+/* Allow overflow for money chart values */
+.money-chart .chart-bar {
+    overflow: visible !important;
+}
+
+.money-chart {
+    overflow: visible !important;
+}
+
+/* Time chart specific value positioning (same as money chart) */
+.pillar-chart:not(.money-chart) .bar-value {
+    position: absolute !important;
+    right: -70px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    font-size: 0.8rem !important;
+    color: #e53e3e !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    display: block !important;
+    visibility: visible !important;
+    z-index: 10 !important;
+}
+
+.pillar-chart:not(.money-chart) .bar-container {
+    margin-right: 80px !important;
+    position: relative !important;
+    overflow: visible !important;
+}
+
+.pillar-chart:not(.money-chart) .chart-bar {
+    overflow: visible !important;
+}
+
+.pillar-chart:not(.money-chart) {
+    overflow: visible !important;
+}
+
 .bar-fill {
     height: 100%;
     background: linear-gradient(90deg, #e53e3e, #fc8181);
@@ -238,6 +293,7 @@
     font-size: 0.8rem;
     color: #2d3748;
     font-weight: 600;
+    z-index: 10;
 }
 
 /* Progress Timeline */
@@ -245,7 +301,7 @@
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    height: 200px;
+    height: 320px;
     padding: 1rem 0;
 }
 
@@ -264,7 +320,7 @@
 
 .month-bar {
     width: 40px;
-    height: 120px;
+    height: 240px;
     background: #f7fafc;
     border-radius: 20px;
     position: relative;
@@ -402,6 +458,26 @@
     border-color: #cbd5e0;
 }
 
+.clear-data-btn {
+    padding: 1rem 2.5rem;
+    border: 2px solid #dc2626;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 160px;
+    background: #fff;
+    color: #dc2626;
+}
+
+.clear-data-btn:hover {
+    background: #dc2626;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+}
+
 /* History Section */
 .tracker-history-section {
     margin-bottom: 4rem;
@@ -469,7 +545,7 @@
 
 .history-item {
     display: grid;
-    grid-template-columns: 200px 1fr 160px;
+    grid-template-columns: 200px 1fr 160px 100px;
     gap: 2rem;
     padding: 2rem;
     border-bottom: 1px solid #f1f5f9;
@@ -541,6 +617,68 @@
     font-weight: 500;
 }
 
+/* History Actions */
+.history-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.edit-btn, .delete-btn {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+}
+
+.edit-btn {
+    background: linear-gradient(45deg, #f59e0b, #d97706);
+    color: white;
+    box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
+}
+
+.edit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(245, 158, 11, 0.4);
+    background: linear-gradient(45deg, #d97706, #b45309);
+}
+
+.delete-btn {
+    background: linear-gradient(45deg, #ef4444, #dc2626);
+    color: white;
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+}
+
+.delete-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(239, 68, 68, 0.4);
+    background: linear-gradient(45deg, #dc2626, #b91c1c);
+}
+
+.edit-icon, .delete-icon {
+    font-size: 1rem;
+    display: block;
+}
+
+/* Cancel Edit Button */
+.cancel-edit-btn {
+    background: #6b7280 !important;
+    border: 2px solid #6b7280 !important;
+    color: white !important;
+}
+
+.cancel-edit-btn:hover {
+    background: #4b5563 !important;
+    border-color: #4b5563 !important;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .tracker-hero h1 {
@@ -553,11 +691,54 @@
     
     .dashboard-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 2rem;
+        margin-bottom: 4rem;
+    }
+    
+    .tracker-dashboard {
+        margin-bottom: 5rem;
+    }
+    
+    .tracker-charts {
+        margin-top: 5rem;
     }
     
     .charts-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .money-chart .bar-value {
+        right: -60px !important;
+        font-size: 0.75rem !important;
+        display: block !important;
+        visibility: visible !important;
+        position: absolute !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        z-index: 10 !important;
+    }
+    
+    .money-chart .bar-container {
+        margin-right: 70px !important;
+        position: relative !important;
+        overflow: visible !important;
+    }
+    
+    .pillar-chart:not(.money-chart) .bar-value {
+        right: -60px !important;
+        font-size: 0.75rem !important;
+        display: block !important;
+        visibility: visible !important;
+        position: absolute !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        z-index: 10 !important;
+    }
+    
+    .pillar-chart:not(.money-chart) .bar-container {
+        margin-right: 70px !important;
+        position: relative !important;
+        overflow: visible !important;
     }
     
     .form-row {
@@ -568,6 +749,7 @@
     .form-actions {
         flex-direction: column;
         align-items: center;
+        gap: 1rem;
     }
     
     .history-filters {
@@ -585,15 +767,84 @@
         text-align: left;
     }
     
+    .history-actions {
+        justify-content: flex-start;
+        margin-top: 1rem;
+    }
+    
     .input-container {
         padding: 2rem;
         margin: 0 1rem;
+    }
+    
+    .progress-timeline {
+        height: 260px;
+    }
+    
+    .month-bar {
+        width: 35px;
+        height: 190px;
     }
     
     .tracker-hero {
         margin: 0 1rem 3rem;
         padding: 3rem 2rem;
     }
+}
+
+/* Time Saved Section Styling */
+.tracker-charts:not(.money-saved-section) h2 {
+    color: #e53e3e;
+}
+
+.tracker-charts:not(.money-saved-section) h2::after {
+    background: linear-gradient(90deg, #e53e3e, #fc8181);
+}
+
+/* Money Saved Section Styling */
+.money-saved-section h2 {
+    color: #059669;
+}
+
+.money-saved-section h2::after {
+    background: linear-gradient(90deg, #059669, #10b981);
+}
+
+.money-bar {
+    background: linear-gradient(90deg, #059669, #10b981) !important;
+}
+
+.money-progress {
+    background: linear-gradient(180deg, #059669, #10b981) !important;
+}
+
+.money-saved-section .chart-card {
+    border-left: 4px solid #059669;
+}
+
+.money-saved-section .summary-card::before {
+    background: linear-gradient(90deg, #059669, #10b981);
+}
+
+/* Money chart specific value positioning */
+.money-chart .bar-value {
+    position: absolute !important;
+    right: -70px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    font-size: 0.8rem !important;
+    color: #059669 !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    display: block !important;
+    visibility: visible !important;
+    z-index: 10 !important;
+}
+
+.money-chart .bar-container {
+    margin-right: 80px !important;
+    position: relative !important;
+    overflow: visible !important;
 }
 
 /* Animations */

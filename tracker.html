@@ -54,19 +54,13 @@
                         <div class="summary-unit">HR Functions</div>
                         <div class="summary-trend">2 new this month</div>
                     </div>
-                    <div class="summary-card warning">
-                        <div class="card-icon">📈</div>
-                        <h3>Efficiency Gain</h3>
-                        <div class="summary-value" id="efficiencyGain">34</div>
-                        <div class="summary-unit">% Average</div>
-                        <div class="summary-trend">+8% this quarter</div>
-                    </div>
+
                 </div>
             </section>
 
-            <!-- Progress Charts -->
+            <!-- Time Saved Visualization -->
             <section class="tracker-charts">
-                <h2>Progress Visualization</h2>
+                <h2>Time Saved Visualization</h2>
                 <div class="charts-grid">
                     <div class="chart-card">
                         <h3>Time Savings by Pillar</h3>
@@ -74,56 +68,150 @@
                             <div class="chart-bar" data-pillar="talent-acquisition">
                                 <div class="bar-label">Talent Acquisition</div>
                                 <div class="bar-container">
-                                    <div class="bar-fill" style="width: 75%"></div>
-                                    <span class="bar-value">45h</span>
+                                    <div class="bar-fill" style="width: 0%"></div>
+                                    <span class="bar-value">0h</span>
                                 </div>
                             </div>
                             <div class="chart-bar" data-pillar="hr-operations">
                                 <div class="bar-label">HR Operations</div>
                                 <div class="bar-container">
-                                    <div class="bar-fill" style="width: 53%"></div>
-                                    <span class="bar-value">32h</span>
+                                    <div class="bar-fill" style="width: 0%"></div>
+                                    <span class="bar-value">0h</span>
                                 </div>
                             </div>
                             <div class="chart-bar" data-pillar="learning-development">
                                 <div class="bar-label">Learning & Development</div>
                                 <div class="bar-container">
-                                    <div class="bar-fill" style="width: 47%"></div>
-                                    <span class="bar-value">28h</span>
+                                    <div class="bar-fill" style="width: 0%"></div>
+                                    <span class="bar-value">0h</span>
                                 </div>
                             </div>
                             <div class="chart-bar" data-pillar="performance-management">
                                 <div class="bar-label">Performance Management</div>
                                 <div class="bar-container">
-                                    <div class="bar-fill" style="width: 35%"></div>
-                                    <span class="bar-value">21h</span>
+                                    <div class="bar-fill" style="width: 0%"></div>
+                                    <span class="bar-value">0h</span>
+                                </div>
+                            </div>
+                            <div class="chart-bar" data-pillar="workforce-planning">
+                                <div class="bar-label">Workforce Planning</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill" style="width: 0%"></div>
+                                    <span class="bar-value">0h</span>
+                                </div>
+                            </div>
+                            <div class="chart-bar" data-pillar="employee-experience">
+                                <div class="bar-label">Employee Experience</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill" style="width: 0%"></div>
+                                    <span class="bar-value">0h</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="chart-card">
-                        <h3>Monthly Progress</h3>
+                        <h3>Monthly Time Saved Progress</h3>
                         <div class="progress-timeline" id="progressTimeline">
                             <div class="timeline-month">
-                                <div class="month-label">Jan 2024</div>
+                                <div class="month-label">Jun 2024</div>
                                 <div class="month-bar">
-                                    <div class="month-progress" style="height: 30%"></div>
+                                    <div class="month-progress" style="height: 0%"></div>
                                 </div>
-                                <div class="month-value">75h</div>
+                                <div class="month-value">0h</div>
                             </div>
                             <div class="timeline-month">
-                                <div class="month-label">Feb 2024</div>
+                                <div class="month-label">Jul 2024</div>
                                 <div class="month-bar">
-                                    <div class="month-progress" style="height: 55%"></div>
+                                    <div class="month-progress" style="height: 0%"></div>
                                 </div>
-                                <div class="month-value">137h</div>
+                                <div class="month-value">0h</div>
                             </div>
                             <div class="timeline-month">
-                                <div class="month-label">Mar 2024</div>
+                                <div class="month-label">Aug 2024</div>
                                 <div class="month-bar">
-                                    <div class="month-progress" style="height: 100%"></div>
+                                    <div class="month-progress" style="height: 0%"></div>
                                 </div>
-                                <div class="month-value">248h</div>
+                                <div class="month-value">0h</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Money Saved Visualization -->
+            <section class="tracker-charts money-saved-section">
+                <h2>Money Saved Visualization</h2>
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Cost Savings by Pillar</h3>
+                        <div class="pillar-chart money-chart" id="moneyPillarChart">
+                            <div class="chart-bar" data-pillar="talent-acquisition">
+                                <div class="bar-label">Talent Acquisition</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill money-bar" style="width: 0%"></div>
+                                    <span class="bar-value">$0</span>
+                                </div>
+                            </div>
+                            <div class="chart-bar" data-pillar="hr-operations">
+                                <div class="bar-label">HR Operations</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill money-bar" style="width: 0%"></div>
+                                    <span class="bar-value">$0</span>
+                                </div>
+                            </div>
+                            <div class="chart-bar" data-pillar="learning-development">
+                                <div class="bar-label">Learning & Development</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill money-bar" style="width: 0%"></div>
+                                    <span class="bar-value">$0</span>
+                                </div>
+                            </div>
+                            <div class="chart-bar" data-pillar="performance-management">
+                                <div class="bar-label">Performance Management</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill money-bar" style="width: 0%"></div>
+                                    <span class="bar-value">$0</span>
+                                </div>
+                            </div>
+                            <div class="chart-bar" data-pillar="workforce-planning">
+                                <div class="bar-label">Workforce Planning</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill money-bar" style="width: 0%"></div>
+                                    <span class="bar-value">$0</span>
+                                </div>
+                            </div>
+                            <div class="chart-bar" data-pillar="employee-experience">
+                                <div class="bar-label">Employee Experience</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill money-bar" style="width: 0%"></div>
+                                    <span class="bar-value">$0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Monthly Cost Savings Progress</h3>
+                        <div class="progress-timeline money-timeline" id="moneyProgressTimeline">
+                            <div class="timeline-month">
+                                <div class="month-label">Jun 2024</div>
+                                <div class="month-bar">
+                                    <div class="month-progress money-progress" style="height: 0%"></div>
+                                </div>
+                                <div class="month-value">$0</div>
+                            </div>
+                            <div class="timeline-month">
+                                <div class="month-label">Jul 2024</div>
+                                <div class="month-bar">
+                                    <div class="month-progress money-progress" style="height: 0%"></div>
+                                </div>
+                                <div class="month-value">$0</div>
+                            </div>
+                            <div class="timeline-month">
+                                <div class="month-label">Aug 2024</div>
+                                <div class="month-bar">
+                                    <div class="month-progress money-progress" style="height: 0%"></div>
+                                </div>
+                                <div class="month-value">$0</div>
                             </div>
                         </div>
                     </div>
@@ -156,16 +244,26 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="timeSaved">Time Saved (hours/month)</label>
-                                <input type="number" id="timeSaved" name="timeSaved" min="0" placeholder="0" required>
+                                <input type="number" id="timeSaved" name="timeSaved" min="0" step="0.1" placeholder="0" required>
                             </div>
+                            <div class="form-group">
+                                <label for="moneySaved">Money Saved ($/month)</label>
+                                <input type="number" id="moneySaved" name="moneySaved" min="0" step="0.01" placeholder="0" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group">
                                 <label for="implementationDate">Implementation Date</label>
                                 <input type="date" id="implementationDate" name="date" required>
+                            </div>
+                            <div class="form-group">
+                                <!-- Empty space for balanced layout -->
                             </div>
                         </div>
                         <div class="form-actions">
                             <button type="submit" class="tracker-submit">Add Progress Entry</button>
                             <button type="reset" class="tracker-reset">Clear Form</button>
+                            <button type="button" class="clear-data-btn" onclick="clearAllData()">Clear All Data</button>
                         </div>
                     </form>
                 </div>
@@ -199,47 +297,8 @@
                         </div>
                     </div>
                     <div class="history-list" id="historyList">
-                        <div class="history-item">
-                            <div class="history-meta">
-                                <div class="history-pillar">Talent Acquisition</div>
-                                <div class="history-date">2024-01-15</div>
-                            </div>
-                            <div class="history-content">
-                                <div class="history-task">Automated CV screening implementation</div>
-                                <div class="history-description">AI-powered resume analysis reducing manual screening time</div>
-                            </div>
-                            <div class="history-impact">
-                                <div class="history-savings">+45 hours/month</div>
-                                <div class="history-cost">$2,250 saved</div>
-                            </div>
-                        </div>
-                        <div class="history-item">
-                            <div class="history-meta">
-                                <div class="history-pillar">HR Operations</div>
-                                <div class="history-date">2024-01-10</div>
-                            </div>
-                            <div class="history-content">
-                                <div class="history-task">Virtual HR assistant for policy queries</div>
-                                <div class="history-description">Chatbot handling routine employee policy questions</div>
-                            </div>
-                            <div class="history-impact">
-                                <div class="history-savings">+32 hours/month</div>
-                                <div class="history-cost">$1,600 saved</div>
-                            </div>
-                        </div>
-                        <div class="history-item">
-                            <div class="history-meta">
-                                <div class="history-pillar">Learning & Development</div>
-                                <div class="history-date">2024-01-05</div>
-                            </div>
-                            <div class="history-content">
-                                <div class="history-task">AI-powered personalized learning paths</div>
-                                <div class="history-description">Automated course recommendations based on skills gaps</div>
-                            </div>
-                            <div class="history-impact">
-                                <div class="history-savings">+28 hours/month</div>
-                                <div class="history-cost">$1,400 saved</div>
-                            </div>
+                        <div style="text-align: center; color: #718096; padding: 3rem; font-style: italic;">
+                            No progress entries yet. Add your first entry using the form above!
                         </div>
                     </div>
                 </div>
