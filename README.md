@@ -6,7 +6,7 @@ A modern, interactive website showcasing the "Project Rectangle" model for AI tr
 
 This website visualizes the journey from Digital HR to AI Native HR, highlighting the progression through AI Literacy and the transformation of key HR pillars.
 
-## Features
+## Features    dsfsdf
 
 ### 🎯 Project Rectangle Model
 - **Current Stage**: Digital HR (where we are now)
