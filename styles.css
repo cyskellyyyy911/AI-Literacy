@@ -77,7 +77,7 @@ body {
     color: #e53e3e;
 }
 
-/* Navigation Dropdown */
+/* Navigation Dropdown - Simplified */
 .nav-dropdown {
     position: relative;
     display: inline-block;
@@ -105,32 +105,39 @@ body {
 
 .dropdown-arrow {
     font-size: 0.8rem;
-    transition: transform 0.3s ease;
-}
-
-.nav-dropdown.open .dropdown-arrow {
-    transform: rotate(180deg);
 }
 
 .nav-dropdown-content {
-    display: none;
     position: absolute;
     background: white;
-    min-width: 300px;
+    min-width: 400px;
+    width: max-content;
+    max-width: 500px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     border-radius: 12px;
-    z-index: 1000;
+    z-index: 9999;
     top: 100%;
     left: 0;
     padding: 0.5rem 0;
     border: 1px solid #e2e8f0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
-.nav-dropdown.open .nav-dropdown-content {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateY(0) !important;
+.nav-dropdown-content.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Backup: CSS-only hover solution */
+.nav-dropdown:hover .nav-dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 .dropdown-item {
@@ -140,6 +147,9 @@ body {
     display: block;
     transition: all 0.3s ease;
     font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
 }
 
 .dropdown-item:hover {
@@ -1103,23 +1113,30 @@ footer {
     
     .nav-dropdown-content {
         position: static;
-        display: none;
         box-shadow: none;
         border: none;
         background: #f7fafc;
         margin-top: 0.5rem;
         border-radius: 8px;
+        opacity: 0;
+        visibility: hidden;
+        transform: none;
+        width: 100%;
+        min-width: auto;
+        max-width: none;
+        white-space: normal;
     }
     
-    .nav-dropdown.open .nav-dropdown-content {
-        display: block !important;
-        opacity: 1 !important;
-        visibility: visible !important;
+    .nav-dropdown-content.show {
+        opacity: 1;
+        visibility: visible;
     }
     
     .dropdown-item {
         padding: 0.5rem 1rem;
         font-size: 0.85rem;
+        white-space: normal;
+        line-height: 1.4;
     }
 
     header h1 {

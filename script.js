@@ -340,59 +340,52 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-    // Navigation dropdown functionality
+    // Simple Dropdown functionality
     const pillarsDropdownBtn = document.getElementById('pillarsDropdownBtn');
     const pillarsDropdownContent = document.getElementById('pillarsDropdownContent');
-    const navDropdown = document.querySelector('.nav-dropdown');
     
-    // HR Pillars tab functionality (keeping old code for backward compatibility)
-    const pillarsTabLink = document.getElementById('pillarsTabLink');
-    const hrPillarsSection = document.getElementById('hr-pillars-section');
-    const mainSections = document.querySelectorAll('#hero, #model, #hr-pillars');
-    const pillarDropdown = document.getElementById('pillarDropdown');
-    const pillarContent = document.getElementById('pillarContent');
-
-    // Dropdown toggle functionality
-    if (pillarsDropdownBtn && navDropdown) {
-        console.log('Dropdown elements found, setting up event listeners');
+    if (pillarsDropdownBtn && pillarsDropdownContent) {
+        console.log('Dropdown elements found');
         
         pillarsDropdownBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            console.log('Dropdown button clicked');
+            console.log('Dropdown clicked');
             
-            // Force visibility
-            if (navDropdown.classList.contains('open')) {
-                navDropdown.classList.remove('open');
-                pillarsDropdownContent.style.display = 'none';
-                console.log('Dropdown closed');
+            // Simple toggle
+            if (pillarsDropdownContent.classList.contains('show')) {
+                pillarsDropdownContent.classList.remove('show');
+                console.log('Dropdown hidden');
             } else {
-                navDropdown.classList.add('open');
-                pillarsDropdownContent.style.display = 'block';
-                pillarsDropdownContent.style.opacity = '1';
-                pillarsDropdownContent.style.visibility = 'visible';
-                console.log('Dropdown opened - should be visible now');
+                pillarsDropdownContent.classList.add('show');
+                console.log('Dropdown shown');
             }
         });
 
         // Close dropdown when clicking outside
         document.addEventListener('click', function(e) {
-            if (!navDropdown.contains(e.target)) {
-                navDropdown.classList.remove('open');
-                pillarsDropdownContent.style.display = 'none';
+            if (!pillarsDropdownBtn.contains(e.target) && !pillarsDropdownContent.contains(e.target)) {
+                pillarsDropdownContent.classList.remove('show');
             }
         });
 
         // Close dropdown on escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                navDropdown.classList.remove('open');
-                pillarsDropdownContent.style.display = 'none';
+                pillarsDropdownContent.classList.remove('show');
             }
         });
+    } else {
+        console.log('Dropdown elements not found!');
     }
 
     // Add a way to show main sections again (home button functionality)
+    const hrPillarsSection = document.getElementById('hr-pillars-section');
+    const mainSections = document.querySelectorAll('#hero, #model, #hr-pillars');
+    const pillarsTabLink = document.getElementById('pillarsTabLink');
+    const pillarDropdown = document.getElementById('pillarDropdown');
+    const pillarContent = document.getElementById('pillarContent');
+    
     function showMainSections() {
         mainSections.forEach(section => {
             section.style.display = 'block';

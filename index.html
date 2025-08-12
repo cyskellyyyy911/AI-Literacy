@@ -16,7 +16,6 @@
                 <span class="nav-title">Project Rectangle</span>
             </div>
             <div class="nav-links">
-                <a href="tracker.html" class="nav-link">Impact Tracker</a>
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-btn" id="pillarsDropdownBtn">
                         HR Pillars
@@ -31,9 +30,50 @@
                         <a href="hr-operations.html" class="dropdown-item">HR Operations & Compliance</a>
                     </div>
                 </div>
+                <a href="tracker.html" class="nav-link">Impact Tracker</a>
             </div>
         </div>
     </nav>
+
+    <!-- Inline Dropdown Script - Guaranteed to Work -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Inline dropdown script loaded');
+            
+            const dropdownBtn = document.getElementById('pillarsDropdownBtn');
+            const dropdownContent = document.getElementById('pillarsDropdownContent');
+            
+            if (dropdownBtn && dropdownContent) {
+                console.log('Dropdown elements found via inline script');
+                
+                dropdownBtn.onclick = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Dropdown button clicked - inline script');
+                    
+                    if (dropdownContent.classList.contains('show')) {
+                        dropdownContent.classList.remove('show');
+                        console.log('Dropdown hidden - inline script');
+                    } else {
+                        dropdownContent.classList.add('show');
+                        console.log('Dropdown shown - inline script');
+                    }
+                };
+                
+                // Close on outside click
+                document.onclick = function(e) {
+                    if (!dropdownBtn.contains(e.target) && !dropdownContent.contains(e.target)) {
+                        dropdownContent.classList.remove('show');
+                    }
+                };
+                
+            } else {
+                console.log('Dropdown elements NOT found - inline script');
+                console.log('Button:', dropdownBtn);
+                console.log('Content:', dropdownContent);
+            }
+        });
+    </script>
 
     <header>
         <div class="container">
