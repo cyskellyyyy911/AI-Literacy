@@ -1,0 +1,570 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 2rem 0;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+}
+
+/* Main Content */
+main {
+    padding: 4rem 0;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    margin-bottom: 4rem;
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    color: #718096;
+    font-weight: 300;
+}
+
+/* Rectangle Model Section */
+.rectangle-model {
+    margin-bottom: 4rem;
+}
+
+.rectangle-model h3 {
+    text-align: center;
+    font-size: 2.2rem;
+    color: white;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.model-container {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.stage-indicator {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.current-stage {
+    background: linear-gradient(45deg, #4299e1, #3182ce);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
+}
+
+.rectangle {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.progression-side {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.stage {
+    background: #f7fafc;
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    position: relative;
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 150px;
+}
+
+.stage:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.current-stage-box {
+    border-color: #4299e1;
+    background: linear-gradient(135deg, #ebf8ff, #bee3f8);
+}
+
+.intermediate-stage {
+    border-color: #ed8936;
+    background: linear-gradient(135deg, #fffaf0, #fbd38d);
+}
+
+.future-stage {
+    border-color: #48bb78;
+    background: linear-gradient(135deg, #f0fff4, #9ae6b4);
+}
+
+.stage h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #2d3748;
+}
+
+.stage p {
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+.stage-marker {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.stage-marker.current {
+    background: #4299e1;
+    box-shadow: 0 0 10px rgba(66, 153, 225, 0.5);
+}
+
+.stage-marker.next {
+    background: #ed8936;
+    box-shadow: 0 0 10px rgba(237, 137, 54, 0.5);
+}
+
+.stage-marker.future {
+    background: #48bb78;
+    box-shadow: 0 0 10px rgba(72, 187, 120, 0.5);
+}
+
+.arrow {
+    font-size: 2rem;
+    color: #4299e1;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.output-side {
+    background: linear-gradient(135deg, #6b46c1, #553c9a);
+    padding: 2rem;
+    border-radius: 15px;
+    color: white;
+}
+
+.output-box h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.metric {
+    margin-bottom: 1.5rem;
+}
+
+.metric-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.metric-bar {
+    background: rgba(255, 255, 255, 0.2);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.metric-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 2s ease;
+    animation: fillBar 3s ease forwards;
+}
+
+.metric-fill.efficiency {
+    background: linear-gradient(90deg, #4ade80, #22c55e);
+    width: 75%;
+}
+
+.metric-fill.effectiveness {
+    background: linear-gradient(90deg, #60a5fa, #3b82f6);
+    width: 85%;
+}
+
+@keyframes fillBar {
+    0% { width: 0%; }
+}
+
+.ai-native-description {
+    margin-top: 2rem;
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f0fff4, #dcfce7);
+    border-radius: 15px;
+    border: 2px solid #22c55e;
+}
+
+.ai-native-description h4 {
+    color: #166534;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.ai-native-description p {
+    color: #15803d;
+    font-weight: 500;
+}
+
+/* HR Pillars Section */
+.hr-pillars {
+    margin-bottom: 4rem;
+}
+
+.hr-pillars h3 {
+    text-align: center;
+    font-size: 2.2rem;
+    color: white;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.pillars-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.pillar {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.pillar:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.pillar-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.pillar h4 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 1rem;
+}
+
+.pillar p {
+    color: #718096;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.ai-level {
+    margin-top: 1rem;
+}
+
+.ai-level span {
+    display: block;
+    font-size: 0.9rem;
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.level-bar {
+    background: #e2e8f0;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.level-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 2s ease;
+    animation: fillLevel 3s ease forwards;
+}
+
+.level-fill.learning {
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+    width: 60%;
+}
+
+.level-fill.recruitment {
+    background: linear-gradient(90deg, #ef4444, #dc2626);
+    width: 70%;
+}
+
+.level-fill.engagement {
+    background: linear-gradient(90deg, #8b5cf6, #7c3aed);
+    width: 55%;
+}
+
+.level-fill.performance {
+    background: linear-gradient(90deg, #06b6d4, #0891b2);
+    width: 65%;
+}
+
+@keyframes fillLevel {
+    0% { width: 0%; }
+}
+
+/* Timeline Section */
+.timeline {
+    margin-bottom: 4rem;
+}
+
+.timeline h3 {
+    text-align: center;
+    font-size: 2.2rem;
+    color: white;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.timeline-container {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 3rem;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #4299e1, #ed8936, #48bb78);
+}
+
+.timeline-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-marker {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 2rem;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+}
+
+.timeline-item.completed .timeline-marker {
+    background: #4299e1;
+    box-shadow: 0 0 15px rgba(66, 153, 225, 0.5);
+}
+
+.timeline-item.current .timeline-marker {
+    background: #ed8936;
+    box-shadow: 0 0 15px rgba(237, 137, 54, 0.5);
+    animation: pulse 2s infinite;
+}
+
+.timeline-item.future .timeline-marker {
+    background: #48bb78;
+    box-shadow: 0 0 15px rgba(72, 187, 120, 0.5);
+}
+
+.timeline-content {
+    background: #f7fafc;
+    padding: 1.5rem;
+    border-radius: 15px;
+    border-left: 4px solid transparent;
+    flex: 1;
+}
+
+.timeline-item.completed .timeline-content {
+    border-left-color: #4299e1;
+}
+
+.timeline-item.current .timeline-content {
+    border-left-color: #ed8936;
+}
+
+.timeline-item.future .timeline-content {
+    border-left-color: #48bb78;
+}
+
+.timeline-content h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-content p {
+    color: #718096;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-status {
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+.timeline-item.completed .timeline-status {
+    background: #bee3f8;
+    color: #2b6cb0;
+}
+
+.timeline-item.current .timeline-status {
+    background: #fbd38d;
+    color: #c05621;
+}
+
+.timeline-item.future .timeline-status {
+    background: #9ae6b4;
+    color: #276749;
+}
+
+/* Footer */
+footer {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 4rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .hero h2 {
+        font-size: 1.8rem;
+    }
+
+    .rectangle {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .progression-side {
+        flex-direction: column;
+    }
+
+    .arrow {
+        transform: rotate(90deg);
+    }
+
+    .timeline-container::before {
+        left: 1rem;
+    }
+
+    .timeline-marker {
+        margin-right: 1rem;
+    }
+
+    .pillars-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .model-container {
+        padding: 1.5rem;
+    }
+
+    .stage {
+        padding: 1rem;
+    }
+
+    .output-side {
+        padding: 1.5rem;
+    }
+
+    .pillar {
+        padding: 1.5rem;
+    }
+
+    .timeline-container {
+        padding: 2rem;
+    }
+}
