@@ -14,7 +14,7 @@ This website visualizes the journey from Digital HR to AI Native HR, highlightin
 - **Ultimate Vision**: AI Native HR (fully AI-driven processes)
 - **Output Metrics**: Efficiency and Effectiveness visualization
 
-### 🏛️ HR Transformation Pillars
+### 🏛️ HR Transformation Pillars 1 more
 1. **Learning & Development** - AI-powered personalized learning
 2. **Recruitment** - Intelligent candidate matching
 3. **Engagement** - Real-time sentiment analysis
