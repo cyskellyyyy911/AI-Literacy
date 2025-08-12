@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Impact Tracker - Project Rectangle</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="tracker-styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="nav-logo">🎯</span>
+                <span class="nav-title">Project Rectangle</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Back to Overview</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <!-- Page Header -->
+            <section class="tracker-hero">
+                <h1>AI Impact Tracker</h1>
+                <p class="tracker-subtitle">Monitor and measure the ROI of your AI transformation journey across all HR functions</p>
+            </section>
+
+            <!-- Dashboard Summary -->
+            <section id="tracker-dashboard" class="tracker-dashboard">
+                <h2>Impact Dashboard</h2>
+                <div class="dashboard-grid">
+                    <div class="summary-card primary">
+                        <div class="card-icon">⏱️</div>
+                        <h3>Total Time Saved</h3>
+                        <div class="summary-value" id="totalTimeSaved">248</div>
+                        <div class="summary-unit">Hours/Month</div>
+                        <div class="summary-trend">+15% this month</div>
+                    </div>
+                    <div class="summary-card success">
+                        <div class="card-icon">💰</div>
+                        <h3>Cost Savings</h3>
+                        <div class="summary-value" id="costSavings">$12,400</div>
+                        <div class="summary-unit">Per Month</div>
+                        <div class="summary-trend">+12% this month</div>
+                    </div>
+                    <div class="summary-card info">
+                        <div class="card-icon">🔧</div>
+                        <h3>Processes Optimized</h3>
+                        <div class="summary-value" id="processesOptimized">6</div>
+                        <div class="summary-unit">HR Functions</div>
+                        <div class="summary-trend">2 new this month</div>
+                    </div>
+                    <div class="summary-card warning">
+                        <div class="card-icon">📈</div>
+                        <h3>Efficiency Gain</h3>
+                        <div class="summary-value" id="efficiencyGain">34</div>
+                        <div class="summary-unit">% Average</div>
+                        <div class="summary-trend">+8% this quarter</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progress Charts -->
+            <section class="tracker-charts">
+                <h2>Progress Visualization</h2>
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Time Savings by Pillar</h3>
+                        <div class="pillar-chart" id="pillarChart">
+                            <div class="chart-bar" data-pillar="talent-acquisition">
+                                <div class="bar-label">Talent Acquisition</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill" style="width: 75%"></div>
+                                    <span class="bar-value">45h</span>
+                                </div>
+                            </div>
+                            <div class="chart-bar" data-pillar="hr-operations">
+                                <div class="bar-label">HR Operations</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill" style="width: 53%"></div>
+                                    <span class="bar-value">32h</span>
+                                </div>
+                            </div>
+                            <div class="chart-bar" data-pillar="learning-development">
+                                <div class="bar-label">Learning & Development</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill" style="width: 47%"></div>
+                                    <span class="bar-value">28h</span>
+                                </div>
+                            </div>
+                            <div class="chart-bar" data-pillar="performance-management">
+                                <div class="bar-label">Performance Management</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill" style="width: 35%"></div>
+                                    <span class="bar-value">21h</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Monthly Progress</h3>
+                        <div class="progress-timeline" id="progressTimeline">
+                            <div class="timeline-month">
+                                <div class="month-label">Jan 2024</div>
+                                <div class="month-bar">
+                                    <div class="month-progress" style="height: 30%"></div>
+                                </div>
+                                <div class="month-value">75h</div>
+                            </div>
+                            <div class="timeline-month">
+                                <div class="month-label">Feb 2024</div>
+                                <div class="month-bar">
+                                    <div class="month-progress" style="height: 55%"></div>
+                                </div>
+                                <div class="month-value">137h</div>
+                            </div>
+                            <div class="timeline-month">
+                                <div class="month-label">Mar 2024</div>
+                                <div class="month-bar">
+                                    <div class="month-progress" style="height: 100%"></div>
+                                </div>
+                                <div class="month-value">248h</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Entry Form -->
+            <section id="tracker-input" class="tracker-input-section">
+                <h2>Add New Progress Entry</h2>
+                <div class="input-container">
+                    <form class="tracker-form" id="trackerForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pillarSelect">HR Pillar</label>
+                                <select id="pillarSelect" name="pillar" required>
+                                    <option value="">Select HR Pillar</option>
+                                    <option value="talent-acquisition">Talent Acquisition & Recruitment</option>
+                                    <option value="learning-development">Learning & Development</option>
+                                    <option value="performance-management">Performance Management</option>
+                                    <option value="workforce-planning">Workforce Planning & Analytics</option>
+                                    <option value="employee-experience">Employee Experience & Engagement</option>
+                                    <option value="hr-operations">HR Operations & Compliance</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="taskDescription">Task/Process Description</label>
+                                <input type="text" id="taskDescription" name="task" placeholder="e.g., CV screening automation" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="timeSaved">Time Saved (hours/month)</label>
+                                <input type="number" id="timeSaved" name="timeSaved" min="0" placeholder="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="implementationDate">Implementation Date</label>
+                                <input type="date" id="implementationDate" name="date" required>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="tracker-submit">Add Progress Entry</button>
+                            <button type="reset" class="tracker-reset">Clear Form</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Progress History -->
+            <section id="tracker-history" class="tracker-history-section">
+                <h2>Progress History</h2>
+                <div class="history-container">
+                    <div class="history-filters">
+                        <div class="filter-group">
+                            <label for="pillarFilter">Filter by Pillar:</label>
+                            <select id="pillarFilter">
+                                <option value="">All Pillars</option>
+                                <option value="talent-acquisition">Talent Acquisition</option>
+                                <option value="learning-development">Learning & Development</option>
+                                <option value="performance-management">Performance Management</option>
+                                <option value="workforce-planning">Workforce Planning</option>
+                                <option value="employee-experience">Employee Experience</option>
+                                <option value="hr-operations">HR Operations</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="dateFilter">Filter by Date:</label>
+                            <select id="dateFilter">
+                                <option value="">All Time</option>
+                                <option value="last-month">Last Month</option>
+                                <option value="last-quarter">Last Quarter</option>
+                                <option value="this-year">This Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="history-list" id="historyList">
+                        <div class="history-item">
+                            <div class="history-meta">
+                                <div class="history-pillar">Talent Acquisition</div>
+                                <div class="history-date">2024-01-15</div>
+                            </div>
+                            <div class="history-content">
+                                <div class="history-task">Automated CV screening implementation</div>
+                                <div class="history-description">AI-powered resume analysis reducing manual screening time</div>
+                            </div>
+                            <div class="history-impact">
+                                <div class="history-savings">+45 hours/month</div>
+                                <div class="history-cost">$2,250 saved</div>
+                            </div>
+                        </div>
+                        <div class="history-item">
+                            <div class="history-meta">
+                                <div class="history-pillar">HR Operations</div>
+                                <div class="history-date">2024-01-10</div>
+                            </div>
+                            <div class="history-content">
+                                <div class="history-task">Virtual HR assistant for policy queries</div>
+                                <div class="history-description">Chatbot handling routine employee policy questions</div>
+                            </div>
+                            <div class="history-impact">
+                                <div class="history-savings">+32 hours/month</div>
+                                <div class="history-cost">$1,600 saved</div>
+                            </div>
+                        </div>
+                        <div class="history-item">
+                            <div class="history-meta">
+                                <div class="history-pillar">Learning & Development</div>
+                                <div class="history-date">2024-01-05</div>
+                            </div>
+                            <div class="history-content">
+                                <div class="history-task">AI-powered personalized learning paths</div>
+                                <div class="history-description">Automated course recommendations based on skills gaps</div>
+                            </div>
+                            <div class="history-impact">
+                                <div class="history-savings">+28 hours/month</div>
+                                <div class="history-cost">$1,400 saved</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Project Rectangle - AI Transformation Initiative</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="tracker-script.js"></script>
+</body>
+</html>

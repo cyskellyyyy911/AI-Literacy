@@ -21,54 +21,72 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(section);
     });
 
-    // Pillar hover effects with detailed information
-    const pillars = document.querySelectorAll('.pillar');
-    pillars.forEach(pillar => {
-        pillar.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
-            
-            // Add glow effect based on pillar type
+    // Flip card interactions
+    const flipCards = document.querySelectorAll('.pillar-flip-card');
+    flipCards.forEach(card => {
+        let isFlipped = false;
+        
+        // Enhanced glow effect on hover
+        card.addEventListener('mouseenter', function() {
             const pillarType = this.getAttribute('data-pillar');
-            switch(pillarType) {
-                case 'learning':
-                    this.style.boxShadow = '0 20px 40px rgba(245, 158, 11, 0.3)';
-                    break;
-                case 'recruitment':
-                    this.style.boxShadow = '0 20px 40px rgba(239, 68, 68, 0.3)';
-                    break;
-                case 'engagement':
-                    this.style.boxShadow = '0 20px 40px rgba(139, 92, 246, 0.3)';
-                    break;
-                case 'performance':
-                    this.style.boxShadow = '0 20px 40px rgba(6, 182, 212, 0.3)';
-                    break;
+            const frontCard = this.querySelector('.pillar-front');
+            const backCard = this.querySelector('.pillar-back');
+            
+            // Add enhanced glow based on pillar type
+            const glowColors = {
+                'talent-acquisition': 'rgba(229, 62, 62, 0.4)',
+                'learning-development': 'rgba(229, 62, 62, 0.3)',
+                'performance-management': 'rgba(229, 62, 62, 0.3)',
+                'workforce-planning': 'rgba(229, 62, 62, 0.3)',
+                'employee-experience': 'rgba(229, 62, 62, 0.3)',
+                'hr-operations': 'rgba(229, 62, 62, 0.4)'
+            };
+            
+            const glowColor = glowColors[pillarType];
+            if (glowColor) {
+                frontCard.style.boxShadow = `0 20px 40px ${glowColor}`;
+                backCard.style.boxShadow = `0 20px 40px ${glowColor}`;
             }
         });
 
-        pillar.addEventListener('mouseleave', function() {
-            this.style.transform = '';
-            this.style.boxShadow = '';
+        card.addEventListener('mouseleave', function() {
+            const frontCard = this.querySelector('.pillar-front');
+            const backCard = this.querySelector('.pillar-back');
+            frontCard.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
+            backCard.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
         });
 
-        // Click effect for pillars
-        pillar.addEventListener('click', function() {
-            const pillarType = this.getAttribute('data-pillar');
-            showPillarDetails(pillarType);
+        // Click to toggle flip state (for mobile and permanent flipping)
+        card.addEventListener('click', function(e) {
+            e.preventDefault();
+            isFlipped = !isFlipped;
+            
+            if (isFlipped) {
+                this.classList.add('flipped');
+            } else {
+                this.classList.remove('flipped');
+            }
         });
+
+        // Handle flip hint click
+        const flipHint = card.querySelector('.flip-hint-top');
+        if (flipHint) {
+            flipHint.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Trigger parent card click
+                card.click();
+            });
+        }
     });
 
-    // Progress bar animations
+    // Progress bar animations (only for efficiency/effectiveness in main model)
     function animateProgressBars() {
-        const progressBars = document.querySelectorAll('.metric-fill, .level-fill');
+        const progressBars = document.querySelectorAll('.metric-fill');
         progressBars.forEach(bar => {
             bar.style.width = '0%';
             setTimeout(() => {
                 bar.style.width = bar.classList.contains('efficiency') ? '75%' :
-                                  bar.classList.contains('effectiveness') ? '85%' :
-                                  bar.classList.contains('learning') ? '60%' :
-                                  bar.classList.contains('recruitment') ? '70%' :
-                                  bar.classList.contains('engagement') ? '55%' :
-                                  bar.classList.contains('performance') ? '65%' : '50%';
+                                  bar.classList.contains('effectiveness') ? '85%' : '50%';
             }, 500);
         });
     }
@@ -157,30 +175,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Auto-update current stage indicator
     updateStageIndicator();
+
+
 });
 
 // Show detailed information about HR pillars
 function showPillarDetails(pillarType) {
     const details = {
-        learning: {
+        "talent-acquisition": {
+            title: "Talent Acquisition & Recruitment",
+            description: "Potential AI exploration areas for smarter, faster, and more effective hiring processes.",
+            features: ["Smart Candidate Sourcing", "Automated CV Screening", "AI Interviewer Tools", "Predictive Hiring Analytics", "Candidate Engagement Chatbots"]
+        },
+        "learning-development": {
             title: "Learning & Development",
-            description: "Transform traditional training with AI-powered personalized learning experiences, adaptive content delivery, and predictive skill gap analysis.",
-            features: ["Personalized Learning Paths", "AI Tutors", "Skill Gap Prediction", "Adaptive Assessments"]
+            description: "AI-powered learning systems for continuous, personalized employee development.",
+            features: ["AI Knowledge Management", "Personalized Learning Paths", "Real-time Learning Analytics", "AI Tutors & Assistants"]
         },
-        recruitment: {
-            title: "Recruitment",
-            description: "Revolutionize hiring with intelligent candidate matching, automated screening, and bias-free selection processes powered by AI.",
-            features: ["Smart Candidate Matching", "Automated Screening", "Bias Detection", "Predictive Hiring"]
+        "performance-management": {
+            title: "Performance Management",
+            description: "Transform from annual reviews to continuous, data-driven performance insights.",
+            features: ["Continuous Performance Tracking", "AI-assisted Goal Setting", "Predictive Performance Insights"]
         },
-        engagement: {
-            title: "Engagement",
-            description: "Enhance employee experience through real-time sentiment analysis, predictive engagement strategies, and personalized communication.",
-            features: ["Sentiment Analysis", "Engagement Prediction", "Personalized Communication", "Wellness Monitoring"]
+        "workforce-planning": {
+            title: "Workforce Planning & Analytics",
+            description: "Strategic workforce decisions powered by AI analytics and predictive modeling.",
+            features: ["Workforce Needs Prediction", "AI-driven Skills Gap Mapping", "Business Strategy Scenario Modeling"]
         },
-        performance: {
-            title: "Performance Appraisal",
-            description: "Enable continuous performance monitoring with AI-driven insights, goal tracking, and development recommendations.",
-            features: ["Continuous Monitoring", "Performance Insights", "Goal Tracking", "Development Recommendations"]
+        "employee-experience": {
+            title: "Employee Experience & Engagement",
+            description: "Enhanced employee experience through AI-powered knowledge management and engagement tools.",
+            features: ["HR Knowledge Management Tool", "Sentiment Analysis", "Personalized Engagement Nudges"]
+        },
+        "hr-operations": {
+            title: "HR Operations & Compliance",
+            description: "Streamlined HR operations with AI automation and virtual assistants.",
+            features: ["Automated Document Processing", "AI-powered Virtual HR Assistants", "Smart Contract Generation"]
         }
     };
 
@@ -365,3 +395,4 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+

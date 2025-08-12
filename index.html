@@ -8,23 +8,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="nav-logo">🎯</span>
+                <span class="nav-title">Project Rectangle</span>
+            </div>
+            <div class="nav-links">
+                <a href="tracker.html" class="nav-link">Impact Tracker</a>
+            </div>
+        </div>
+    </nav>
+
     <header>
         <div class="container">
-            <h1>Project Rectangle</h1>
-            <p class="subtitle">Transforming HR through AI Innovation</p>
+            <h1>AI Transformation in HR</h1>
+            <p class="subtitle">Empowering Growth Through AI-Enhanced Human Resources</p>
         </div>
     </header>
 
     <main>
         <div class="container">
             <!-- Hero Section -->
-            <section class="hero">
+            <section id="hero" class="hero">
                 <h2>The Journey to AI Native HR</h2>
                 <p>From Digital HR to AI Literacy to complete AI-driven transformation</p>
             </section>
 
             <!-- Project Rectangle Model -->
-            <section class="rectangle-model">
+            <section id="model" class="rectangle-model">
                 <h3>Project Rectangle Model</h3>
                 <div class="model-container">
                     <!-- Current Stage Indicator -->
@@ -86,89 +99,195 @@
             </section>
 
             <!-- HR Pillars Section -->
-            <section class="hr-pillars">
+            <section id="pillars" class="hr-pillars">
                 <h3>HR Transformation Pillars</h3>
                 <div class="pillars-container">
-                    <div class="pillar" data-pillar="learning">
-                        <div class="pillar-icon">📚</div>
-                        <h4>Learning & Development</h4>
-                        <p>AI-powered personalized learning paths and skill development</p>
-                        <div class="ai-level">
-                            <span>AI Integration Level</span>
-                            <div class="level-bar">
-                                <div class="level-fill learning"></div>
+                    <div class="pillar-flip-card" data-pillar="talent-acquisition">
+                        <div class="pillar-flip-inner">
+                            <!-- Front Side -->
+                            <div class="pillar-front">
+                                <div class="flip-hint-top">Click to see details</div>
+                                <div class="front-content">
+                                    <div class="pillar-icon">🎯</div>
+                                    <h4>Talent Acquisition & Recruitment</h4>
+                                    <p>Smart candidate sourcing and AI-powered hiring</p>
+                                </div>
+                            </div>
+                            <!-- Back Side -->
+                            <div class="pillar-back">
+                                <h4>🎯 Talent Acquisition & Recruitment</h4>
+                                <div class="ai-features">
+                                    <h5>Potential AI Exploration Areas:</h5>
+                                    <ul>
+                                        <li>Smart candidate sourcing (AI-driven talent matching from internal and external pools)</li>
+                                        <li>Automated CV screening and skills assessment</li>
+                                        <li>AI Interviewer tools to reduce recruiter interviewing time</li>
+                                        <li>Predictive hiring analytics (e.g., likelihood to accept offer, cultural fit indicators)</li>
+                                        <li>Chatbots for candidate engagement and scheduling</li>
+                                    </ul>
+                                </div>
+                                <div class="transformation-result">
+                                    <h5>Transformation Potential:</h5>
+                                    <p>Faster time-to-hire, reduced bias (if managed carefully), higher quality matches</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="pillar" data-pillar="recruitment">
-                        <div class="pillar-icon">🎯</div>
-                        <h4>Recruitment</h4>
-                        <p>Intelligent candidate matching and automated screening processes</p>
-                        <div class="ai-level">
-                            <span>AI Integration Level</span>
-                            <div class="level-bar">
-                                <div class="level-fill recruitment"></div>
+                    <div class="pillar-flip-card" data-pillar="learning-development">
+                        <div class="pillar-flip-inner">
+                            <!-- Front Side -->
+                            <div class="pillar-front">
+                                <div class="flip-hint-top">Click to see details</div>
+                                <div class="front-content">
+                                    <div class="pillar-icon">📚</div>
+                                    <h4>Learning & Development</h4>
+                                    <p>Personalized learning with AI tutors</p>
+                                </div>
+                            </div>
+                            <!-- Back Side -->
+                            <div class="pillar-back">
+                                <h4>📚 Learning & Development</h4>
+                                <div class="ai-features">
+                                    <h5>Potential AI Exploration Areas:</h5>
+                                    <ul>
+                                        <li>AI integrated knowledge management system</li>
+                                        <li>Personalized learning paths based on skills gaps and career aspirations</li>
+                                        <li>Real-time performance feedback through AI-driven learning analytics</li>
+                                        <li>AI tutors or training assistants for on-demand skill building</li>
+                                    </ul>
+                                </div>
+                                <div class="transformation-result">
+                                    <h5>Transformation Potential:</h5>
+                                    <p>Continuous, adaptive learning culture instead of periodic training</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="pillar" data-pillar="engagement">
-                        <div class="pillar-icon">💬</div>
-                        <h4>Engagement</h4>
-                        <p>Real-time sentiment analysis and predictive engagement strategies</p>
-                        <div class="ai-level">
-                            <span>AI Integration Level</span>
-                            <div class="level-bar">
-                                <div class="level-fill engagement"></div>
+                    <div class="pillar-flip-card" data-pillar="performance-management">
+                        <div class="pillar-flip-inner">
+                            <!-- Front Side -->
+                            <div class="pillar-front">
+                                <div class="flip-hint-top">Click to see details</div>
+                                <div class="front-content">
+                                    <div class="pillar-icon">📊</div>
+                                    <h4>Performance Management</h4>
+                                    <p>Continuous tracking with predictive insights</p>
+                                </div>
+                            </div>
+                            <!-- Back Side -->
+                            <div class="pillar-back">
+                                <h4>📊 Performance Management</h4>
+                                <div class="ai-features">
+                                    <h5>Potential AI Exploration Areas:</h5>
+                                    <ul>
+                                        <li>Continuous performance tracking from workflow data (with consent and transparency)</li>
+                                        <li>AI-assisted goal setting and KPI alignment</li>
+                                        <li>Predictive insights on top performers and flight risks</li>
+                                    </ul>
+                                </div>
+                                <div class="transformation-result">
+                                    <h5>Transformation Potential:</h5>
+                                    <p>From annual reviews to real-time, data-backed performance coaching</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="pillar" data-pillar="performance">
-                        <div class="pillar-icon">📊</div>
-                        <h4>Performance Appraisal</h4>
-                        <p>Continuous performance monitoring with AI-driven insights</p>
-                        <div class="ai-level">
-                            <span>AI Integration Level</span>
-                            <div class="level-bar">
-                                <div class="level-fill performance"></div>
+                    <div class="pillar-flip-card" data-pillar="workforce-planning">
+                        <div class="pillar-flip-inner">
+                            <!-- Front Side -->
+                            <div class="pillar-front">
+                                <div class="flip-hint-top">Click to see details</div>
+                                <div class="front-content">
+                                    <div class="pillar-icon">🧠</div>
+                                    <h4>Workforce Planning & Analytics</h4>
+                                    <p>Strategic workforce modeling and planning</p>
+                                </div>
+                            </div>
+                            <!-- Back Side -->
+                            <div class="pillar-back">
+                                <h4>🧠 Workforce Planning & Analytics</h4>
+                                <div class="ai-features">
+                                    <h5>Potential AI Exploration Areas:</h5>
+                                    <ul>
+                                        <li>Predicting workforce needs based on business trends and turnover patterns</li>
+                                        <li>Automated/ AI driven skills gap mapping for succession planning</li>
+                                        <li>Scenario modeling for different business strategies</li>
+                                    </ul>
+                                </div>
+                                <div class="transformation-result">
+                                    <h5>Transformation Potential:</h5>
+                                    <p>Strategic, forward-looking HR decisions rather than reactive hiring/firing cycles</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pillar-flip-card" data-pillar="employee-experience">
+                        <div class="pillar-flip-inner">
+                            <!-- Front Side -->
+                            <div class="pillar-front">
+                                <div class="flip-hint-top">Click to see details</div>
+                                <div class="front-content">
+                                    <div class="pillar-icon">💬</div>
+                                    <h4>Employee Experience & Engagement</h4>
+                                    <p>Sentiment analysis and virtual HR assistants</p>
+                                </div>
+                            </div>
+                            <!-- Back Side -->
+                            <div class="pillar-back">
+                                <h4>💬 Employee Experience & Engagement</h4>
+                                <div class="ai-features">
+                                    <h5>Potential AI Exploration Areas:</h5>
+                                    <ul>
+                                        <li>HR knowledge management tool with best practices, cases, etc</li>
+                                        <li>Sentiment analysis from surveys, chats, and feedback platforms</li>
+                                        <li>Personalized engagement nudges (e.g., recognition prompts, wellness suggestions)</li>
+                                    </ul>
+                                </div>
+                                <div class="transformation-result">
+                                    <h5>Transformation Potential:</h5>
+                                    <p>More responsive, personalized HR service without increasing headcount</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pillar-flip-card" data-pillar="hr-operations">
+                        <div class="pillar-flip-inner">
+                            <!-- Front Side -->
+                            <div class="pillar-front">
+                                <div class="flip-hint-top">Click to see details</div>
+                                <div class="front-content">
+                                    <div class="pillar-icon">⚙️</div>
+                                    <h4>HR Operations & Compliance</h4>
+                                    <p>Automated processing and compliance monitoring</p>
+                                </div>
+                            </div>
+                            <!-- Back Side -->
+                            <div class="pillar-back">
+                                <h4>⚙️ HR Operations & Compliance</h4>
+                                <div class="ai-features">
+                                    <h5>Potential AI Exploration Areas:</h5>
+                                    <ul>
+                                        <li>Automated document processing and policy updates</li>
+                                        <li>AI-powered virtual HR assistants for policy, payroll, and benefits queries</li>
+                                        <li>Smart contract generation and onboarding workflows</li>
+                                    </ul>
+                                </div>
+                                <div class="transformation-result">
+                                    <h5>Transformation Potential:</h5>
+                                    <p>Reduced administrative load and faster compliance checks</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Transformation Timeline -->
-            <section class="timeline">
-                <h3>Transformation Timeline</h3>
-                <div class="timeline-container">
-                    <div class="timeline-item completed">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <h4>Digital HR Foundation</h4>
-                            <p>Basic digital processes and systems in place</p>
-                            <span class="timeline-status">Completed</span>
-                        </div>
-                    </div>
-                    <div class="timeline-item current">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <h4>AI Literacy Development</h4>
-                            <p>Building AI understanding and capabilities across HR teams</p>
-                            <span class="timeline-status">In Progress</span>
-                        </div>
-                    </div>
-                    <div class="timeline-item future">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <h4>AI Native Implementation</h4>
-                            <p>Full AI integration across all HR pillars</p>
-                            <span class="timeline-status">Future Goal</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
+
         </div>
     </main>
 
