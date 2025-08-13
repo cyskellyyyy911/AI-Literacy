@@ -122,19 +122,60 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(displayActualMetrics, 500);
     });
 
-    // Stage progression animation
+    // Stage progression animation + interactive details panel
     const stages = document.querySelectorAll('.stage');
+    const stageDetailsTitle = document.getElementById('stageDetailsTitle');
+    const stageDetailsText = document.getElementById('stageDetailsText');
+    console.log('Stage Details Elements:', { stageDetailsTitle, stageDetailsText, stagesCount: stages.length });
+
+    const STAGE_TEXT = {
+        digital: {
+            title: 'Digital HR',
+            text: 'Digital HR - Core HR processes are digitized; basic automation in place for efficiency. Data mostly used for record-keeping.'
+        },
+        literacy: {
+            title: 'AI Literacy',
+            text: 'AI Literacy - HR understands AI tools, applies them selectively, and monitors outcomes. AI is used to support decision-making.'
+        },
+        native: {
+            title: 'AI Native HR',
+            text: 'AI Native HR - AI embedded end-to-end in HR lifecycle, enabling predictive, real-time, and personalized workforce management. HR operates with an AI-first mindset.'
+        }
+    };
+
+    function setStageDetails(key) {
+        if (!stageDetailsTitle || !stageDetailsText) return;
+        const info = STAGE_TEXT[key];
+        if (!info) return;
+        stageDetailsTitle.textContent = info.title;
+        stageDetailsText.textContent = info.text;
+        console.log('Stage details updated:', key, info);
+    }
+
     stages.forEach((stage, index) => {
+        const key = stage.getAttribute('data-stage');
+        console.log('Binding listeners to stage', index, 'key=', key, 'node=', stage);
         stage.addEventListener('mouseenter', function() {
             // Highlight progression path
             stages.forEach((s, i) => {
                 if (i <= index) {
                     s.style.opacity = '1';
-                    s.style.transform = 'translateY(-5px)';
+                    // keep transform stable to avoid layout shift
+                    s.style.transform = '';
                 } else {
-                    s.style.opacity = '0.7';
+                    s.style.opacity = '0.85';
                 }
             });
+
+            const k = stage.getAttribute('data-stage');
+            console.log('mouseenter on stage index', index, 'key=', k);
+            if (k) setStageDetails(k);
+        });
+
+        stage.addEventListener('click', function() {
+            const k = stage.getAttribute('data-stage');
+            console.log('click on stage index', index, 'key=', k);
+            if (k) setStageDetails(k);
         });
 
         stage.addEventListener('mouseleave', function() {
@@ -144,6 +185,29 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+
+    // Event delegation fallback for reliability (handles nested elements/fast mouse moves)
+    const progressionSide = document.querySelector('.progression-side');
+    if (progressionSide) {
+        progressionSide.addEventListener('mouseover', function(e) {
+            const targetStage = e.target.closest('.stage');
+            if (!targetStage) return;
+            const key = targetStage.getAttribute('data-stage');
+            console.log('delegated mouseover key=', key, 'target=', targetStage);
+            if (key) setStageDetails(key);
+        });
+
+        progressionSide.addEventListener('click', function(e) {
+            const targetStage = e.target.closest('.stage');
+            if (!targetStage) return;
+            const key = targetStage.getAttribute('data-stage');
+            console.log('delegated click key=', key, 'target=', targetStage);
+            if (key) setStageDetails(key);
+        });
+    }
+
+    // Initialize with Digital HR on load
+    setStageDetails('digital');
 
     // Timeline item interactions
     const timelineItems = document.querySelectorAll('.timeline-item');

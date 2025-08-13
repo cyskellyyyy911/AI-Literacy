@@ -16,6 +16,7 @@
                 <span class="nav-title">Project Rectangle</span>
             </div>
             <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-btn" id="pillarsDropdownBtn">
                         HR Pillars
@@ -105,22 +106,31 @@
                     <div class="rectangle">
                         <!-- Left Side: Current to Future -->
                         <div class="progression-side">
-                            <div class="stage current-stage-box">
+                            <div class="stage current-stage-box" data-stage="digital">
                                 <h4>Digital HR</h4>
                                 <p>Current Stage</p>
                                 <div class="stage-marker current"></div>
                             </div>
                             <div class="arrow">→</div>
-                            <div class="stage intermediate-stage">
+                            <div class="stage intermediate-stage" data-stage="literacy">
                                 <h4>AI Literacy</h4>
                                 <p>Next Goal</p>
                                 <div class="stage-marker next"></div>
                             </div>
                             <div class="arrow">→</div>
-                            <div class="stage future-stage">
+                            <div class="stage future-stage" data-stage="native">
                                 <h4>AI Native HR</h4>
                                 <p>Ultimate Vision</p>
                                 <div class="stage-marker future"></div>
+                            </div>
+                            
+                            <!-- Interactive Stage Details Panel -->
+                            <div class="stage-details" id="stageDetails">
+                                <div class="stage-details-header">
+                                    <span class="stage-details-label">Stage Details</span>
+                                    <span class="stage-details-title" id="stageDetailsTitle">Digital HR</span>
+                                </div>
+                                <p id="stageDetailsText">Digital HR - Core HR processes are digitized; basic automation in place for efficiency. Data mostly used for record-keeping.</p>
                             </div>
                         </div>
 
@@ -155,6 +165,51 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Inline: Stage details wiring (failsafe) -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var titleEl = document.getElementById('stageDetailsTitle');
+                    var textEl = document.getElementById('stageDetailsText');
+                    if (!titleEl || !textEl) return;
+
+                    var INFO = {
+                        digital: {
+                            title: 'Digital HR',
+                            text: 'Digital HR - Core HR processes are digitized; basic automation in place for efficiency. Data mostly used for record-keeping.'
+                        },
+                        literacy: {
+                            title: 'AI Literacy',
+                            text: 'AI Literacy - HR understands AI tools, applies them selectively, and monitors outcomes. AI is used to support decision-making.'
+                        },
+                        native: {
+                            title: 'AI Native HR',
+                            text: 'AI Native HR - AI embedded end-to-end in HR lifecycle, enabling predictive, real-time, and personalized workforce management. HR operates with an AI-first mindset.'
+                        }
+                    };
+
+                    function setDetails(key) {
+                        var info = INFO[key];
+                        if (!info) return;
+                        titleEl.textContent = info.title;
+                        textEl.textContent = info.text;
+                    }
+
+                    // Bind listeners
+                    var nodes = document.querySelectorAll('.stage');
+                    nodes.forEach(function(node){
+                        node.addEventListener('mouseenter', function(){
+                            setDetails(node.getAttribute('data-stage'));
+                        });
+                        node.addEventListener('click', function(){
+                            setDetails(node.getAttribute('data-stage'));
+                        });
+                    });
+
+                    // Initialize default
+                    setDetails('digital');
+                });
+            </script>
 
             <!-- HR Pillars Section -->
             <section id="pillars" class="hr-pillars">
