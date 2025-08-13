@@ -90,6 +90,29 @@
                 <h2>The Journey to AI Native HR</h2>
                 <p>From Digital HR to AI Literacy to complete AI-driven transformation</p>
             </section>
+            
+            <!-- Employee Lifecycle Timeline -->
+            <section id="employee-lifecycle" class="lifecycle-section">
+                <div class="container">
+                    <h3>Employee Lifecycle Timeline</h3>
+                    <div class="lifecycle-timeline">
+                        <div class="lifecycle-axis-line"></div>
+                        <div class="lifecycle-label left">Entry</div>
+                        <div class="lifecycle-label right">Exit</div>
+
+                        <div class="lifecycle-bands">
+                            <div class="lifecycle-band recruitment" style="left:0%;width:18%"><span>Recruitment</span></div>
+                            <div class="lifecycle-band lnd" style="left:10%;width:80%"><span>Learning & Development</span></div>
+                            <div class="lifecycle-band operations" style="left:10%;width:85%"><span>HR Operations & Compliance</span></div>
+                            <div class="lifecycle-band workforce" style="left:10%;width:85%"><span>Workforce Planning & Analytics</span></div>
+                            <div class="lifecycle-band engagement" style="left:10%;width:85%"><span>Employee Experience & Engagement</span></div>
+
+                            <div class="lifecycle-marker" aria-label="Performance Appraisal"></div>
+                            <div class="lifecycle-marker-text">Performance Appraisal</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <!-- Project Rectangle Model -->
             <section id="model" class="rectangle-model">
@@ -209,6 +232,141 @@
                     // Initialize default
                     setDetails('digital');
                 });
+            </script>
+
+            <!-- Project Rectangle Graph - Interactive -->
+            <section id="rectangle-graph" class="rectangle-graph">
+                <div class="container">
+                    <h3>Project Rectangle Graph</h3>
+                    <div class="graph-legend">
+                        <div class="legend-item"><span class="legend-swatch" style="background:#e53e3e"></span><span class="legend-text">Talent Acquisition & Recruitment</span></div>
+                        <div class="legend-item"><span class="legend-swatch" style="background:#3b82f6"></span><span class="legend-text">Learning & Development</span></div>
+                        <div class="legend-item"><span class="legend-swatch" style="background:#805ad5"></span><span class="legend-text">Performance Management</span></div>
+                        <div class="legend-item"><span class="legend-swatch" style="background:#38a169"></span><span class="legend-text">Workforce Planning & Analytics</span></div>
+                        <div class="legend-item"><span class="legend-swatch" style="background:#dd6b20"></span><span class="legend-text">Employee Experience & Engagement</span></div>
+                        <div class="legend-item"><span class="legend-swatch" style="background:#319795"></span><span class="legend-text">HR Operations & Compliance</span></div>
+                    </div>
+                    <div class="graph-controls">
+                        <label for="maturitySlider">Maturity Progress</label>
+                        <input type="range" id="maturitySlider" min="0" max="100" value="0" />
+                        <span class="graph-progress-value" id="graphProgressValue">0%</span>
+                    </div>
+
+                    <div class="graph-axis">
+                        <div class="axis-line"></div>
+                        <div class="axis-label left">Digital HR</div>
+                        <div class="axis-label center">AI Literacy</div>
+                        <div class="axis-label right">AI Native HR</div>
+
+                        <div class="pillar-markers" id="pillarMarkers">
+                            <div class="merged-rect" id="mergedRect"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <script>
+                // Inline fallback to ensure markers render
+                (function(){
+                    function init(){
+                        var slider = document.getElementById('maturitySlider');
+                        var valueEl = document.getElementById('graphProgressValue');
+                        var host = document.getElementById('pillarMarkers');
+                        if(!slider || !valueEl || !host) return;
+                        if(host.getAttribute('data-initialized') === '1') return;
+                        host.setAttribute('data-initialized','1');
+
+                        var pillars = [
+                            'Talent Acquisition & Recruitment',
+                            'Learning & Development',
+                            'Performance Management',
+                            'Workforce Planning & Analytics',
+                            'Employee Experience & Engagement',
+                            'HR Operations & Compliance'
+                        ];
+
+                        pillars.forEach(function(name){
+                            var bar = document.createElement('div');
+                            bar.className = 'pillar-bar';
+                            bar.setAttribute('data-pillar', name);
+                            host.appendChild(bar);
+                        });
+
+                        function setPos(progress){
+                            valueEl.textContent = progress + '%';
+                            var bars = host.querySelectorAll('.pillar-bar');
+                            var count = bars.length;
+                            var hostRect = host.getBoundingClientRect();
+                            var containerWidth = hostRect.width;
+                            var rightRect = document.querySelector('#rectangle-graph .axis-label.right')?.getBoundingClientRect();
+                            var endBlockWidth = Math.min(180, Math.max(40, containerWidth - 16));
+                            var labelCenterX = rightRect ? (rightRect.left + rightRect.width/2 - hostRect.left) : containerWidth * 0.85;
+                            var endBlockLeft = Math.max(8, Math.min(containerWidth - endBlockWidth - 8, labelCenterX - endBlockWidth/2));
+
+                            bars.forEach(function(bar, i){
+                                var p = progress / 100; // 0..1
+
+                                var width0 = 12, width50 = 36, width100 = 2;
+                                var barWidth = (p <= 0.5)
+                                    ? (width0 * (1 - (p/0.5)) + width50 * (p/0.5))
+                                    : (width50 * (1 - ((p-0.5)/0.5)) + width100 * ((p-0.5)/0.5));
+
+                                var height0 = 88, height50 = 60, height100 = 20;
+                                var barHeight = (p <= 0.5)
+                                    ? (height0 * (1 - (p/0.5)) + height50 * (p/0.5))
+                                    : (height50 * (1 - ((p-0.5)/0.5)) + height100 * ((p-0.5)/0.5));
+
+                                // Non-overlapping centers in px
+                                var gap = barWidth + 12;
+                                var start0 = 20;
+                                var centerX0 = start0 + i * gap;
+
+                                var totalSpan50 = gap * (count - 1);
+                                var start50 = (containerWidth / 2) - (totalSpan50 / 2);
+                                var centerX50 = start50 + i * gap;
+
+                                var perBarWidth = endBlockWidth / count;
+                                var centerX100 = endBlockLeft + perBarWidth * (i + 0.5);
+
+                                var centerX = (p <= 0.5)
+                                    ? (centerX0 * (1 - (p/0.5)) + centerX50 * (p/0.5))
+                                    : (centerX50 * (1 - ((p-0.5)/0.5)) + centerX100 * ((p-0.5)/0.5));
+
+                                var opacity = 1 - Math.max(0, p - 0.9) / 0.1;
+
+                                bar.style.left = Math.round(centerX - barWidth/2) + 'px';
+                                bar.style.width = Math.round(barWidth) + 'px';
+                                bar.style.height = Math.round(barHeight) + 'px';
+                                bar.style.opacity = String(Math.max(0, Math.min(1, opacity)));
+                            });
+
+                            var merged = document.getElementById('mergedRect');
+                            var axis = document.querySelector('#rectangle-graph .graph-axis');
+                            var right = document.querySelector('#rectangle-graph .axis-label.right');
+                            if (merged && axis && right) {
+                                var p2 = progress / 100;
+                                var appear = Math.max(0, p2 - 0.75) / 0.25;
+                                var hostRect = host.getBoundingClientRect();
+                                var rightRect = right.getBoundingClientRect();
+                                var labelCenter = rightRect.left + rightRect.width/2;
+                                var width = Math.min(160, Math.max(40, hostRect.width - 16));
+                                var desiredLeft = labelCenter - hostRect.left - width/2;
+                                var minLeft = 8, maxLeft = hostRect.width - width - 8;
+                                desiredLeft = Math.max(minLeft, Math.min(maxLeft, desiredLeft));
+                                var height = 40;
+                                merged.style.left = Math.round(desiredLeft) + 'px';
+                                merged.style.width = Math.round(width) + 'px';
+                                merged.style.height = height + 'px';
+                                merged.style.opacity = String(Math.max(0, Math.min(1, appear)));
+                            }
+                        }
+
+                        slider.addEventListener('input', function(){ setPos(Number(slider.value)); });
+                        setPos(Number(slider.value));
+                    }
+                    if(document.readyState === 'loading'){
+                        document.addEventListener('DOMContentLoaded', init);
+                    } else { init(); }
+                })();
             </script>
 
             <!-- HR Pillars Section -->

@@ -1,3 +1,129 @@
+.graph-legend {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.75rem;
+    align-items: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #2d3748;
+}
+
+.legend-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.06);
+}
+
+.legend-text { white-space: nowrap; }
+/* Rectangle Graph */
+.rectangle-graph {
+    margin: 3rem 0 4rem;
+}
+
+.rectangle-graph h3 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.graph-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.graph-controls input[type="range"] {
+    width: 320px;
+}
+
+.graph-progress-value {
+    font-weight: 700;
+    color: #1a202c;
+}
+
+.graph-axis {
+    position: relative;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 2.5rem 1rem 3.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    overflow: visible;
+}
+
+.axis-line {
+    height: 4px;
+    background: linear-gradient(90deg, #e53e3e 0%, #f6ad55 50%, #38a169 100%);
+    border-radius: 4px;
+    position: relative;
+    z-index: 10; /* ensure axis line stays on top of bars */
+}
+
+.axis-label {
+    position: absolute;
+    bottom: 0.75rem;
+    font-size: 0.9rem;
+    color: #4a5568;
+}
+.axis-label.left { left: 1rem; }
+.axis-label.center { left: 50%; transform: translateX(-50%); }
+.axis-label.right { right: 1rem; }
+
+.pillar-markers {
+    position: relative;
+    margin-top: 10px; /* add gap so bars sit clearly below the axis line */
+    height: 110px;
+    z-index: 0; /* keep bars below the axis line */
+}
+
+.merged-rect {
+    position: absolute;
+    bottom: 18px; /* align with bars so axis line stays visible */
+    height: 40px;
+    border-radius: 8px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+    opacity: 0;
+    z-index: 1; /* below axis line */
+    transition: left 0.35s ease, width 0.35s ease, height 0.35s ease, opacity 0.35s ease;
+    background: linear-gradient(90deg,
+        #e53e3e 0%,
+        #3b82f6 20%,
+        #805ad5 40%,
+        #38a169 60%,
+        #dd6b20 80%,
+        #319795 100%
+    );
+}
+
+/* Pillar bars (vertical) */
+.pillar-bar {
+    position: absolute;
+    bottom: 18px; /* ensures bar top stays below axis line within 110px container */
+    height: 88px; /* long vertical bar */
+    background: #3182ce;
+    border-radius: 6px 6px 2px 2px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    transition: left 0.35s ease, width 0.35s ease, height 0.35s ease, background 0.2s ease;
+    z-index: 2; /* under axis line */
+}
+
+.pillar-bar[data-pillar="Talent Acquisition & Recruitment"] { background: #e53e3e; }
+.pillar-bar[data-pillar="Learning & Development"] { background: #3b82f6; }
+.pillar-bar[data-pillar="Performance Management"] { background: #805ad5; }
+.pillar-bar[data-pillar="Workforce Planning & Analytics"] { background: #38a169; }
+.pillar-bar[data-pillar="Employee Experience & Engagement"] { background: #dd6b20; }
+.pillar-bar[data-pillar="HR Operations & Compliance"] { background: #319795; }
+
+/* labels removed from bars (legend used instead) */
 /* Reset and Base Styles */
 * {
     margin: 0;
