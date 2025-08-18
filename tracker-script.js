@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeTracker();
     initializeCharts();
     initializeFilters();
+    try {
+        window.trackerChannel = new BroadcastChannel('tracker_updates');
+    } catch(_) { window.trackerChannel = null; }
 });
 
 async function initializeTracker() {
@@ -305,6 +308,8 @@ async function handleFormSubmission(data) {
             if (idx !== -1) data.entries[idx] = updated;
             window.trackerDataInMemory = data;
             showSuccessMessage('Entry updated successfully!');
+            try { localStorage.setItem('trackerSummary', JSON.stringify(await fetchSummary())); } catch(_) {}
+            if (window.trackerChannel) window.trackerChannel.postMessage({ type: 'summary-updated' });
             cancelEdit();
         } else {
             // API create
@@ -318,6 +323,8 @@ async function handleFormSubmission(data) {
             data.entries.unshift(created);
             window.trackerDataInMemory = data;
             showSuccessMessage('Progress entry added successfully!');
+            try { localStorage.setItem('trackerSummary', JSON.stringify(await fetchSummary())); } catch(_) {}
+            if (window.trackerChannel) window.trackerChannel.postMessage({ type: 'summary-updated' });
             form.reset();
         }
     } catch (err) {
@@ -615,6 +622,8 @@ async function deleteEntry(entryId) {
     updateMonthlyProgress(current);
     
     showSuccessMessage('Entry deleted successfully!');
+    try { localStorage.setItem('trackerSummary', JSON.stringify(await fetchSummary())); } catch(_) {}
+    if (window.trackerChannel) window.trackerChannel.postMessage({ type: 'summary-updated' });
 }
 
 function cancelEdit() {
@@ -642,8 +651,8 @@ function clearAllData() {
         return;
     }
     
-    // Clear localStorage
-    localStorage.removeItem('trackerData');
+    // Clear backend
+    fetch('/api/entries', { method: 'DELETE' }).catch(()=>{});
     
     // Reinitialize with empty data
     const emptyData = { entries: [] };
@@ -661,6 +670,18 @@ function clearAllData() {
     }
     
     showSuccessMessage('All data cleared successfully!');
+    try { localStorage.setItem('trackerSummary', JSON.stringify({ timeTotal: 0, moneyTotal: 0 })); } catch(_) {}
+    if (window.trackerChannel) window.trackerChannel.postMessage({ type: 'summary-updated' });
+}
+
+async function fetchSummary() {
+    try {
+        const r = await fetch('/api/summary');
+        if (!r.ok) return { timeTotal: 0, moneyTotal: 0 };
+        return await r.json();
+    } catch {
+        return { timeTotal: 0, moneyTotal: 0 };
+    }
 }
 
 function showErrorMessage(message) {

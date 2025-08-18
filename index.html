@@ -497,20 +497,43 @@
     <script>
         async function updateMetrics() {
             try {
-                const res = await fetch('/api/entries');
+                // Show cached numbers instantly if present
+                var hoursEl = document.getElementById('hoursSaved');
+                var moneyEl = document.getElementById('moneySaved');
+                try {
+                    const cached = localStorage.getItem('trackerSummary');
+                    if (cached) {
+                        const c = JSON.parse(cached);
+                        if (hoursEl) hoursEl.textContent = c.timeTotal || 0;
+                        if (moneyEl) moneyEl.textContent = '$' + Math.round(c.moneyTotal || 0);
+                    }
+                } catch(_) {}
+
+                // Fetch fast summary endpoint
+                const res = await fetch('/api/summary');
                 if (!res.ok) return;
-                const json = await res.json();
-                const entries = json.entries || [];
-                let timeTotal = 0;
-                let moneyTotal = 0;
-                for (var i = 0; i < entries.length; i++) {
-                    timeTotal += entries[i].timeSaved || 0;
-                    moneyTotal += entries[i].moneySaved || 0;
+                let json = await res.json();
+                let timeTotal = json.timeTotal || 0;
+                let moneyTotal = json.moneyTotal || 0;
+                // Fallback: if summary looks empty but entries exist, compute on client
+                if (timeTotal === 0 && moneyTotal === 0) {
+                    try {
+                        const eRes = await fetch('/api/entries');
+                        if (eRes.ok) {
+                            const eJson = await eRes.json();
+                            const entries = eJson.entries || [];
+                            if (entries.length > 0) {
+                                timeTotal = entries.reduce((s, r) => s + (r.timeSaved || 0), 0);
+                                moneyTotal = entries.reduce((s, r) => s + (r.moneySaved || 0), 0);
+                            }
+                        }
+                    } catch(_) {}
                 }
                 var hoursEl = document.getElementById('hoursSaved');
                 var moneyEl = document.getElementById('moneySaved');
                 if (hoursEl) hoursEl.textContent = timeTotal;
                 if (moneyEl) moneyEl.textContent = '$' + Math.round(moneyTotal);
+                try { localStorage.setItem('trackerSummary', JSON.stringify({ timeTotal, moneyTotal })); } catch(_) {}
             } catch (e) {
                 console.error('Error updating metrics from API:', e);
             }
@@ -519,9 +542,15 @@
         // Update metrics when page loads
         updateMetrics();
         
-        // Update when coming from tracker page or tab becomes visible
+        // Live updates: focus/visibility/broadcast/interval
         window.addEventListener('focus', updateMetrics);
         document.addEventListener('visibilitychange', function(){ if (!document.hidden) updateMetrics(); });
+        try {
+            var bc = new BroadcastChannel('tracker_updates');
+            bc.onmessage = function(evt){ if (evt.data && evt.data.type === 'summary-updated') updateMetrics(); };
+        } catch(_) {}
+        window.addEventListener('storage', function(e){ if (e.key === 'trackerSummary') updateMetrics(); });
+        setInterval(updateMetrics, 15000);
     </script>
 
     <!-- Main JavaScript File -->

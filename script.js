@@ -151,12 +151,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (key === 'literacy') {
             const panel = document.querySelector('.stage-details');
             if (panel) panel.classList.add('literacy-expanded');
-            stageDetailsText.innerHTML = '<div>AI Literacy — building capability and visible outcomes</div>' +
+            stageDetailsText.innerHTML = '<div><strong>AI Literacy: from skills to measurable impact</strong></div>' +
               '<ul>' +
-                '<li>Mindset of AI First & exploration</li>' +
-                '<li>Awareness of tools: basic usage in own work and demos of team improvements</li>' +
-                '<li>Visible change that will be quantified</li>' +
-                '<li>Deepdives into specific functions — rethink HR with structured AI exploration</li>' +
+                '<li><strong>Mindset:</strong> Adopt an AI-first, experiment-driven culture.</li>' +
+                '<li><strong>Skills & tools:</strong> Build baseline tool fluency; apply in day-to-day work and share team demos.</li>' +
+                '<li><strong>Impact:</strong> Drive visible changes with clear KPIs and quantifiable outcomes.</li>' +
+                '<li><strong>Deep dives:</strong> Run function-specific explorations—rethink HR through structured AI use cases.</li>' +
               '</ul>';
         } else {
             const panel = document.querySelector('.stage-details');

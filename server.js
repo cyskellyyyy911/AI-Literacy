@@ -79,6 +79,17 @@ app.get('/api/health', async (_req, res) => {
   }
 });
 
+// Fast totals summary for homepage
+app.get('/api/summary', async (_req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT COALESCE(SUM(timeSaved),0) AS timeTotal, COALESCE(SUM(moneySaved),0) AS moneyTotal FROM entries');
+    const { timeTotal, moneyTotal } = rows[0] || { timeTotal: 0, moneyTotal: 0 };
+    res.json({ timeTotal, moneyTotal });
+  } catch (e) {
+    res.status(500).json({ error: 'DB_SUMMARY_FAILED' });
+  }
+});
+
 // List entries
 app.get('/api/entries', async (req, res) => {
   const { pillar, since } = req.query;
