@@ -495,37 +495,33 @@
 
     <!-- Metrics Update Script -->
     <script>
-        function updateMetrics() {
+        async function updateMetrics() {
             try {
-                var data = localStorage.getItem('trackerData');
-                if (data) {
-                    var parsed = JSON.parse(data);
-                    if (parsed.entries) {
-                        var timeTotal = 0;
-                        var moneyTotal = 0;
-                        
-                        for (var i = 0; i < parsed.entries.length; i++) {
-                            timeTotal += parsed.entries[i].timeSaved || 0;
-                            moneyTotal += parsed.entries[i].moneySaved || 0;
-                        }
-                        
-                        var hoursEl = document.getElementById('hoursSaved');
-                        var moneyEl = document.getElementById('moneySaved');
-                        
-                        if (hoursEl) hoursEl.textContent = timeTotal;
-                        if (moneyEl) moneyEl.textContent = '$' + Math.round(moneyTotal);
-                    }
+                const res = await fetch('/api/entries');
+                if (!res.ok) return;
+                const json = await res.json();
+                const entries = json.entries || [];
+                let timeTotal = 0;
+                let moneyTotal = 0;
+                for (var i = 0; i < entries.length; i++) {
+                    timeTotal += entries[i].timeSaved || 0;
+                    moneyTotal += entries[i].moneySaved || 0;
                 }
+                var hoursEl = document.getElementById('hoursSaved');
+                var moneyEl = document.getElementById('moneySaved');
+                if (hoursEl) hoursEl.textContent = timeTotal;
+                if (moneyEl) moneyEl.textContent = '$' + Math.round(moneyTotal);
             } catch (e) {
-                console.error('Error updating metrics:', e);
+                console.error('Error updating metrics from API:', e);
             }
         }
         
         // Update metrics when page loads
-        setTimeout(updateMetrics, 1000);
+        updateMetrics();
         
-        // Update when coming from tracker page
+        // Update when coming from tracker page or tab becomes visible
         window.addEventListener('focus', updateMetrics);
+        document.addEventListener('visibilitychange', function(){ if (!document.hidden) updateMetrics(); });
     </script>
 
     <!-- Main JavaScript File -->

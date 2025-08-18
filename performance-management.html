@@ -3,74 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning & Development - Project H-AI-R</title>
+    <title>Performance Management - Project H-AI-R</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        .pillar-hero {
-            background: linear-gradient(135deg, #2563eb, #60a5fa);
-            color: white;
-            padding: 4rem 0;
-            text-align: center;
-        }
+        .pillar-hero { background: linear-gradient(135deg, #7c3aed, #a78bfa); color: white; padding: 4rem 0; text-align: center; }
         .pillar-hero h1 { font-size: 3rem; margin-bottom: 1rem; font-weight: 700; }
         .pillar-hero p { font-size: 1.3rem; opacity: 0.9; max-width: 700px; margin: 0 auto; }
 
         .pillar-content { padding: 4rem 0; }
+        .back-button { display: inline-block; padding: 0.75rem 1.5rem; background: #7c3aed; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; margin-bottom: 2rem; transition: all 0.3s ease; }
+        .back-button:hover { background: #6d28d9; transform: translateY(-2px); }
 
-        .back-button {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            transition: all 0.3s ease;
-        }
-        .back-button:hover { background: #1d4ed8; transform: translateY(-2px); }
-
-        /* Shared TA layout pieces reused as placeholders */
         .use-case-benefits.highlight { margin-bottom: 1.25rem; }
         .benefit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
         .benefit-card { display: flex; gap: 0.75rem; padding: 1rem; background: #fff; border: 1px solid #f1f5f9; border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
         .benefit-icon { font-size: 1.25rem; }
         .benefit-content h4 { margin: 0 0 0.25rem; }
 
-        /* Checkpoint timeline (placeholder) */
-        .ld-checkpoints { background: #ffffff; border: 1px solid #f1f5f9; border-radius: 12px; padding: 1rem 1.25rem 1.25rem; box-shadow: 0 1px 2px rgba(0,0,0,0.04); margin: 1rem 0 2rem; }
-        .ld-checkpoints h3 { margin: 0 0 0.75rem; font-size: 1.25rem; color: #1f2937; position: relative; }
-        .ld-checkpoints h3::after { content: ''; display: block; width: 60px; height: 3px; background: linear-gradient(90deg, #2563eb, #60a5fa); border-radius: 2px; margin-top: 0.5rem; }
+        .pm-checkpoints { background: #ffffff; border: 1px solid #f1f5f9; border-radius: 12px; padding: 1rem 1.25rem 1.25rem; box-shadow: 0 1px 2px rgba(0,0,0,0.04); margin: 1rem 0 2rem; }
+        .pm-checkpoints h3 { margin: 0 0 0.75rem; font-size: 1.25rem; color: #1f2937; position: relative; }
+        .pm-checkpoints h3::after { content: ''; display: block; width: 60px; height: 3px; background: linear-gradient(90deg, #7c3aed, #a78bfa); border-radius: 2px; margin-top: 0.5rem; }
         .checkpoint-wrap { position: relative; }
         .checkpoint-rail { position: absolute; top: 26px; left: 8px; right: 8px; height: 4px; background: #e2e8f0; border-radius: 999px; }
         .checkpoint-timeline { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; padding-top: 0.75rem; }
         .checkpoint { text-align: center; padding-top: 0.35rem; display: flex; flex-direction: column; align-items: center; }
-        .checkpoint .dot { width: 16px; height: 16px; border-radius: 50%; display: inline-block; position: relative; z-index: 1; border: 2px solid #ffffff; box-shadow: 0 0 0 6px rgba(37,99,235,0.12); background: #9ca3af; }
+        .checkpoint .dot { width: 16px; height: 16px; border-radius: 50%; display: inline-block; position: relative; z-index: 1; border: 2px solid #ffffff; box-shadow: 0 0 0 6px rgba(124,58,237,0.12); background: #9ca3af; }
         .status-badge { display: inline-block; padding: 0.2rem 0.55rem; border-radius: 999px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.04em; border: 1px solid #e5e7eb; background: #f8fafc; color: #374151; }
         .checkpoint .label { margin-top: 0.5rem; font-weight: 800; color: #1f2937; font-size: 0.95rem; min-height: 3.2rem; display: flex; align-items: center; justify-content: center; text-align: center; }
 
-        /* Placeholder exploration cards */
         .project-card { background: #ffffff; border: 1px solid #f1f5f9; border-radius: 12px; padding: 1rem 1.25rem; box-shadow: 0 1px 2px rgba(0,0,0,0.04); margin: 0.75rem 0 1rem; }
         .project-header { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.25rem; }
         .project-badge { display: inline-block; padding: 0.2rem 0.55rem; border-radius: 999px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.04em; background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <div class="nav-brand">
-                <span class="nav-logo">🎯</span>
-                <span class="nav-title">Project H-AI-R</span>
-            </div>
+            <div class="nav-brand"><span class="nav-logo">🎯</span><span class="nav-title">Project H-AI-R</span></div>
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn" id="pillarsDropdownBtn">
-                        HR Pillars
-                        <span class="dropdown-arrow">▼</span>
-                    </button>
+                    <button class="nav-dropdown-btn" id="pillarsDropdownBtn">HR Pillars <span class="dropdown-arrow">▼</span></button>
                     <div class="nav-dropdown-content" id="pillarsDropdownContent">
                         <a href="talent-acquisition.html" class="dropdown-item">Talent Acquisition & Recruitment</a>
                         <a href="learning-development.html" class="dropdown-item">Learning & Development</a>
@@ -85,46 +59,41 @@
         </div>
     </nav>
 
-    <!-- Pillar Hero Section -->
     <section class="pillar-hero">
         <div class="container">
-            <h1>📚 Learning & Development</h1>
-            <p>Placeholder — details to be confirmed (personalized learning, analytics, tutors)</p>
+            <h1>📊 Performance Management</h1>
+            <p>Placeholder — content to be confirmed (continuous tracking, goals, insights)</p>
         </div>
     </section>
 
-    <!-- Main Content -->
     <main class="pillar-content">
         <div class="container">
             <a href="index.html" class="back-button">← Back to Home</a>
 
-            <!-- Promote Key Benefits higher up (placeholders) -->
             <div class="use-case-benefits highlight">
                 <h2>Key Benefits & Impact</h2>
                 <div class="benefit-grid">
-                    <div class="benefit-card"><div class="benefit-icon">🧠</div><div class="benefit-content"><h4>Placeholder Benefit A</h4><p>To be confirmed.</p></div></div>
-                    <div class="benefit-card"><div class="benefit-icon">📈</div><div class="benefit-content"><h4>Placeholder Benefit B</h4><p>To be confirmed.</p></div></div>
-                    <div class="benefit-card"><div class="benefit-icon">🤖</div><div class="benefit-content"><h4>Placeholder Benefit C</h4><p>To be confirmed.</p></div></div>
+                    <div class="benefit-card"><div class="benefit-icon">🧭</div><div class="benefit-content"><h4>Placeholder Benefit A</h4><p>To be confirmed.</p></div></div>
+                    <div class="benefit-card"><div class="benefit-icon">🎯</div><div class="benefit-content"><h4>Placeholder Benefit B</h4><p>To be confirmed.</p></div></div>
+                    <div class="benefit-card"><div class="benefit-icon">📈</div><div class="benefit-content"><h4>Placeholder Benefit C</h4><p>To be confirmed.</p></div></div>
                     <div class="benefit-card"><div class="benefit-icon">⏱️</div><div class="benefit-content"><h4>Placeholder Benefit D</h4><p>To be confirmed.</p></div></div>
                 </div>
             </div>
 
-            <!-- L&D Checkpoint Timeline (placeholders) -->
-            <section class="ld-checkpoints">
+            <section class="pm-checkpoints">
                 <h3>Checkpoint Timeline</h3>
                 <div class="checkpoint-wrap">
                     <div class="checkpoint-rail"></div>
                     <div class="checkpoint-timeline">
-                        <div class="checkpoint"><span class="dot"></span><div class="label">Personalized Paths</div><div class="status"><span class="status-badge">Not Started</span></div></div>
-                        <div class="checkpoint"><span class="dot"></span><div class="label">Learning Analytics</div><div class="status"><span class="status-badge">Not Started</span></div></div>
-                        <div class="checkpoint"><span class="dot"></span><div class="label">AI Tutors/Assistants</div><div class="status"><span class="status-badge">Not Started</span></div></div>
-                        <div class="checkpoint"><span class="dot"></span><div class="label">Knowledge Management</div><div class="status"><span class="status-badge">Not Started</span></div></div>
-                        <div class="checkpoint"><span class="dot"></span><div class="label">Skills Gap Mapping</div><div class="status"><span class="status-badge">Not Started</span></div></div>
+                        <div class="checkpoint"><span class="dot"></span><div class="label">Continuous Tracking</div><div class="status"><span class="status-badge">Not Started</span></div></div>
+                        <div class="checkpoint"><span class="dot"></span><div class="label">AI-Assisted Goals</div><div class="status"><span class="status-badge">Not Started</span></div></div>
+                        <div class="checkpoint"><span class="dot"></span><div class="label">Predictive Insights</div><div class="status"><span class="status-badge">Not Started</span></div></div>
+                        <div class="checkpoint"><span class="dot"></span><div class="label">Feedback Loops</div><div class="status"><span class="status-badge">Not Started</span></div></div>
+                        <div class="checkpoint"><span class="dot"></span><div class="label">Calibration</div><div class="status"><span class="status-badge">Not Started</span></div></div>
                     </div>
                 </div>
             </section>
 
-            <!-- Placeholder exploration split -->
             <section class="explorations">
                 <span class="kicker">AI Explorations</span>
                 <h2>Tracks — Placeholder</h2>
@@ -150,3 +119,5 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
