@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Talent Acquisition & Recruitment - Project Rectangle</title>
+    <title>Talent Acquisition & Recruitment - Project H-AI-R</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -51,6 +51,215 @@
             background: #c53030;
             transform: translateY(-2px);
         }
+
+        /* BERRY & CHERRY section */
+        .explorations {
+            margin: 2.5rem 0 3rem;
+        }
+        .explorations h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #1a202c;
+        }
+        .explorations .kicker {
+            display: inline-block;
+            font-weight: 800;
+            color: #c53030;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .explorations .sub {
+            color: #4a5568;
+            margin-bottom: 1rem;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0 1.25rem;
+        }
+        .info-card {
+            background: #fff;
+            border: 1px solid #f1f5f9;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+        .info-card h4 { margin: 0 0 0.5rem; color: #2d3748; }
+        .split-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        .good { border-left: 4px solid #16a34a; }
+        .limit { border-left: 4px solid #f59e0b; }
+        .bullet { margin-left: 1rem; line-height: 1.7; }
+        .badge {
+            display: inline-block;
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
+            color: #7f1d1d;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-right: 0.35rem;
+        }
+        .section-title { margin-top: 1.25rem; margin-bottom: 0.5rem; }
+
+        /* Enhancement: BERRY → CHERRY flow */
+        .flow {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 0.75rem;
+            align-items: center;
+            margin: 1.25rem 0 1.5rem;
+        }
+        .flow .node {
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
+            border-radius: 12px;
+            padding: 0.9rem 1rem;
+            text-align: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            font-weight: 800;
+            color: #1f2937;
+        }
+        .flow .node.berry { border-left: 4px solid #e53e3e; }
+        .flow .node.cherry { border-left: 4px solid #ef4444; }
+        .flow .arrow {
+            color: #c53030;
+            font-weight: 900;
+            padding: 0 0.5rem;
+            letter-spacing: 0.2em;
+        }
+
+        /* Icon bullets */
+        .icon-list { list-style: none; padding-left: 0; }
+        .icon-list li { position: relative; padding-left: 1.75rem; margin: 0.4rem 0; }
+        .icon-list li:before {
+            content: "✔";
+            position: absolute; left: 0; top: 0; color: #16a34a; font-weight: 900;
+        }
+
+        .icon-list.warn li:before { content: "!"; color: #f59e0b; }
+
+        .section-divider {
+            height: 1px; border: 0; background: linear-gradient(90deg, transparent, #fde8e8, transparent);
+            margin: 1.25rem 0;
+        }
+
+        /* Project split cards */
+        .project-card {
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            margin: 0.75rem 0 1rem;
+        }
+        .project-card.berry { border-left: 4px solid #e53e3e; }
+        .project-card.cherry { border-left: 4px solid #ef4444; }
+        .project-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+        .project-header h3 { margin: 0; font-size: 1.25rem; color: #1f2937; }
+        .project-badge {
+            display: inline-block;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+        }
+        .project-badge.internal { background: #fff5f5; border: 1px solid #fed7d7; color: #7f1d1d; }
+        .project-badge.external { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e3a8a; }
+        .badge-group { display: inline-flex; gap: 0.35rem; align-items: center; }
+        .status-badge {
+            display: inline-block;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            border: 1px solid transparent;
+        }
+        .status-badge.done { background: #ecfdf5; border-color: #a7f3d0; color: #065f46; }
+        .status-badge.progress { background: #fffbeb; border-color: #fde68a; color: #92400e; }
+        .status-badge.todo { background: #f8fafc; border-color: #e5e7eb; color: #374151; }
+
+        /* Checkpoint timeline */
+        .ta-checkpoints {
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
+            border-radius: 12px;
+            padding: 1rem 1.25rem 1.25rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            margin: 1rem 0 2rem;
+        }
+        .ta-checkpoints h3 {
+            margin: 0 0 0.75rem;
+            font-size: 1.25rem;
+            color: #1f2937;
+            position: relative;
+        }
+        .ta-checkpoints h3::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #e53e3e, #fc8181);
+            border-radius: 2px;
+            margin-top: 0.5rem;
+        }
+        .checkpoint-wrap { position: relative; }
+        .checkpoint-rail {
+            position: absolute;
+            top: 26px;
+            left: 8px; right: 8px;
+            height: 4px;
+            background: #fee2e2;
+            border-radius: 999px;
+        }
+        .checkpoint-timeline {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.75rem;
+            padding-top: 0.75rem;
+        }
+        @media (max-width: 800px) {
+            .checkpoint-rail { display: none; }
+            .checkpoint-timeline { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+        }
+        .checkpoint { text-align: center; padding-top: 0.35rem; display: flex; flex-direction: column; align-items: center; }
+        .checkpoint .dot {
+            width: 16px; height: 16px; border-radius: 50%; display: inline-block;
+            position: relative; z-index: 1; border: 2px solid #ffffff;
+            box-shadow: 0 0 0 6px rgba(229,62,62,0.12);
+        }
+        .checkpoint.done .dot { background: #10b981; box-shadow: 0 0 0 6px rgba(16,185,129,0.15); }
+        .checkpoint.progress .dot { background: #f59e0b; box-shadow: 0 0 0 6px rgba(245,158,11,0.18); }
+        .checkpoint.todo .dot { background: #9ca3af; box-shadow: 0 0 0 6px rgba(156,163,175,0.15); }
+        .checkpoint .label {
+            margin-top: 0.5rem;
+            font-weight: 800;
+            color: #1f2937;
+            font-size: 0.95rem;
+            min-height: 3.2rem; /* align statuses to same height across items */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .checkpoint .status { margin-top: 0.35rem; min-height: 28px; display: flex; align-items: center; }
     </style>
 </head>
 <body>
@@ -59,7 +268,7 @@
         <div class="container">
             <div class="nav-brand">
                 <span class="nav-logo">🎯</span>
-                <span class="nav-title">Project Rectangle</span>
+                <span class="nav-title">Project H-AI-R</span>
             </div>
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
@@ -94,44 +303,206 @@
     <main class="pillar-content">
         <div class="container">
             <a href="index.html" class="back-button">← Back to Home</a>
-            
-            <div class="use-cases-section">
-                <h2>Use Cases & Implementation</h2>
-                <div class="use-cases-grid">
-                    <div class="use-case-card">
-                        <h4>Resume Screening Automation</h4>
-                        <p>AI algorithms automatically screen and rank candidates based on job requirements, reducing manual review time by up to 90%.</p>
-                        <p><strong>Local Implementation:</strong> Local tech companies using AI to filter 1000+ applications down to top 50 candidates in minutes</p>
+
+            <!-- Promote Key Benefits higher up -->
+            <div class="use-case-benefits highlight">
+                <h2>Key Benefits & Impact</h2>
+                <div class="benefit-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">⏱️</div>
+                        <div class="benefit-content">
+                            <h4>Faster Hiring Cycles</h4>
+                            <p>AI quickly screens resumes, parses profiles, and ranks candidates, cutting down time‑to‑fill.</p>
+                        </div>
                     </div>
-                    <div class="use-case-card">
-                        <h4>Predictive Candidate Matching</h4>
-                        <p>Machine learning models predict candidate success and cultural fit based on historical hiring data and performance outcomes.</p>
-                        <p><strong>Local Implementation:</strong> Singapore startups improving hiring accuracy by 40% with cultural fit algorithms</p>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🎯</div>
+                        <div class="benefit-content">
+                            <h4>Improved Candidate Quality</h4>
+                            <p>Algorithms assess skills, experience, and cultural fit, leading to better long‑term hires.</p>
+                        </div>
                     </div>
-                    <div class="use-case-card">
-                        <h4>Chatbot-Driven Initial Screening</h4>
-                        <p>AI chatbots conduct preliminary interviews and assessments, providing 24/7 candidate engagement and basic qualification screening.</p>
-                        <p><strong>Local Implementation:</strong> MNCs in Singapore using chatbots for 24/7 candidate engagement and screening</p>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">📏</div>
+                        <div class="benefit-content">
+                            <h4>Standardise Interviewer Standards</h4>
+                            <p>Consistent, rubric‑based evaluations across interviewers and roles; AI‑assisted scoring reduces variance.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">💰</div>
+                        <div class="benefit-content">
+                            <h4>Cost Savings</h4>
+                            <p>Less manual sourcing, screening, and scheduling frees up recruiter bandwidth.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">📊</div>
+                        <div class="benefit-content">
+                            <h4>Data‑Driven Decisions</h4>
+                            <p>Hiring choices can be based on structured data, predictive analytics, and performance correlations.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="use-case-benefits">
-                <h4>Key Benefits & Impact</h4>
-                <ul class="benefits-list">
-                    <li>Reduce time-to-hire by 60-70%</li>
-                    <li>Improve candidate quality and fit</li>
-                    <li>Eliminate unconscious bias in initial screening</li>
-                    <li>Scale recruitment without proportional resource increase</li>
-                    <li>Enhanced candidate experience with instant responses</li>
-                </ul>
-            </div>
+            <!-- TA Checkpoint Timeline -->
+            <section class="ta-checkpoints">
+                <h3>Checkpoint Timeline</h3>
+                <div class="checkpoint-wrap">
+                    <div class="checkpoint-rail"></div>
+                    <div class="checkpoint-timeline">
+                        <div class="checkpoint done">
+                            <span class="dot"></span>
+                            <div class="label">Resume Screening & Shortlisting</div>
+                            <div class="status"><span class="status-badge done">Explored</span></div>
+                        </div>
+                        <div class="checkpoint todo">
+                            <span class="dot"></span>
+                            <div class="label">Pre‑Assessment & Skill Testing</div>
+                            <div class="status"><span class="status-badge todo">Not Started</span></div>
+                        </div>
+                        <div class="checkpoint progress">
+                            <span class="dot"></span>
+                            <div class="label">AI Interviewer to Calibrate Standards</div>
+                            <div class="status"><span class="status-badge progress">In Progress</span></div>
+                        </div>
+                        <div class="checkpoint todo">
+                            <span class="dot"></span>
+                            <div class="label">AI Candidate Outreach & Engagement</div>
+                            <div class="status"><span class="status-badge todo">Not Started</span></div>
+                        </div>
+                        <div class="checkpoint todo">
+                            <span class="dot"></span>
+                            <div class="label">AI Insights for Hiring Team</div>
+                            <div class="status"><span class="status-badge todo">Not Started</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Explorations: BERRY & CHERRY -->
+            <section class="explorations">
+                <span class="kicker">AI Explorations</span>
+                <h2>BERRY & CHERRY — Two Complementary Tracks</h2>
+                <p class="sub">BERRY is an in‑house project focused on resume evaluation and candidate assessment. CHERRY is an external pilot of a video‑AI interviewer tool. Below we re‑categorize information for clarity.</p>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Why Recruitment?</h4>
+                        <ul class="bullet">
+                            <li>High‑volume, repetitive processes</li>
+                            <li>Clear success metrics to measure impact</li>
+                            <li>Rich data for AI training</li>
+                            <li>Lean, growing SG recruitment team</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h4>Objectives</h4>
+                        <ul class="bullet">
+                            <li>Improve recruitment efficiency</li>
+                            <li>Ensure consistency in hiring standards</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- BERRY: Internal project -->
+                <div class="project-card berry">
+                    <div class="project-header">
+                        <h3>Project BERRY</h3>
+                        <span class="badge-group">
+                            <span class="project-badge internal">Internal</span>
+                            <span class="status-badge done">Completed</span>
+                        </span>
+                    </div>
+                    <p class="sub">Developed internally for <strong>resume evaluation</strong> and <strong>candidate assessment</strong>. Built fast for early wins and integration.</p>
+                    <div class="split-grid">
+                        <div class="info-card">
+                            <h4>Scope</h4>
+                            <ul class="icon-list">
+                                <li>Automated resume parsing and shortlisting</li>
+                                <li>Structured candidate assessment experiments</li>
+                                <li>ATS integration for workflow continuity</li>
+                            </ul>
+                        </div>
+                        <div class="info-card good">
+                            <h4>What Worked</h4>
+                            <ul class="icon-list">
+                                <li>70–80% of AI‑shortlisted passed recruiter review</li>
+                                <li>~50% faster screening for high‑volume roles</li>
+                                <li>Zero false negatives observed in trials</li>
+                            </ul>
+                        </div>
+                        <div class="info-card limit">
+                            <h4>What Didn’t</h4>
+                            <ul class="icon-list warn">
+                                <li>Assessment scores lacked differentiation</li>
+                                <li>Prompting precision needed improvement</li>
+                                <li>In‑house diarization was unreliable</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h4 class="section-title">Key Takeaways</h4>
+                    <ul class="icon-list">
+                        <li>Build internally to move fast; integrate external strengths where needed</li>
+                        <li>Hybrid approach works (e.g., third‑party diarization)</li>
+                        <li>Prompt engineering is critical</li>
+                    </ul>
+                </div>
+
+                <!-- CHERRY: External pilot -->
+                <div class="project-card cherry">
+                    <div class="project-header">
+                        <h3>Project CHERRY</h3>
+                        <span class="badge-group">
+                            <span class="project-badge external">External Pilot</span>
+                            <span class="status-badge progress">In Progress</span>
+                        </span>
+                    </div>
+                    <p class="sub">Pilot of an <strong>AI interviewer tool</strong> (e.g., MyInterview) for video‑based competency assessments.</p>
+                    <div class="split-grid">
+                        <div class="info-card">
+                            <h4>Why Pivot</h4>
+                            <ul class="icon-list">
+                                <li>Let AI handle early filtering; recruiters focus on sourcing & pipeline</li>
+                                <li>Faster access to advanced features (diarization, soft‑skill scoring)</li>
+                            </ul>
+                        </div>
+                        <div class="info-card good">
+                            <h4>Strengths</h4>
+                            <ul class="icon-list">
+                                <li>Rankings broadly aligned with recruiter evaluations</li>
+                                <li>Effective for hard‑skill heavy roles</li>
+                                <li>Multi‑language support</li>
+                            </ul>
+                        </div>
+                        <div class="info-card limit">
+                            <h4>Limitations</h4>
+                            <ul class="icon-list warn">
+                                <li>Weaker on soft‑skill / culture‑fit signals</li>
+                                <li>Limited ability to read expressions / tone reliably</li>
+                                <li>No single reliable cut‑off score</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h4 class="section-title">Conclusion & Next</h4>
+                    <ul class="icon-list">
+                        <li>Use AI as an early filter, not a final decision maker</li>
+                        <li>Match tool to role type; one size does not fit all</li>
+                        <li>Continue external pilots and hybrid integrations</li>
+                    </ul>
+                </div>
+            </section>
+
+            
+
+            
         </div>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Project Rectangle - AI Transformation Initiative</p>
+            <p>&copy; 2024 Project H-AI-R — Putting the AI in HR</p>
         </div>
     </footer>
 

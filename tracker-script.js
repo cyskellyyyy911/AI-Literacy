@@ -6,11 +6,21 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeFilters();
 });
 
-function initializeTracker() {
-    // Initialize data storage - preserve existing data
-    let trackerData = JSON.parse(localStorage.getItem('trackerData')) || {
-        entries: []
-    };
+async function initializeTracker() {
+    // Require API. If unreachable, show a clear error and stop.
+    let trackerData = { entries: [] };
+    try {
+        const res = await fetch('/api/entries');
+        if (!res.ok) throw new Error('API_UNAVAILABLE');
+        const json = await res.json();
+        trackerData.entries = json.entries || [];
+    } catch (e) {
+        showErrorMessage('Backend API not reachable. Please start the server (npm start) and reload.');
+        return;
+    }
+
+    // Save globally for filters/edit
+    window.trackerDataInMemory = trackerData;
 
     // Update dashboard
     updateDashboard(trackerData);
@@ -26,9 +36,9 @@ function initializeTracker() {
     // Handle form submission
     const form = document.getElementById('trackerForm');
     if (form) {
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
-            handleFormSubmission(trackerData);
+            await handleFormSubmission(trackerData);
         });
     }
 
@@ -193,8 +203,8 @@ function applyFilters() {
     const pillarFilter = document.getElementById('pillarFilter').value;
     const dateFilter = document.getElementById('dateFilter').value;
     
-    const trackerData = JSON.parse(localStorage.getItem('trackerData')) || { entries: [] };
-    let filteredEntries = [...trackerData.entries];
+    // Filters operate on current in-memory data loaded from API at init
+    const filteredEntries = [...(window.trackerDataInMemory?.entries || [])];
 
     // Apply pillar filter
     if (pillarFilter) {
@@ -265,7 +275,7 @@ function updateHistoryDisplay(entries) {
     });
 }
 
-function handleFormSubmission(data) {
+async function handleFormSubmission(data) {
     const form = document.getElementById('trackerForm');
     const formData = new FormData(form);
     
@@ -281,31 +291,39 @@ function handleFormSubmission(data) {
         date: formData.get('date')
     };
 
-    if (window.editingEntryId) {
-        // Update existing entry
-        const entryIndex = data.entries.findIndex(entry => entry.id === window.editingEntryId);
-        if (entryIndex !== -1) {
-            data.entries[entryIndex] = { ...data.entries[entryIndex], ...entryData };
+    try {
+        if (window.editingEntryId) {
+            // API update
+            const res = await fetch(`/api/entries/${window.editingEntryId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(entryData)
+            });
+            if (!res.ok) throw new Error('UPDATE_FAILED');
+            const updated = await res.json();
+            const idx = data.entries.findIndex(e => e.id === window.editingEntryId);
+            if (idx !== -1) data.entries[idx] = updated;
+            window.trackerDataInMemory = data;
             showSuccessMessage('Entry updated successfully!');
+            cancelEdit();
+        } else {
+            // API create
+            const res = await fetch('/api/entries', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(entryData)
+            });
+            if (!res.ok) throw new Error('CREATE_FAILED');
+            const created = await res.json();
+            data.entries.unshift(created);
+            window.trackerDataInMemory = data;
+            showSuccessMessage('Progress entry added successfully!');
+            form.reset();
         }
-        
-        // Reset edit mode
-        cancelEdit();
-    } else {
-        // Add new entry
-        const newEntry = {
-            id: Date.now(),
-            ...entryData
-        };
-        data.entries.push(newEntry);
-        showSuccessMessage('Progress entry added successfully!');
-        
-        // Reset form
-        form.reset();
+    } catch (err) {
+        showErrorMessage('Could not save. Backend API not reachable.');
+        return;
     }
-    
-    // Save to localStorage
-    localStorage.setItem('trackerData', JSON.stringify(data));
     
     // Update displays
     updateDashboard(data);
@@ -536,8 +554,7 @@ function showSuccessMessage(message) {
 
 // Edit and Delete Functions
 function editEntry(entryId) {
-    const trackerData = JSON.parse(localStorage.getItem('trackerData')) || { entries: [] };
-    const entry = trackerData.entries.find(e => e.id === entryId);
+    const entry = (window.trackerDataInMemory?.entries || []).find(e => e.id === entryId);
     
     if (!entry) {
         showErrorMessage('Entry not found!');
@@ -575,23 +592,27 @@ function editEntry(entryId) {
     showSuccessMessage('Entry loaded for editing. Make changes and click "Update Entry".');
 }
 
-function deleteEntry(entryId) {
+async function deleteEntry(entryId) {
     if (!confirm('Are you sure you want to delete this entry? This action cannot be undone.')) {
         return;
     }
     
-    const trackerData = JSON.parse(localStorage.getItem('trackerData')) || { entries: [] };
-    trackerData.entries = trackerData.entries.filter(entry => entry.id !== entryId);
-    
-    // Save updated data
-    localStorage.setItem('trackerData', JSON.stringify(trackerData));
+    try {
+        const res = await fetch(`/api/entries/${entryId}`, { method: 'DELETE' });
+        if (!res.ok) throw new Error('DELETE_FAILED');
+        window.trackerDataInMemory.entries = window.trackerDataInMemory.entries.filter(entry => entry.id !== entryId);
+    } catch (err) {
+        showErrorMessage('Could not delete. Backend API not reachable.');
+        return;
+    }
     
     // Update all displays
-    updateDashboard(trackerData);
-    updateHistoryDisplay(trackerData.entries);
-    updatePillarChart(trackerData);
-    updateMoneyChart(trackerData);
-    updateMonthlyProgress(trackerData);
+    const current = window.trackerDataInMemory;
+    updateDashboard(current);
+    updateHistoryDisplay(current.entries);
+    updatePillarChart(current);
+    updateMoneyChart(current);
+    updateMonthlyProgress(current);
     
     showSuccessMessage('Entry deleted successfully!');
 }

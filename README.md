@@ -1,6 +1,6 @@
-# Project Rectangle - AI Transformation in HR
+# Project H-AI-R — Putting the AI in HR
 
-A modern, interactive website showcasing the "Project Rectangle" model for AI transformation in Human Resources.
+A modern, interactive website showcasing the "Project H-AI-R" model for AI transformation in Human Resources.
 
 ## Overview test
 
@@ -8,7 +8,7 @@ This website visualizes the journey from Digital HR to AI Native HR, highlightin
 
 ## Features   
 
-### 🎯 Project Rectangle Model
+### 🎯 Project H-AI-R Model
 - **Current Stage**: Digital HR (where we are now)
 - **Next Goal**: AI Literacy (building AI understanding)
 - **Ultimate Vision**: AI Native HR (fully AI-driven processes)
@@ -28,7 +28,7 @@ This website visualizes the journey from Digital HR to AI Native HR, highlightin
 - Responsive design for all devices
 - Subtle particle background animation
 
-## File Structure
+## File Structure (selected)
 
 ```
 AI Literacy/
@@ -75,6 +75,39 @@ Works in all modern browsers including:
 - User authentication for personalized views
 - Advanced analytics dashboard
 - Mobile app version
+
+## Backend API (Node.js + MySQL)
+
+The AI Impact Tracker uses a Node.js API backed by MySQL.
+
+Setup:
+
+1. Install Node.js 18+.
+2. Create `config.js` in the project root with your DSN:
+
+```
+module.exports = {
+  MYSQL_DSN: process.env.MYSQL_DSN || 'mysql://user:pass@host:3306/dbname'
+};
+```
+
+3. In the project root, run:
+
+```
+npm install
+npm start
+```
+
+This starts the API at `http://localhost:3000`.
+
+Frontend integration:
+
+- The tracker loads from `/api/entries` (no localStorage fallback).
+- Serve the frontend from the same origin, or configure a proxy for `/api/*` to `http://localhost:3000`.
+
+Deploying the API:
+
+- Host on any Node platform; set `MYSQL_DSN` as an environment variable.
 
 ---
 

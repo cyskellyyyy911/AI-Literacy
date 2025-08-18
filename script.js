@@ -1,4 +1,4 @@
-// Project Rectangle Interactive Features
+// Project H-AI-R Interactive Features
 
 console.log('SCRIPT LOADED: script.js is being executed');
 
@@ -122,142 +122,6 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(displayActualMetrics, 500);
     });
 
-    // Rectangle Graph logic
-    (function initRectangleGraph(){
-        const slider = document.getElementById('maturitySlider');
-        const valueEl = document.getElementById('graphProgressValue');
-        const markersHost = document.getElementById('pillarMarkers');
-        const axisHost = document.querySelector('#rectangle-graph .graph-axis');
-        const rightLabel = document.querySelector('#rectangle-graph .axis-label.right');
-        const mergedRect = document.getElementById('mergedRect');
-        if (!slider || !valueEl || !markersHost) return;
-
-        const PILLARS = [
-            'Talent Acquisition & Recruitment',
-            'Learning & Development',
-            'Performance Management',
-            'Workforce Planning & Analytics',
-            'Employee Experience & Engagement',
-            'HR Operations & Compliance'
-        ];
-
-        // Create bars once
-        PILLARS.forEach((name) => {
-            const bar = document.createElement('div');
-            bar.className = 'pillar-bar';
-            bar.dataset.pillar = name;
-            markersHost.appendChild(bar);
-        });
-
-        function getRightAnchorPercent(){
-            if (!axisHost || !rightLabel) return 85; // fallback percent near right
-            const axisRect = axisHost.getBoundingClientRect();
-            const labelRect = rightLabel.getBoundingClientRect();
-            const labelCenterX = labelRect.left + labelRect.width / 2;
-            const percent = ((labelCenterX - axisRect.left) / axisRect.width) * 100;
-            return Math.max(0, Math.min(100, percent));
-        }
-
-        function setPositions(progress){
-            valueEl.textContent = progress + '%';
-            const bars = markersHost.querySelectorAll('.pillar-bar');
-            const count = bars.length;
-            const hostRectForBars = markersHost.getBoundingClientRect();
-            const containerWidth = hostRectForBars.width;
-            // Precompute end-block geometry for smooth transition to 100%
-            const rightRectForBars = rightLabel ? rightLabel.getBoundingClientRect() : null;
-            const endBlockWidth = Math.min(180, Math.max(40, containerWidth - 16));
-            const labelCenterX = rightRectForBars ? (rightRectForBars.left + rightRectForBars.width / 2 - hostRectForBars.left) : containerWidth * 0.85;
-            let endBlockLeft = labelCenterX - endBlockWidth / 2;
-            endBlockLeft = Math.max(8, Math.min(containerWidth - endBlockWidth - 8, endBlockLeft));
-
-            bars.forEach((bar, i) => {
-                const p = progress / 100; // 0..1
-
-                // Width transitions: thin -> thicker at 50% -> very thin at 100%
-                const width0 = 12, width50 = 36, width100 = 2;
-                let barWidth;
-                if (p <= 0.5) {
-                    const t = p / 0.5;
-                    barWidth = width0 * (1 - t) + width50 * t;
-                } else {
-                    const t = (p - 0.5) / 0.5;
-                    barWidth = width50 * (1 - t) + width100 * t;
-                }
-
-                // Height transitions
-                const height0 = 88, height50 = 60, height100 = 20;
-                let barHeight;
-                if (p <= 0.5) {
-                    const t = p / 0.5;
-                    barHeight = height0 * (1 - t) + height50 * t;
-                } else {
-                    const t = (p - 0.5) / 0.5;
-                    barHeight = height50 * (1 - t) + height100 * t;
-                }
-
-                // Compute non-overlapping centers in pixels for 0% and 50%
-                const gapPadding = 12; // extra space between bars
-                const gap0 = barWidth + gapPadding;
-                const margin0 = 20; // left margin for 0%
-                const centerX0 = margin0 + i * gap0;
-
-                const gap50 = barWidth + gapPadding;
-                const totalSpan50 = gap50 * (count - 1);
-                const start50 = (containerWidth / 2) - (totalSpan50 / 2);
-                const centerX50 = start50 + i * gap50;
-
-                // Inside merged block at 100%
-                const perBarWidthInBlock = endBlockWidth / count;
-                const centerX100 = endBlockLeft + perBarWidthInBlock * (i + 0.5);
-
-                let centerX;
-                if (p <= 0.5) {
-                    const t = p / 0.5;
-                    centerX = centerX0 * (1 - t) + centerX50 * t;
-                } else {
-                    const t = (p - 0.5) / 0.5;
-                    centerX = centerX50 * (1 - t) + centerX100 * t;
-                }
-
-                const opacity = 1 - Math.max(0, p - 0.9) / 0.1; // fade out 90%->100%
-
-                bar.style.left = `${Math.round(centerX - barWidth / 2)}px`;
-                bar.style.width = `${Math.round(barWidth)}px`;
-                bar.style.height = `${Math.round(barHeight)}px`;
-                bar.style.opacity = `${Math.max(0, Math.min(1, opacity))}`;
-            });
-
-            // Configure merged rectangle visibility and placement near 100%
-            if (mergedRect) {
-                const p = progress / 100;
-                const appear = Math.max(0, p - 0.75) / 0.25; // start appearing at 75%
-                const markersRect = markersHost.getBoundingClientRect();
-                const axisRect = axisHost ? axisHost.getBoundingClientRect() : markersRect;
-                const rightRect = rightLabel ? rightLabel.getBoundingClientRect() : axisRect;
-                const anchorCenterX = rightRect.left + rightRect.width / 2; // pixel X at label center
-                // Desired left (px) relative to markers container
-                let width = 160;
-                const height = 40;
-                // Ensure width never exceeds container minus padding
-                width = Math.min(width, Math.max(40, markersRect.width - 16));
-                let desiredLeft = anchorCenterX - markersRect.left - width / 2;
-                // Clamp within container with 8px padding
-                const minLeft = 8;
-                const maxLeft = markersRect.width - width - 8;
-                desiredLeft = Math.max(minLeft, Math.min(maxLeft, desiredLeft));
-
-                mergedRect.style.left = `${Math.round(desiredLeft)}px`;
-                mergedRect.style.width = `${Math.round(width)}px`;
-                mergedRect.style.height = `${height}px`;
-                mergedRect.style.opacity = `${Math.max(0, Math.min(1, appear))}`;
-            }
-        }
-
-        slider.addEventListener('input', () => setPositions(Number(slider.value)));
-        setPositions(Number(slider.value));
-    })();
-
     // Stage progression animation + interactive details panel
     const stages = document.querySelectorAll('.stage');
     const stageDetailsTitle = document.getElementById('stageDetailsTitle');
@@ -284,7 +148,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const info = STAGE_TEXT[key];
         if (!info) return;
         stageDetailsTitle.textContent = info.title;
-        stageDetailsText.textContent = info.text;
+        if (key === 'literacy') {
+            const panel = document.querySelector('.stage-details');
+            if (panel) panel.classList.add('literacy-expanded');
+            stageDetailsText.innerHTML = '<div>AI Literacy — building capability and visible outcomes</div>' +
+              '<ul>' +
+                '<li>Mindset of AI First & exploration</li>' +
+                '<li>Awareness of tools: basic usage in own work and demos of team improvements</li>' +
+                '<li>Visible change that will be quantified</li>' +
+                '<li>Deepdives into specific functions — rethink HR with structured AI exploration</li>' +
+              '</ul>';
+        } else {
+            const panel = document.querySelector('.stage-details');
+            if (panel) panel.classList.remove('literacy-expanded');
+            stageDetailsText.textContent = info.text;
+        }
         console.log('Stage details updated:', key, info);
     }
 
@@ -395,7 +273,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateStageIndicator();
 
 
-});
+// end of DOMContentLoaded handler
 
 // Show detailed information about HR pillars
 function showPillarDetails(pillarType) {

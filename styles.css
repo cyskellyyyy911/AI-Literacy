@@ -1,129 +1,3 @@
-.graph-legend {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.5rem 1rem;
-    margin-bottom: 0.75rem;
-    align-items: center;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    color: #2d3748;
-}
-
-.legend-swatch {
-    width: 14px;
-    height: 14px;
-    border-radius: 3px;
-    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.06);
-}
-
-.legend-text { white-space: nowrap; }
-/* Rectangle Graph */
-.rectangle-graph {
-    margin: 3rem 0 4rem;
-}
-
-.rectangle-graph h3 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-}
-
-.graph-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-bottom: 1.25rem;
-}
-
-.graph-controls input[type="range"] {
-    width: 320px;
-}
-
-.graph-progress-value {
-    font-weight: 700;
-    color: #1a202c;
-}
-
-.graph-axis {
-    position: relative;
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 2.5rem 1rem 3.5rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    overflow: visible;
-}
-
-.axis-line {
-    height: 4px;
-    background: linear-gradient(90deg, #e53e3e 0%, #f6ad55 50%, #38a169 100%);
-    border-radius: 4px;
-    position: relative;
-    z-index: 10; /* ensure axis line stays on top of bars */
-}
-
-.axis-label {
-    position: absolute;
-    bottom: 0.75rem;
-    font-size: 0.9rem;
-    color: #4a5568;
-}
-.axis-label.left { left: 1rem; }
-.axis-label.center { left: 50%; transform: translateX(-50%); }
-.axis-label.right { right: 1rem; }
-
-.pillar-markers {
-    position: relative;
-    margin-top: 10px; /* add gap so bars sit clearly below the axis line */
-    height: 110px;
-    z-index: 0; /* keep bars below the axis line */
-}
-
-.merged-rect {
-    position: absolute;
-    bottom: 18px; /* align with bars so axis line stays visible */
-    height: 40px;
-    border-radius: 8px;
-    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
-    opacity: 0;
-    z-index: 1; /* below axis line */
-    transition: left 0.35s ease, width 0.35s ease, height 0.35s ease, opacity 0.35s ease;
-    background: linear-gradient(90deg,
-        #e53e3e 0%,
-        #3b82f6 20%,
-        #805ad5 40%,
-        #38a169 60%,
-        #dd6b20 80%,
-        #319795 100%
-    );
-}
-
-/* Pillar bars (vertical) */
-.pillar-bar {
-    position: absolute;
-    bottom: 18px; /* ensures bar top stays below axis line within 110px container */
-    height: 88px; /* long vertical bar */
-    background: #3182ce;
-    border-radius: 6px 6px 2px 2px;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-    transition: left 0.35s ease, width 0.35s ease, height 0.35s ease, background 0.2s ease;
-    z-index: 2; /* under axis line */
-}
-
-.pillar-bar[data-pillar="Talent Acquisition & Recruitment"] { background: #e53e3e; }
-.pillar-bar[data-pillar="Learning & Development"] { background: #3b82f6; }
-.pillar-bar[data-pillar="Performance Management"] { background: #805ad5; }
-.pillar-bar[data-pillar="Workforce Planning & Analytics"] { background: #38a169; }
-.pillar-bar[data-pillar="Employee Experience & Engagement"] { background: #dd6b20; }
-.pillar-bar[data-pillar="HR Operations & Compliance"] { background: #319795; }
-
-/* labels removed from bars (legend used instead) */
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -298,30 +172,67 @@ body {
 /* Header */
 header {
     background: white;
-    padding: 2rem 0;
+    padding: 2.75rem 0 2.25rem;
     text-align: center;
     border-bottom: 1px solid #e2e8f0;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
-    font-size: 2.8rem;
-    font-weight: 700;
+    font-size: 2.6rem;
+    font-weight: 800;
     color: #1a202c;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.025em;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.03em;
 }
 
-.subtitle {
-    font-size: 1.1rem;
-    color: #718096;
-    font-weight: 400;
+.header-subtitle {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #e53e3e;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.01em;
 }
+
+.header-tagline { display: none; }
 
 /* Main Content */
 main {
     padding: 4rem 0;
 }
+/* AI Literacy Emphasis */
+.ai-literacy-emphasis {
+    background: linear-gradient(135deg, #fff5f5, #ffffff);
+    border: 1px solid #ffe4e6;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin: 0.75rem 0 1.25rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.ai-emphasis-header { margin-bottom: 0.5rem; }
+.ai-badge {
+    display: inline-block;
+    background: #fee2e2;
+    color: #7f1d1d;
+    font-weight: 800;
+    border: 1px solid #fecaca;
+    border-radius: 999px;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+}
+.ai-phase-title {
+    margin: 0.25rem 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #1f2937;
+}
+.ai-phase-points {
+    margin: 0;
+    padding-left: 1.25rem;
+    color: #374151;
+}
+.ai-phase-points li { line-height: 1.7; margin: 0.2rem 0; }
 
 /* Hero Section */
 .hero {
@@ -385,6 +296,102 @@ main {
     border-radius: 2px;
 }
 
+/* AI in Employee Lifecycle (inside Project H-AI-R) */
+.ai-lifecycle {
+    margin-top: 1.5rem;
+}
+
+.ai-lifecycle .lifecycle-container {
+    background: #fff;
+    border: 1px solid #f1f5f9;
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    padding: 1.25rem;
+}
+
+.ai-lifecycle .lifecycle-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 80px;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.ai-lifecycle .lifecycle-label {
+    font-weight: 700;
+    color: #4a5568;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.8rem;
+}
+
+.ai-lifecycle .lifecycle-label.left { text-align: left; }
+.ai-lifecycle .lifecycle-label.right { text-align: right; }
+
+.ai-lifecycle .timeline-track {
+    position: relative;
+    height: 6px;
+    background: #fee2e2;
+    border-radius: 999px;
+}
+
+.ai-lifecycle .timeline-point {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    height: 14px;
+    background: #e53e3e;
+    border-radius: 50%;
+    box-shadow: 0 0 0 6px rgba(229, 62, 62, 0.15);
+}
+
+.ai-lifecycle .timeline-point.entry { left: 0%; }
+.ai-lifecycle .timeline-point.appraisal { left: 50%; }
+.ai-lifecycle .timeline-point.exit { left: 100%; }
+
+.ai-lifecycle .point-label {
+    position: absolute;
+    top: -34px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a202c;
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.32rem 0.55rem;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+.ai-lifecycle .throughout {
+    margin-top: 1rem;
+    background: #fff5f5;
+    border: 1px solid #fed7d7;
+    border-radius: 12px;
+    padding: 0.9rem;
+}
+
+.ai-lifecycle .throughout-title {
+    color: #c53030;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.75rem;
+    margin-bottom: 0.6rem;
+}
+
+.ai-lifecycle .chip-list { display:flex; flex-wrap:wrap; gap:0.5rem; }
+.ai-lifecycle .chip {
+    background: white;
+    border: 1px solid #fecaca;
+    color: #7f1d1d;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
 .model-container {
     background: white;
     padding: 3rem;
@@ -412,7 +419,7 @@ main {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 3rem;
-    align-items: center;
+    align-items: start; /* keep right panel from shifting vertically */
 }
 
 .progression-side {
@@ -438,9 +445,14 @@ main {
     border-radius: 12px;
     padding: 1rem 1.25rem;
     /* Prevent layout shift when text length varies */
-    height: 130px; /* fixed height to stop jumping */
+    min-height: 130px; /* baseline height; expands when needed */
     display: block;
-    overflow: hidden;
+    overflow: visible;
+}
+
+.stage-details.literacy-expanded {
+    min-height: 130px;
+    overflow: visible;
 }
 
 .stage-details-header {
@@ -475,6 +487,14 @@ main {
     overflow: hidden;
 }
 
+.stage-details #stageDetailsText { font-size: 1.05rem; line-height: 1.7; }
+
+.stage-details.literacy-expanded #stageDetailsText ul {
+    margin: 0.5rem 0 0;
+    padding-left: 1.25rem;
+}
+.stage-details.literacy-expanded #stageDetailsText li { margin: 0.2rem 0; }
+
 .stage {
     background: white;
     padding: 1.5rem;
@@ -501,6 +521,18 @@ main {
 .intermediate-stage {
     border-color: #ed8936;
     background: linear-gradient(135deg, #fffaf0, #fbd38d);
+}
+
+.stage .stage-badge {
+    margin-top: 0.4rem;
+    display: inline-block;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    color: #9a3412;
+    font-weight: 800;
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
 }
 
 .future-stage {
@@ -562,6 +594,8 @@ main {
     padding: 2rem;
     border-radius: 15px;
     color: white;
+    position: sticky; /* keep box visually fixed while interacting left */
+    top: 1rem;
 }
 
 .output-box h4 {
@@ -1279,6 +1313,57 @@ footer {
     color: #2d3748;
     margin-bottom: 1rem;
 }
+
+/* Talent Acquisition: benefits highlight */
+.use-case-benefits.highlight {
+    background: #fff5f5;
+    border: 1px solid #fed7d7;
+    border-radius: 16px;
+    padding: 1.25rem 1.25rem 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.use-case-benefits.highlight h2 {
+    color: #c53030;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Prominent benefits grid */
+.benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.75rem;
+}
+
+.benefit-card {
+    background: #ffffff;
+    border: 1px solid #ffe4e6;
+    border-radius: 12px;
+    padding: 1rem 1rem 1.1rem;
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 0.6rem;
+    align-items: start;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(229, 62, 62, 0.08);
+}
+
+/* Divider removed for a cleaner look; headings remain aligned */
+
+.benefit-icon { font-size: 1.25rem; line-height: 36px; text-align: center; }
+.benefit-content { display: flex; flex-direction: column; }
+.benefit-content h4 {
+    margin: 0 0 0.2rem;
+    color: #1f2937;
+    font-weight: 800;
+    font-size: 1rem;
+    min-height: 3.2rem; /* uniform heading block so tops align */
+    display: flex;
+    align-items: flex-start;
+}
+.benefit-content h4::after { content: none; }
+.benefit-content p { margin: 0; color: #4b5563; font-size: 0.92rem; }
 
 .pillar-placeholder p {
     font-size: 1.1rem;
