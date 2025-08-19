@@ -129,10 +129,6 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Stage Details Elements:', { stageDetailsTitle, stageDetailsText, stagesCount: stages.length });
 
     const STAGE_TEXT = {
-        digital: {
-            title: 'Digital HR',
-            text: 'Digital HR - Core HR processes are digitized; basic automation in place for efficiency. Data mostly used for record-keeping.'
-        },
         literacy: {
             title: 'AI Literacy',
             text: 'AI Literacy - HR understands AI tools, applies them selectively, and monitors outcomes. AI is used to support decision-making.'
@@ -148,19 +144,37 @@ document.addEventListener('DOMContentLoaded', function() {
         const info = STAGE_TEXT[key];
         if (!info) return;
         stageDetailsTitle.textContent = info.title;
+        const panel = document.getElementById('stageDetails');
         if (key === 'literacy') {
-            const panel = document.querySelector('.stage-details');
-            if (panel) panel.classList.add('literacy-expanded');
-            stageDetailsText.innerHTML = '<div><strong>AI Literacy: from skills to measurable impact</strong></div>' +
-              '<ul>' +
-                '<li><strong>Mindset:</strong> Adopt an AI-first, experiment-driven culture.</li>' +
-                '<li><strong>Skills & tools:</strong> Build baseline tool fluency; apply in day-to-day work and share team demos.</li>' +
-                '<li><strong>Impact:</strong> Drive visible changes with clear KPIs and quantifiable outcomes.</li>' +
-                '<li><strong>Deep dives:</strong> Run function-specific explorations—rethink HR through structured AI use cases.</li>' +
-              '</ul>';
+            if (panel) {
+                panel.classList.add('stage-details--long');
+                panel.classList.remove('stage-details--short');
+            }
+            stageDetailsText.innerHTML =
+                '<div class="ai-literacy-intro">AI Literacy: from skills to measurable impact</div>' +
+                '<ul class="ai-literacy-list">' +
+                    '<li><strong>Mindset:</strong> Adopt an AI-first, experiment-driven culture.</li>' +
+                    '<li><strong>Skills & tools:</strong> Build baseline tool fluency; apply in day-to-day work and share team demos.</li>' +
+                    '<li><strong>Impact:</strong> Drive visible changes with clear KPIs and quantifiable outcomes.</li>' +
+                    '<li><strong>Deep dives:</strong> Run function-specific explorations—rethink HR through structured AI use cases.</li>' +
+                '</ul>';
+        } else if (key === 'native') {
+            if (panel) {
+                panel.classList.add('stage-details--long');
+                panel.classList.remove('stage-details--short');
+            }
+            stageDetailsText.innerHTML =
+                '<div class="ai-native-intro">AI Native HR</div>' +
+                '<ul class="ai-native-list">' +
+                    '<li><strong>Mindset:</strong> Re-approach HR processes and workflows with an <em>AI‑first</em> mindset.</li>' +
+                    '<li><strong>Skills & tools:</strong> Teams are very familiar with using AI across daily workflows.</li>' +
+                    '<li><strong>Impact:</strong> AI embedded end‑to‑end in the HR lifecycle, enabling predictive, real‑time and personalized workforce management.</li>' +
+                '</ul>';
         } else {
-            const panel = document.querySelector('.stage-details');
-            if (panel) panel.classList.remove('literacy-expanded');
+            if (panel) {
+                panel.classList.remove('stage-details--long');
+                panel.classList.add('stage-details--short');
+            }
             stageDetailsText.textContent = info.text;
         }
         console.log('Stage details updated:', key, info);
@@ -169,22 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
     stages.forEach((stage, index) => {
         const key = stage.getAttribute('data-stage');
         console.log('Binding listeners to stage', index, 'key=', key, 'node=', stage);
-        stage.addEventListener('mouseenter', function() {
-            // Highlight progression path
-            stages.forEach((s, i) => {
-                if (i <= index) {
-                    s.style.opacity = '1';
-                    // keep transform stable to avoid layout shift
-                    s.style.transform = '';
-                } else {
-                    s.style.opacity = '0.85';
-                }
-            });
-
-            const k = stage.getAttribute('data-stage');
-            console.log('mouseenter on stage index', index, 'key=', k);
-            if (k) setStageDetails(k);
-        });
+        // Remove hover-driven behavior to keep boxes static
 
         stage.addEventListener('click', function() {
             const k = stage.getAttribute('data-stage');
@@ -200,28 +199,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Event delegation fallback for reliability (handles nested elements/fast mouse moves)
+    // Hover + click, without layout movement
     const progressionSide = document.querySelector('.progression-side');
     if (progressionSide) {
-        progressionSide.addEventListener('mouseover', function(e) {
+        const handler = function(e) {
             const targetStage = e.target.closest('.stage');
             if (!targetStage) return;
             const key = targetStage.getAttribute('data-stage');
-            console.log('delegated mouseover key=', key, 'target=', targetStage);
+            console.log('delegated event key=', key, 'target=', targetStage);
             if (key) setStageDetails(key);
-        });
-
-        progressionSide.addEventListener('click', function(e) {
-            const targetStage = e.target.closest('.stage');
-            if (!targetStage) return;
-            const key = targetStage.getAttribute('data-stage');
-            console.log('delegated click key=', key, 'target=', targetStage);
-            if (key) setStageDetails(key);
-        });
+        };
+        progressionSide.addEventListener('click', handler);
+        progressionSide.addEventListener('mouseover', handler);
     }
 
-    // Initialize with Digital HR on load
-    setStageDetails('digital');
+    // Initialize with AI Literacy on load
+    setStageDetails('literacy');
 
     // Timeline item interactions
     const timelineItems = document.querySelectorAll('.timeline-item');
