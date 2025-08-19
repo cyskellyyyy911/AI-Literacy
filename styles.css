@@ -449,7 +449,7 @@ main {
 
 .rectangle {
     display: grid;
-    grid-template-columns: 1fr; /* stages row + details below */
+    grid-template-columns: 1fr; /* default for other areas */
     justify-items: center;
     gap: 2rem;
     align-items: start;
@@ -464,6 +464,50 @@ main {
     flex-wrap: wrap; /* allow details to sit on next row */
     width: 100%;
 }
+
+/* AI Literacy refactor layout */
+.lit-grid {
+    display: grid;
+    grid-template-columns: 380px minmax(0, 1fr); /* make stage details wider so it isn’t crunched */
+    gap: 1.75rem; /* keep a comfortable space to the arrow/pillars */
+    align-items: start;
+}
+
+@media (max-width: 768px) {
+    .lit-grid { grid-template-columns: 1fr; }
+}
+
+.lit-right { display: flex; flex-direction: column; }
+.lit-kicker { text-align: center; color: #64748b; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; }
+.lit-kicker-red { color: #c53030; }
+
+.lit-row { display: grid; grid-template-columns: 160px minmax(0,1fr); gap: 1rem; align-items: center; }
+.lit-mid { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.lit-arrow { width: 100%; height: 44px; max-width: 140px; }
+.lit-arrow-line { stroke: #94a3b8; stroke-width: 3; stroke-linecap: round; }
+.lit-arrow-head { fill: #94a3b8; }
+
+.lit-pillars-col { width: 100%; }
+.lit-pillars {
+    display: flex;
+    flex-direction: column; /* stack 6 long boxes vertically */
+    gap: 0.75rem;
+}
+
+.lit-pillar-card {
+    list-style: none;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    padding: 0.85rem 1rem;
+    text-align: left; /* long horizontal card */
+    font-weight: 700;
+    color: #1f2937;
+    transition: box-shadow 0.2s ease, transform 0.1s ease;
+}
+.lit-pillar-card:hover { box-shadow: 0 4px 10px rgba(0,0,0,0.08); transform: translateY(-1px); }
+.lit-pillar-card:focus { outline: 2px solid #cbd5e1; outline-offset: 2px; }
 
 /* Reserve space so adding details panel doesn't push content */
 .progression-side::after { content: none; }

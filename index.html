@@ -95,7 +95,7 @@
 
                 <!-- AI Native Vision Description -->
                 <div class="ai-native-description">
-                    <h4>What if AI wasnt just a tool for HR, but the very way HR Work?</h4>
+                    <h4>What if AI wasn't just a tool for HR, but the very way HR work?</h4>
                 </div>
                 
                 <div class="model-container">
@@ -118,14 +118,47 @@
                             
                         </div>
 
-                        <!-- Interactive Stage Details Panel -->
-                        <div class="stage-details stage-details--long" id="stageDetails">
+                        <!-- AI Literacy Refactor: Stage details LEFT, arrow + pillars RIGHT -->
+                        <div class="lit-grid">
+                            <!-- LEFT: Stage Details Fixed Column -->
+                            <div class="stage-details stage-details--long" id="stageDetails">
                                 <div class="stage-details-header">
                                     <span class="stage-details-label">Stage Details</span>
                                     <span class="stage-details-title" id="stageDetailsTitle">AI Literacy</span>
                                 </div>
                                 <div id="stageDetailsText">AI Literacy — building capability and visible outcomes.</div>
                             </div>
+
+                            <!-- RIGHT: Arrow + Pillars Row -->
+                            <div class="lit-right">
+                                <div class="lit-row">
+                                    <!-- Middle column: caption + arrow stacked vertically -->
+                                    <div class="lit-mid" aria-hidden="true">
+                                        <p class="lit-kicker lit-kicker-red">Transformed through HR pillars</p>
+                                        <svg class="lit-arrow" viewBox="0 0 100 10" role="img">
+                                            <defs>
+                                                <marker id="litArrowHead" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                                                    <polygon points="0 0, 7 3.5, 0 7" class="lit-arrow-head" />
+                                                </marker>
+                                            </defs>
+                                            <line x1="0" y1="5" x2="98" y2="5" class="lit-arrow-line" marker-end="url(#litArrowHead)" />
+                                        </svg>
+                                    </div>
+
+                                    <!-- Pillars stacked vertically as long horizontal cards -->
+                                    <section aria-label="HR pillars list" class="lit-pillars-col">
+                                        <ul class="lit-pillars">
+                                            <li class="lit-pillar-card">Talent Acquisition &amp; Recruitment</li>
+                                            <li class="lit-pillar-card">Learning &amp; Development</li>
+                                            <li class="lit-pillar-card">Performance Management</li>
+                                            <li class="lit-pillar-card">Workforce Planning &amp; Analytics</li>
+                                            <li class="lit-pillar-card">Employee Experience &amp; Engagement</li>
+                                            <li class="lit-pillar-card">HR Operations &amp; Compliance</li>
+                                        </ul>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
 
                         
                     </div>
