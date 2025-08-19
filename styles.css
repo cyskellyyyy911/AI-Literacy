@@ -630,7 +630,8 @@ main {
 
 .output-metrics {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    align-items: center;
     gap: 1.5rem;
     margin-top: 1rem;
 }
@@ -652,10 +653,10 @@ main {
 }
 
 .metric-display {
-    font-size: 2rem;
+    font-size: 2.4rem;
     font-weight: 700;
     color: #1a202c;
-    margin: 0.5rem 0;
+    margin: 0.25rem 0 0.35rem;
     animation: countUp 2s ease forwards;
 }
 
