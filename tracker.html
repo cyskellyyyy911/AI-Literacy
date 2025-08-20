@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="tracker-styles.css">
 </head>
 <body>
+  <script>
+    (function(){
+      try {
+        if (sessionStorage.getItem('trackerPinOK') !== '1') {
+          window.location.replace('tracker-access.html');
+        }
+      } catch(e) {
+        window.location.replace('tracker-access.html');
+      }
+    })();
+  </script>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">

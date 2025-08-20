@@ -512,6 +512,19 @@ main {
 /* Reserve space so adding details panel doesn't push content */
 .progression-side::after { content: none; }
 
+/* Radar chart for HR pillars */
+.radar-wrap { width: 100%; display:flex; flex-direction:column; align-items:center; }
+.radar-title { text-align:center; font-weight:700; color:#0f172a; margin-bottom:.35rem; }
+.radar-legend { display:flex; gap:1rem; margin-top:.5rem; font-weight:700; }
+.radar-legend .inprog { color:#c2410c; }
+.radar-legend .notstart { color:#475569; }
+.radar-svg { max-width: 560px; }
+.radar-svg text { font-size:14px; fill:#334155; font-weight:700; }
+.radar-axis { stroke:#cbd5e1; stroke-width:1; }
+.radar-grid { stroke:#e2e8f0; stroke-width:1; fill:none; }
+.radar-poly-inprog { fill:rgba(234,88,12,.25); stroke:#ea580c; stroke-width:2; }
+.radar-poly-not { fill:rgba(100,116,139,.15); stroke:#64748b; stroke-width:1.5; }
+
 /* Stage details panel */
 .stage-details {
     width: min(680px, 100%);
@@ -894,8 +907,8 @@ main {
 
 .pillars-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 6rem 2rem; /* Much larger vertical gap to push bottom row much lower */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 3rem 1.5rem; /* tighter and consistent spacing for small widths */
     align-items: start; /* Prevent vertical alignment shifts during flip */
 }
 
@@ -938,13 +951,13 @@ main {
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     border: 1px solid #e2e8f0;
-    padding: 2rem;
+    padding: 1.5rem; /* slightly smaller padding to prevent text wrapping early */
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     top: 0;
     left: 0;
-    overflow: visible;
+    overflow: hidden;
 }
 
 .pillar-front {
@@ -963,8 +976,13 @@ main {
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    padding: 2rem 2rem 1.5rem 2rem;
+    padding: 1.25rem 1.25rem 1rem 1.25rem; /* more compact on small screens */
 }
+/* separator when used inside front-content */
+.front-content .separator-line { margin: .75rem 0; }
+
+/* PIC label embedded inside the card */
+.pic-inline { display:block; margin-top:.5rem; font-size:.85rem; font-weight:700; color:#c53030; text-align:center; }
 
 /* Separator Line */
 .separator-line {
@@ -986,25 +1004,8 @@ main {
 }
 
 /* PIC Button Styling */
-.pic-button {
-    background: linear-gradient(45deg, #e53e3e, #c53030);
-    color: white;
-    padding: 0.6rem 1.2rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    box-shadow: 0 3px 8px rgba(229, 62, 62, 0.3);
-    transition: all 0.3s ease;
-    white-space: nowrap;
-    border: none;
-    cursor: pointer;
-}
-
-.pic-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 12px rgba(229, 62, 62, 0.4);
-    background: linear-gradient(45deg, #c53030, #b91c1c);
-}
+.pic-button { display:none; }
+.pic-inline { margin-top:.25rem; font-size:.85rem; font-weight:700; color:#c53030; text-align:center; }
 
 .pillar-back {
     background: white;

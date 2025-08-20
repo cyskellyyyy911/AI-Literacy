@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impact Tracker Access</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .access-wrap { min-height: 100vh; display:flex; align-items:center; justify-content:center; background:#f8fafc; }
+    .access-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:1.25rem; width:100%; max-width:420px; box-shadow:0 4px 12px rgba(0,0,0,.06); }
+    .access-card h1 { margin:0 0 .25rem; font-size:1.25rem; font-weight:800; color:#1f2937; text-align:center; }
+    .access-card p { margin:0 0 1rem; color:#475569; text-align:center; }
+    .access-row { display:flex; gap:.5rem; }
+    .access-input { flex:1; border:1px solid #e2e8f0; border-radius:8px; padding:.65rem .75rem; font-size:1rem; }
+    .access-btn { border:0; background:#c53030; color:#fff; font-weight:700; border-radius:8px; padding:.65rem .9rem; cursor:pointer; }
+    .access-btn:hover { filter:brightness(.95); }
+    .access-err { margin-top:.75rem; color:#c53030; font-weight:700; text-align:center; display:none; }
+  </style>
+</head>
+<body>
+  <div class="access-wrap">
+    <div class="access-card">
+      <h1>Impact Tracker Access</h1>
+      <p>Enter PIN to continue</p>
+      <form id="pinForm" class="access-row" autocomplete="off">
+        <input id="pinInput" class="access-input" type="password" placeholder="PIN" aria-label="Access PIN" />
+        <button class="access-btn" type="submit">Unlock</button>
+      </form>
+      <div id="pinErr" class="access-err">Invalid PIN</div>
+    </div>
+  </div>
+  <script>
+    (function(){
+      const form = document.getElementById('pinForm');
+      const input = document.getElementById('pinInput');
+      const err = document.getElementById('pinErr');
+      const CORRECT = 'projecthair!';
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const val = (input.value || '').trim();
+        if(val === CORRECT){
+          // Store a short-lived flag in sessionStorage
+          try { sessionStorage.setItem('trackerPinOK','1'); } catch(_){}
+          window.location.href = 'tracker.html';
+        }else{
+          err.style.display = 'block';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+
+
